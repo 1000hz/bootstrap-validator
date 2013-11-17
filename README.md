@@ -45,7 +45,7 @@ As well as the following non-standard attributes:
 
 - `data-match="#inputToMatch"` to ensure two fields match, e.g. password confirmations
 
-- `data-minlength="5"` to enforce a minimum amount of characters. A hard limit can be on the maximum length of a field via the standard `maxlength` attribute
+- `data-minlength="5"` to enforce a minimum amount of characters.
 
 To display error messages, include a container after the input field with a the `error-only` and `help-block` classes.
 
