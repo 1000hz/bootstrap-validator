@@ -1,61 +1,59 @@
-# Bootstrap 3 Form Validator
-###### validator.js
+# Bootstrap 3: validator.js
+The Validator plugin is offers automatic form validation configurable via mostly HTML5 standard attributes.
+It also provides an unobtrusive user experience, because nobody likes a naggy form.
 
 ### Features
-- HTML5 Forms compliant
-- Configurable via Data-API and HTML5 attributes
-- Patient validation on input / Impatient validation on error
-- Submit is disabled until form is valid and complete
+- Configurable via data-api and standard HTML5 attributes
+- Patient to inform user of errors and eager to let them know the errors have been resolved
+- Submit is disabled until the form is valid and all required fields are complete
 - Customizable error messages
 
----
 
 ## Examples
-Here's an easy to integrate, user-friendly form validator for Bootstrap 3.
 
 [[ TODO ]]
 
 ## Usage
 Form validation can be enabled in markup via the data-api or via JavaScript.
 
-### Markup
-Follow Bootstrap's [examples](http://getbootstrap.com/css/#forms) for appropriate form markup.
-
 Automatically enable form validation by adding `data-toggle="validator"` to your form element.
 
-```
+``` HTML
 <form role="form" data-toggle="validator">
   ...
 </form>
 ```
 
+Or activate validation via JavaScript:
+
+``` js
+$('#myForm').validator()
+```
+
+### Markup
+Follow Bootstrap's [examples](http://getbootstrap.com/css/#forms) for appropriate form markup.
+
 Validation rules are specified on form inputs via the following standard attributes:
-
 - `type="email"`
-
 - `type="url"`
-
 - `type="number"`, with additional constraints via `max` and `min` attributes
-
-- `pattern="Reg(ular )?Exp(ression)?.*"` (for input types of `text`, `search`, `tel`, `url` or `email`)
-
+- `pattern="Reg(ular )?Exp(ression)?"` (for input types of `text`, `search`, `tel`, `url` or `email`)
 - `required`
 
 As well as the following non-standard attributes:
-
 - `data-match="#inputToMatch"` to ensure two fields match, e.g. password confirmations
-
 - `data-minlength="5"` to enforce a minimum amount of characters.
 
-To display error messages, include a container after the input field with a the `error-only` and `help-block` classes.
+
+To display error messages, include a container after the input field with both `help-block` and `with-errors` classes.
 
 
-```
+``` HTML
 <form role="form" data-toggle="validator">
   <div class="form-group">
     <label for="inputEmail">Email</label>
     <input type="email" id="inputEmail" name="inputEmail">
-    <div class="error-only help-block"></div>
+    <div class="help-block with-errors"></div>
   </div>
 </form>
 ```
@@ -63,13 +61,26 @@ To display error messages, include a container after the input field with a the 
 
 ### Methods
 #### $().validator(options)
-Attaches a validator to a form collection
+Attaches a validator to a form collection.
+
+#### $().validator('validate')
+Immediately validates the entire form.
 
 ### Events
-[[ TODO ]]
+All events are fired on the form element and provide a reference to the form field to which the event pertains via `event.relatedTarget`.
+
+| Event Type             | Description                                                  |
+|:---------------------- |:------------------------------------------------------------ |
+| validate.bs.validator  | This event fires immediately when a form field is validated. |
+| invalid.bs.validator   | This event is fired when a form field becomes invalid. Field errors are provided via `event.detail`.   |
+| valid.bs.validator     | This event is fired when a form field becomes valid. Previous field errors are provided via `event.detail`.|
+| validated.bs.validator | This event is fired after a form field has been validated.   |
 
 ## Contributing
-Adhere to the code style of Bootstrap 3's JS.
+#### Found an issue?
+Be sure to include a reproducible test case on JSbin with your report.
+#### Submitting a pull request?
+Fork this repo and create a new branch for your patch. Try to adhere to the code style of Bootstrap 3's JS as much as possible. Be sure to add any relevant unit tests. Make sure everything's still ok by running `grunt test`. Lastly, don't pollute your patch branch with any unrelated changes.
 
 ## Author
 
