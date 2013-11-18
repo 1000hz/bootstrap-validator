@@ -88,5 +88,7 @@ Fork this repo and create a new branch for your patch. Try to adhere to the code
 - http://twitter.com/1000hz
 - http://github.com/1000hz
 
+Thanks to  [@mdo](https://github.com/mdo) and [@fat](https://github.com/fat) for [Bootstrap](http://getbootstrap.com). <3
+
 ## Copyright and license
 Copyright 2013 Spiceworks, Inc under the MIT license.
