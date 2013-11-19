@@ -44,7 +44,7 @@ base_url: "../"
               <span class="help-block">Minimum of 6 characters</span>
             </div>
             <div class="form-group col-sm-6">
-              <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-error="Whoops, these don't match" placeholder="Confirm" required>
+              <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm" required>
               <div class="help-block with-errors"></div>
             </div>
           </div>
@@ -80,7 +80,7 @@ base_url: "../"
       <span class="help-block">Minimum of 6 characters</span>
     </div>
     <div class="form-group col-sm-6">
-      <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-error="Whoops, these don't match" placeholder="Confirm" required>
+      <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm" required>
       <div class="help-block with-errors"></div>
     </div>
     </div>
@@ -112,7 +112,7 @@ $('#myForm').validator()
     <h3 id="validator-markup">Markup</h3>
     <p>Follow Bootstrap's <a href="http://getbootstrap.com/css/#forms" target="_blank">examples</a> for appropriate form markup.</p>
 
-    <p>Validation rules are specified on form inputs via the following standard attributes:</p>
+    <p>Validation rules are specified on form inputs via the following standard HTML5 attributes:</p>
     <ul>
       <li><code>type="email"</code></li>
       <li><code>type="url"</code></li>
