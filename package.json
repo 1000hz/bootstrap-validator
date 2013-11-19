@@ -19,8 +19,11 @@
     "validation",
     "plugin"
   ],
-  "author": "Cina Saffary (@1000hz)",
-  "license": "MIT",
+  "author": "Spiceworks, Inc.",
+  "licenses": [{
+    "type": "MIT",
+    "url": "http://opensource.org/licenses/MIT"
+  }],
   "bugs": {
     "url": "https://github.com/1000hz/bootstrap-validator/issues"
   },
@@ -30,6 +33,9 @@
     "grunt-contrib-qunit": "~0.3.0",
     "grunt-contrib-jshint": "~0.7.1",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-sed": "~0.1.1"
+    "grunt-sed": "~0.1.1",
+    "grunt-html-validation": "~0.1.6",
+    "grunt-jekyll": "~0.4.0",
+    "grunt-contrib-concat": "~0.3.0"
   }
 }
