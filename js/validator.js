@@ -37,7 +37,7 @@
 
     this.toggleSubmit()
 
-    this.$element.on('input.bs.validator', ':input', $.proxy(this.validateInput, this))
+    this.$element.on('input.bs.validator blur.bs.validator', ':input', $.proxy(this.validateInput, this))
 
     this.$element.find('[data-match]').each(function () {
       var $this  = $(this)
