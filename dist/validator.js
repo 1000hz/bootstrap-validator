@@ -1,6 +1,6 @@
 /*!
- * Validator v0.2.0 for Bootstrap 3, by @1000hz
- * Copyright 2013 Spiceworks, Inc.
+ * Validator v0.2.1 for Bootstrap 3, by @1000hz
+ * Copyright 2014 Spiceworks, Inc.
  * Licensed under http://opensource.org/licenses/MIT
  *
  * https://github.com/1000hz/bootstrap-validator
@@ -17,7 +17,7 @@
 
     this.toggleSubmit()
 
-    this.$element.on('input.bs.validator', ':input', $.proxy(this.validateInput, this))
+    this.$element.on('input.bs.validator blur.bs.validator', ':input', $.proxy(this.validateInput, this))
 
     this.$element.find('[data-match]').each(function () {
       var $this  = $(this)
