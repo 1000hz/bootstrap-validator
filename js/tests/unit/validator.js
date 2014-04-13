@@ -208,4 +208,24 @@ $(function () {
     $('#required').prop('checked', true).trigger('change')
     ok(!$btn.attr('disabled'), 'submit button enabled because form is complete')
   })
+
+  test('should respect the required attribute on radio button groups', function () {
+    var form = '<form>'
+      + '<input type="radio" id="required1" name="radioGroup" required>'
+      + '<input type="radio" id="required2" name="radioGroup" required>'
+      + '<button id="btn">Submit</button>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator()
+
+    var $btn = $('#btn')
+
+    ok($btn.attr('disabled'), 'submit button disabled because form is incomplete')
+    $('#required1').prop('checked', true).trigger('change')
+    ok(!$btn.attr('disabled'), 'submit button enabled because form is complete')
+    $('#required2').prop('checked', false).trigger('change')
+    ok(!$btn.attr('disabled'), 'submit button still enabled')
+  })
 })
