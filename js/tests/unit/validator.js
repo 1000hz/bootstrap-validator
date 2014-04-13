@@ -34,7 +34,7 @@ $(function () {
           ok(false)
         })
         .validator('validate')
-    });
+    })
 
     test('should validate match', 2, function () {
       stop()
@@ -58,7 +58,7 @@ $(function () {
           start()
         })
         .validator('validate')
-    });
+    })
 
     test('should validate minlength', 2, function () {
       stop()
@@ -72,7 +72,7 @@ $(function () {
           start()
         })
         .validator('validate')
-    });
+    })
 
     test('should allow custom generic error message', function () {
       stop()
@@ -89,7 +89,7 @@ $(function () {
           start()
         })
         .validator('validate')
-    });
+    })
 
     test('should allow custom error-specific message', function () {
       stop()
@@ -106,7 +106,7 @@ $(function () {
           start()
         })
         .validator('validate')
-    });
+    })
 
     test('should give precedence to specific error message over generic error message', function () {
       stop()
@@ -123,7 +123,7 @@ $(function () {
           start()
         })
         .validator('validate')
-    });
+    })
 
     test('should restore .help-block content once valid', function () {
       stop()
@@ -144,7 +144,7 @@ $(function () {
           start()
         })
         .validator('validate')
-    });
+    })
 
     test('should add .has-error class to the closest .form-group', function () {
       stop()
@@ -164,7 +164,7 @@ $(function () {
           start()
         })
         .validator('validate')
-    });
+    })
 
     test('should disable submit button unless form is complete and valid', function () {
       var form = '<form>'
@@ -186,5 +186,5 @@ $(function () {
       ok($btn.attr('disabled'), 'submit button disabled because form is invalid')
       $('#minlength').val('pizzas').trigger('input')
       ok(!$btn.attr('disabled'), 'submit button enabled because form is complete and valid')
-    });
+    })
   })
