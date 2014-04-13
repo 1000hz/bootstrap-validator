@@ -37,7 +37,7 @@
 
     this.toggleSubmit()
 
-    this.$element.on('input.bs.validator blur.bs.validator', ':input', $.proxy(this.validateInput, this))
+    this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', $.proxy(this.validateInput, this))
 
     this.$element.find('[data-match]').each(function () {
       var $this  = $(this)
@@ -168,7 +168,9 @@
 
   Validator.prototype.isIncomplete = function () {
     function fieldIncomplete() {
-      return $.trim(this.value) === ''
+      return this.type === 'checkbox'
+        ? !this.checked
+        : $.trim(this.value) === ''
     }
 
     return !!this.$element.find('[required]').filter(fieldIncomplete).length

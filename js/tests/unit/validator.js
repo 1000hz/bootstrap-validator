@@ -187,4 +187,25 @@ $(function () {
     $('#minlength').val('pizzas').trigger('input')
     ok(!$btn.attr('disabled'), 'submit button enabled because form is complete and valid')
   })
+
+  test('should respect the required attribute on checkboxes', function () {
+    var form = '<form>'
+      + '<input id="required" type="checkbox" required>'
+      + '<button id="btn">Submit</button>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator()
+
+    var $btn = $('#btn')
+
+    ok($btn.attr('disabled'), 'submit button disabled because form is incomplete')
+    $('#required').prop('checked', true).trigger('change')
+    ok(!$btn.attr('disabled'), 'submit button enabled because form is complete')
+    $('#required').prop('checked', false).trigger('change')
+    ok($btn.attr('disabled'), 'submit button disabled because form is incomplete')
+    $('#required').prop('checked', true).trigger('change')
+    ok(!$btn.attr('disabled'), 'submit button enabled because form is complete')
+  })
 })
