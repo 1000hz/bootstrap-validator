@@ -26,7 +26,8 @@
  * ======================================================================== */
 
 
-+function ($) { "use strict";
++function ($) {
+  'use strict';
 
   // VALIDATOR CLASS DEFINITION
   // ==========================
@@ -52,8 +53,8 @@
   Validator.DEFAULTS = {
     delay: 500,
     errors: {
-      match: "Does not match",
-      minlength: "Not long enough"
+      match: 'Does not match',
+      minlength: 'Not long enough'
     }
   }
 
@@ -190,7 +191,7 @@
   $.fn.validator = function (option) {
     return this.each(function () {
       var $this   = $(this)
-      var options = $.extend({}, Validator.DEFAULTS, $this.data(), typeof option == "object" && option)
+      var options = $.extend({}, Validator.DEFAULTS, $this.data(), typeof option == 'object' && option)
       var data    = $this.data('bs.validator')
 
       if (!data) $this.data('bs.validator', (data = new Validator(this, options)))
