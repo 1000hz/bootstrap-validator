@@ -1,12 +1,13 @@
 /*!
- * Validator v0.2.1 for Bootstrap 3, by @1000hz
+ * Validator v0.3.0 for Bootstrap 3, by @1000hz
  * Copyright 2014 Spiceworks, Inc.
  * Licensed under http://opensource.org/licenses/MIT
  *
  * https://github.com/1000hz/bootstrap-validator
  */
 
-+function ($) { "use strict";
++function ($) {
+  'use strict';
 
   // VALIDATOR CLASS DEFINITION
   // ==========================
@@ -17,7 +18,7 @@
 
     this.toggleSubmit()
 
-    this.$element.on('input.bs.validator blur.bs.validator', ':input', $.proxy(this.validateInput, this))
+    this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', $.proxy(this.validateInput, this))
 
     this.$element.find('[data-match]').each(function () {
       var $this  = $(this)
@@ -32,8 +33,8 @@
   Validator.DEFAULTS = {
     delay: 500,
     errors: {
-      match: "Does not match",
-      minlength: "Not long enough"
+      match: 'Does not match',
+      minlength: 'Not long enough'
     }
   }
 
@@ -148,7 +149,9 @@
 
   Validator.prototype.isIncomplete = function () {
     function fieldIncomplete() {
-      return $.trim(this.value) === ''
+      return this.type === 'checkbox' ? !this.checked                                   :
+             this.type === 'radio'    ? !$('[name="' + this.name + '"]:checked').length :
+                                        $.trim(this.value) === ''
     }
 
     return !!this.$element.find('[required]').filter(fieldIncomplete).length
@@ -168,7 +171,7 @@
   $.fn.validator = function (option) {
     return this.each(function () {
       var $this   = $(this)
-      var options = $.extend({}, Validator.DEFAULTS, $this.data(), typeof option == "object" && option)
+      var options = $.extend({}, Validator.DEFAULTS, $this.data(), typeof option == 'object' && option)
       var data    = $this.data('bs.validator')
 
       if (!data) $this.data('bs.validator', (data = new Validator(this, options)))
