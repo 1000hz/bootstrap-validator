@@ -137,7 +137,12 @@
 
       errors = $('<ul/>')
         .addClass('list-unstyled')
-        .append($.map(errors, function (error) { return $('<li/>').text(error) }))
+        .append($.map(errors, function (error) {
+            return error instanceof HTMLElement
+              ? $('<li/>').append(error)
+              : $('<li/>').text(error)
+            }))
+
 
       $block.data('bs.originalContent') === undefined && $block.data('bs.originalContent', $block.html())
       $block.empty().append(errors)
