@@ -228,4 +228,28 @@ $(function () {
     $('#required2').prop('checked', false).trigger('change')
     ok(!$btn.attr('disabled'), 'submit button still enabled')
   })
+
+  test('should attach HTMLElement error message, rather than text', function() {
+    stop()
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-minlength="6" value="pizza">'
+      +   '<div id="inputErrors" class="help-block with-errors"></div>'
+      + '</div>'
+      + '</form>';
+    form = $(form)
+      .appendTo('#qunit-fixture')
+
+    var error = $('<div/>').append($('<span/>').text('error'))[0]
+    $(form).find('input')
+      .data('minlength-error', error)
+
+    $(form)
+      .on('invalid.bs.validator', function (e) {
+        equal($(this).find('.help-block.with-errors li').html(), error.outerHTML,
+            'Custom error element was not appended')
+        start()
+      })
+      .validator('validate')
+  })
 })
