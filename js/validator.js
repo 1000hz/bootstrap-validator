@@ -75,14 +75,14 @@
 
   Validator.prototype.validateInput = function (e) {
     var $el        = $(e.target)
-    var prevErrors = $el.data('bs.errors')
+    var prevErrors = $el.data('bs.validator.errors')
     var errors
 
     this.$element.trigger(e = $.Event('validate.bs.validator', {relatedTarget: $el[0]}))
 
     if (e.isDefaultPrevented()) return
 
-    $el.data('bs.errors', errors = this.runValidators($el))
+    $el.data('bs.validator.errors', errors = this.runValidators($el))
 
     errors.length ? this.showErrors($el) : this.clearErrors($el)
 
@@ -131,7 +131,7 @@
     function callback() {
       var $group = $el.closest('.form-group')
       var $block = $group.find('.help-block.with-errors')
-      var errors = $el.data('bs.errors')
+      var errors = $el.data('bs.validator.errors')
 
       if (!errors.length) return
 
@@ -139,14 +139,14 @@
         .addClass('list-unstyled')
         .append($.map(errors, function (error) { return $('<li/>').text(error) }))
 
-      $block.data('bs.originalContent') === undefined && $block.data('bs.originalContent', $block.html())
+      $block.data('bs.validator.originalContent') === undefined && $block.data('bs.validator.originalContent', $block.html())
       $block.empty().append(errors)
 
       $group.addClass('has-error')
     }
 
     if (this.options.delay) {
-      window.clearTimeout($el.data('bs.timeout'))
+      window.clearTimeout($el.data('bs.validator.timeout'))
       $el.data('bs.timeout', window.setTimeout(callback, this.options.delay))
     } else callback()
   }
@@ -155,13 +155,13 @@
     var $group = $el.closest('.form-group')
     var $block = $group.find('.help-block.with-errors')
 
-    $block.html($block.data('bs.originalContent'))
+    $block.html($block.data('bs.validator.originalContent'))
     $group.removeClass('has-error')
   }
 
   Validator.prototype.hasErrors = function () {
     function fieldErrors() {
-      return !!($(this).data('bs.errors') || []).length
+      return !!($(this).data('bs.validator.errors') || []).length
     }
 
     return !!this.$element.find(':input').filter(fieldErrors).length
