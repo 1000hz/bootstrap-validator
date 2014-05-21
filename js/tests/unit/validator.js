@@ -170,7 +170,7 @@ $(function () {
     var form = '<form>'
       + '<input id="required" type="text" required>'
       + '<input id="minlength" type="text" data-minlength="6">'
-      + '<button id="btn">Submit</button>'
+      + '<button type="submit" id="btn">Submit</button>'
       + '</form>'
 
     form = $(form)
@@ -188,10 +188,32 @@ $(function () {
     ok(!$btn.attr('disabled'), 'submit button enabled because form is complete and valid')
   })
 
+  test('should only disable the submit buttons', function () {
+    var form = '<form>'
+      + '<input id="required" type="text" required>'
+      + '<input id="minlength" type="text" data-minlength="6">'
+      + '<button type="submit" id="submit">Submit</button>'
+      + '<button type="button" id="cancel">Cancel</button>'
+      + '<button id="btn">Undefined Type</button>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator()
+
+    var $submit = $('#submit')
+    var $cancel = $('#cancel')
+    var $btn    = $('#btn')
+
+    ok($submit.attr('disabled'), 'submit button disabled')
+    ok(!$cancel.attr('disabled'), 'cancel button not disabled')
+    ok(!$btn.attr('disabled'), 'button without a type not disabled')
+  })
+
   test('should respect the required attribute on checkboxes', function () {
     var form = '<form>'
       + '<input id="required" type="checkbox" required>'
-      + '<button id="btn">Submit</button>'
+      + '<button type="submit" id="btn">Submit</button>'
       + '</form>'
 
     form = $(form)
@@ -213,7 +235,7 @@ $(function () {
     var form = '<form>'
       + '<input type="radio" id="required1" name="radioGroup" required>'
       + '<input type="radio" id="required2" name="radioGroup" required>'
-      + '<button id="btn">Submit</button>'
+      + '<button type="submit" id="btn">Submit</button>'
       + '</form>'
 
     form = $(form)
