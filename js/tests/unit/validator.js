@@ -250,4 +250,22 @@ $(function () {
     $('#required2').prop('checked', false).trigger('change')
     ok(!$btn.attr('disabled'), 'submit button still enabled')
   })
+
+  test('should ignore disabled fields', function () {
+    var form = '<form>'
+      + '<input id="required" type="text" required>'
+      + '<input id="disabled" type="text" required disabled>'
+      + '<button type="submit" id="btn">Submit</button>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator()
+
+    var $btn = $('#btn')
+
+    ok($btn.attr('disabled'), 'submit button disabled because form is incomplete and invalid')
+    $('#required').val('hamburgers').trigger('input')
+    ok(!$btn.attr('disabled'), 'submit button enabled regardless of disabled form being incomplete')
+  })
 })

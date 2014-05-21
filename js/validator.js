@@ -164,7 +164,7 @@
       return !!($(this).data('bs.validator.errors') || []).length
     }
 
-    return !!this.$element.find(':input').filter(fieldErrors).length
+    return !!this.$element.find(':input:enabled').filter(fieldErrors).length
   }
 
   Validator.prototype.isIncomplete = function () {
@@ -174,7 +174,7 @@
                                         $.trim(this.value) === ''
     }
 
-    return !!this.$element.find('[required]').filter(fieldIncomplete).length
+    return !!this.$element.find(':input[required]:enabled').filter(fieldIncomplete).length
   }
 
   Validator.prototype.toggleSubmit = function () {
