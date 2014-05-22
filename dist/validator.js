@@ -1,5 +1,5 @@
 /*!
- * Validator v0.3.0 for Bootstrap 3, by @1000hz
+ * Validator v0.4.0 for Bootstrap 3, by @1000hz
  * Copyright 2014 Spiceworks, Inc.
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -32,6 +32,7 @@
 
   Validator.DEFAULTS = {
     delay: 500,
+    html: false,
     errors: {
       match: 'Does not match',
       minlength: 'Not long enough'
@@ -55,14 +56,14 @@
 
   Validator.prototype.validateInput = function (e) {
     var $el        = $(e.target)
-    var prevErrors = $el.data('bs.errors')
+    var prevErrors = $el.data('bs.validator.errors')
     var errors
 
     this.$element.trigger(e = $.Event('validate.bs.validator', {relatedTarget: $el[0]}))
 
     if (e.isDefaultPrevented()) return
 
-    $el.data('bs.errors', errors = this.runValidators($el))
+    $el.data('bs.validator.errors', errors = this.runValidators($el))
 
     errors.length ? this.showErrors($el) : this.clearErrors($el)
 
@@ -108,26 +109,28 @@
   }
 
   Validator.prototype.showErrors = function ($el) {
+    var self = this
+
     function callback() {
       var $group = $el.closest('.form-group')
       var $block = $group.find('.help-block.with-errors')
-      var errors = $el.data('bs.errors')
+      var errors = $el.data('bs.validator.errors')
 
       if (!errors.length) return
 
       errors = $('<ul/>')
         .addClass('list-unstyled')
-        .append($.map(errors, function (error) { return $('<li/>').text(error) }))
+        .append($.map(errors, function (error) { return $('<li/>')[self.options.html ? 'html' : 'text'](error) }))
 
-      $block.data('bs.originalContent') === undefined && $block.data('bs.originalContent', $block.html())
+      $block.data('bs.validator.originalContent') === undefined && $block.data('bs.validator.originalContent', $block.html())
       $block.empty().append(errors)
 
       $group.addClass('has-error')
     }
 
     if (this.options.delay) {
-      window.clearTimeout($el.data('bs.timeout'))
-      $el.data('bs.timeout', window.setTimeout(callback, this.options.delay))
+      window.clearTimeout($el.data('bs.validator.timeout'))
+      $el.data('bs.validator.timeout', window.setTimeout(callback, this.options.delay))
     } else callback()
   }
 
@@ -135,16 +138,16 @@
     var $group = $el.closest('.form-group')
     var $block = $group.find('.help-block.with-errors')
 
-    $block.html($block.data('bs.originalContent'))
+    $block.html($block.data('bs.validator.originalContent'))
     $group.removeClass('has-error')
   }
 
   Validator.prototype.hasErrors = function () {
     function fieldErrors() {
-      return !!($(this).data('bs.errors') || []).length
+      return !!($(this).data('bs.validator.errors') || []).length
     }
 
-    return !!this.$element.find(':input').filter(fieldErrors).length
+    return !!this.$element.find(':input:enabled').filter(fieldErrors).length
   }
 
   Validator.prototype.isIncomplete = function () {
@@ -154,11 +157,11 @@
                                         $.trim(this.value) === ''
     }
 
-    return !!this.$element.find('[required]').filter(fieldIncomplete).length
+    return !!this.$element.find(':input[required]:enabled').filter(fieldIncomplete).length
   }
 
   Validator.prototype.toggleSubmit = function () {
-    var $btn = this.$element.find(':submit')
+    var $btn = this.$element.find('input[type="submit"], button[type="submit"]')
     $btn.attr('disabled', this.isIncomplete() || this.hasErrors())
   }
 
@@ -166,9 +169,8 @@
   // VALIDATOR PLUGIN DEFINITION
   // ===========================
 
-  var old = $.fn.validator
 
-  $.fn.validator = function (option) {
+  function Plugin(option) {
     return this.each(function () {
       var $this   = $(this)
       var options = $.extend({}, Validator.DEFAULTS, $this.data(), typeof option == 'object' && option)
@@ -179,7 +181,10 @@
     })
   }
 
-  $.fn.validator.Constructor = Validator;
+  var old = $.fn.validator
+
+  $.fn.validator             = Plugin
+  $.fn.validator.Constructor = Validator
 
 
   // VALIDATOR NO CONFLICT
@@ -197,7 +202,7 @@
   $(window).on('load', function () {
     $('form[data-toggle="validator"]').each(function () {
       var $form = $(this)
-      $form.validator($form.data())
+      Plugin.call($form, $form.data())
     })
   })
 
