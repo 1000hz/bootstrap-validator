@@ -207,6 +207,12 @@ $('#myForm').validator()
            <td>Number of milliseconds to wait before displaying an error on a form field.</td>
          </tr>
          <tr>
+           <td>html</td>
+           <td>boolean</td>
+           <td>false</td>
+           <td>Insert HTML into the error messages. If false, jQuery's text method will be used to insert content into the DOM. Use text if you're worried about XSS attacks.</td>
+         </tr>
+         <tr>
            <td>errors</td>
            <td>object</td>
            <td>sensible defaults</td>

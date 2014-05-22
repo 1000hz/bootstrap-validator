@@ -52,6 +52,7 @@
 
   Validator.DEFAULTS = {
     delay: 500,
+    html: false,
     errors: {
       match: 'Does not match',
       minlength: 'Not long enough'
@@ -128,6 +129,8 @@
   }
 
   Validator.prototype.showErrors = function ($el) {
+    var self = this
+
     function callback() {
       var $group = $el.closest('.form-group')
       var $block = $group.find('.help-block.with-errors')
@@ -137,7 +140,7 @@
 
       errors = $('<ul/>')
         .addClass('list-unstyled')
-        .append($.map(errors, function (error) { return $('<li/>').text(error) }))
+        .append($.map(errors, function (error) { return $('<li/>')[self.options.html ? 'html' : 'text'](error) }))
 
       $block.data('bs.validator.originalContent') === undefined && $block.data('bs.validator.originalContent', $block.html())
       $block.empty().append(errors)

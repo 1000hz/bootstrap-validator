@@ -125,6 +125,42 @@ $(function () {
       .validator('validate')
   })
 
+  test('should escape html in error messages if html option is false', function () {
+    stop()
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-minlength="6" data-minlength-error="<em>Too short</em>" value="pizza">'
+      +   '<div class="help-block with-errors"></div>'
+      + '</div>'
+      + '</form>'
+
+    $(form)
+      .on('invalid.bs.validator', function (e) {
+        ok($(this).find('.help-block.with-errors').text() == '<em>Too short</em>', 'html escaped from error message')
+        start()
+      })
+      .validator({html: false})
+      .validator('validate')
+  })
+
+  test('should allow html in error messages if html option is true', function () {
+    stop()
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-minlength="6" data-minlength-error="<em>Too short</em>" value="pizza">'
+      +   '<div class="help-block with-errors"></div>'
+      + '</div>'
+      + '</form>'
+
+    $(form)
+      .on('invalid.bs.validator', function (e) {
+        ok($(this).find('.help-block.with-errors').text() == 'Too short', 'html allowed in error message')
+        start()
+      })
+      .validator({html: true})
+      .validator('validate')
+  })
+
   test('should restore .help-block content once valid', function () {
     stop()
     var form = '<form>'
