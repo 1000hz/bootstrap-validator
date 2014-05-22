@@ -199,7 +199,7 @@
     })
   }
 
-  $.fn.validator.Constructor = Validator;
+  $.fn.validator.Constructor = Validator
 
 
   // VALIDATOR NO CONFLICT
