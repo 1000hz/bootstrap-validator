@@ -147,7 +147,7 @@
 
     if (this.options.delay) {
       window.clearTimeout($el.data('bs.validator.timeout'))
-      $el.data('bs.timeout', window.setTimeout(callback, this.options.delay))
+      $el.data('bs.validator.timeout', window.setTimeout(callback, this.options.delay))
     } else callback()
   }
 
