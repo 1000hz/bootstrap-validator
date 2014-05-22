@@ -189,9 +189,8 @@
   // VALIDATOR PLUGIN DEFINITION
   // ===========================
 
-  var old = $.fn.validator
 
-  $.fn.validator = function (option) {
+  function Plugin(option) {
     return this.each(function () {
       var $this   = $(this)
       var options = $.extend({}, Validator.DEFAULTS, $this.data(), typeof option == 'object' && option)
@@ -202,6 +201,9 @@
     })
   }
 
+  var old = $.fn.validator
+
+  $.fn.validator             = Plugin
   $.fn.validator.Constructor = Validator
 
 
@@ -220,7 +222,7 @@
   $(window).on('load', function () {
     $('form[data-toggle="validator"]').each(function () {
       var $form = $(this)
-      $form.validator($form.data())
+      Plugin.call($form, $form.data())
     })
   })
 
