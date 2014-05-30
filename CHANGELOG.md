@@ -1,6 +1,11 @@
 Changelog
 ========
 
+### 0.5.0
+* Adding `remote` validator to send an AJAX request to determine a fields validity. Fixes #2
+* Making the disabled submit button clickable to reveal what errors are keeping the form disabled. Fixes #8
+* Fixing small issue with errored radio buttons that made the form stay disabled until you toggled through each radio button. Fixes #21
+
 ### 0.4.0
 * Adding `html` option to allow html in error messages. Defaults to false.
 * Validator now ignores disabled fields and won't consider them to be invalid. Fixes #13.
