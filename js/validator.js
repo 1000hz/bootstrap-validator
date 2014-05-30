@@ -36,9 +36,11 @@
     this.$element = $(element)
     this.options  = options
 
+    this.$element.attr('novalidate', true) // disable automatic native validation
     this.toggleSubmit()
 
     this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', $.proxy(this.validateInput, this))
+    this.$element.on('submit.bs.validator', $.proxy(this.onSubmit, this))
 
     this.$element.find('[data-match]').each(function () {
       var $this  = $(this)
@@ -198,9 +200,15 @@
     return !!this.$element.find(':input[required]:enabled').filter(fieldIncomplete).length
   }
 
+  Validator.prototype.onSubmit = function (e) {
+    this.validate()
+    if (this.isIncomplete() || this.hasErrors()) e.preventDefault()
+  }
+
   Validator.prototype.toggleSubmit = function () {
     var $btn = this.$element.find('input[type="submit"], button[type="submit"]')
-    $btn.attr('disabled', this.isIncomplete() || this.hasErrors())
+    $btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
+      .css({'pointer-events': 'all', 'cursor': 'pointer'})
   }
 
   Validator.prototype.defer = function ($el, callback) {
