@@ -83,39 +83,60 @@
 
     if (e.isDefaultPrevented()) return
 
-    $el.data('bs.validator.errors', errors = this.runValidators($el))
+    var self = this
 
-    errors.length ? this.showErrors($el) : this.clearErrors($el)
+    this.runValidators($el).done(function (errors) {
+      $el.data('bs.validator.errors', errors)
 
-    if (!prevErrors || errors.toString() !== prevErrors.toString()) {
-      e = errors.length
-        ? $.Event('invalid.bs.validator', {relatedTarget: $el[0], detail: errors})
-        : $.Event('valid.bs.validator', {relatedTarget: $el[0], detail: prevErrors})
+      errors.length ? self.showErrors($el) : self.clearErrors($el)
 
-      this.$element.trigger(e)
-    }
+      if (!prevErrors || errors.toString() !== prevErrors.toString()) {
+        e = errors.length
+          ? $.Event('invalid.bs.validator', {relatedTarget: $el[0], detail: errors})
+          : $.Event('valid.bs.validator', {relatedTarget: $el[0], detail: prevErrors})
 
-    this.toggleSubmit()
+        self.$element.trigger(e)
+      }
 
-    this.$element.trigger($.Event('validated.bs.validator', {relatedTarget: $el[0]}))
+      self.toggleSubmit()
+
+      self.$element.trigger($.Event('validated.bs.validator', {relatedTarget: $el[0]}))
+    })
   }
+
 
   Validator.prototype.runValidators = function ($el) {
     var errors     = []
     var validators = [Validator.VALIDATORS.native]
+    var deferred   = $.Deferred()
+    var options    = this.options
+
+    $el.data('bs.validator.deferred') && $el.data('bs.validator.deferred').reject()
+    $el.data('bs.validator.deferred', deferred)
+
+    function getErrorMessage(key) {
+      return $el.data(key + '-error')
+        || $el.data('error')
+        || key == 'native' && $el[0].validationMessage
+        || options.errors[key]
+    }
 
     $.each(Validator.VALIDATORS, $.proxy(function (key, validator) {
       if (($el.data(key) || key == 'native') && !validator.call(this, $el)) {
-        var error = $el.data(key + '-error')
-          || $el.data('error')
-          || key == 'native' && $el[0].validationMessage
-          || this.options.errors[key]
-
+        var error = getErrorMessage(key)
         !~errors.indexOf(error) && errors.push(error)
       }
     }, this))
 
-    return errors
+    if (!errors.length && $el.val() && $el.data('remote')) {
+      this.defer($el, function () {
+        $.get($el.data('remote'), [$el.attr('name'), $el.val()].join('='))
+          .fail(function (jqXHR, textStatus, error) { errors.push(getErrorMessage('remote') || error) })
+          .always(function () { deferred.resolve(errors)})
+      })
+    } else deferred.resolve(errors)
+
+    return deferred.promise()
   }
 
   Validator.prototype.validate = function () {
@@ -129,9 +150,9 @@
   }
 
   Validator.prototype.showErrors = function ($el) {
-    var self = this
+    var method = this.options.html ? 'html' : 'text'
 
-    function callback() {
+    this.defer($el, function () {
       var $group = $el.closest('.form-group')
       var $block = $group.find('.help-block.with-errors')
       var errors = $el.data('bs.validator.errors')
@@ -140,18 +161,13 @@
 
       errors = $('<ul/>')
         .addClass('list-unstyled')
-        .append($.map(errors, function (error) { return $('<li/>')[self.options.html ? 'html' : 'text'](error) }))
+        .append($.map(errors, function (error) { return $('<li/>')[method](error) }))
 
       $block.data('bs.validator.originalContent') === undefined && $block.data('bs.validator.originalContent', $block.html())
       $block.empty().append(errors)
 
       $group.addClass('has-error')
-    }
-
-    if (this.options.delay) {
-      window.clearTimeout($el.data('bs.validator.timeout'))
-      $el.data('bs.validator.timeout', window.setTimeout(callback, this.options.delay))
-    } else callback()
+    })
   }
 
   Validator.prototype.clearErrors = function ($el) {
@@ -185,6 +201,10 @@
     $btn.attr('disabled', this.isIncomplete() || this.hasErrors())
   }
 
+  Validator.prototype.defer = function ($el, callback) {
+    window.clearTimeout($el.data('bs.validator.timeout'))
+    $el.data('bs.validator.timeout', window.setTimeout(callback, this.options.delay))
+  }
 
   // VALIDATOR PLUGIN DEFINITION
   // ===========================
