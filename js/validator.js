@@ -1,30 +1,10 @@
-/* ========================================================================
- * Bootstrap (plugin): validator.js v0.5.0
- * ========================================================================
- * The MIT License (MIT)
+/*!
+ * Validator v0.5.0 for Bootstrap 3, by @1000hz
+ * Copyright 2014 Spiceworks, Inc.
+ * Licensed under http://opensource.org/licenses/MIT
  *
- * Copyright (c) 2013 Spiceworks, Inc.
- * Made by Cina Saffary (@1000hz) in the style of Bootstrap 3 era @fat
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- * ======================================================================== */
-
+ * https://github.com/1000hz/bootstrap-validator
+ */
 
 +function ($) {
   'use strict';
@@ -158,7 +138,7 @@
 
     this.defer($el, function () {
       var $group = $el.closest('.form-group')
-      var $block = $group.find('.help-block.with-errors')
+      var $block = $group.find('.help-block')
       var errors = $el.data('bs.validator.errors')
 
       if (!errors.length) return
@@ -176,7 +156,7 @@
 
   Validator.prototype.clearErrors = function ($el) {
     var $group = $el.closest('.form-group')
-    var $block = $group.find('.help-block.with-errors')
+    var $block = $group.find('.help-block')
 
     $block.html($block.data('bs.validator.originalContent'))
     $group.removeClass('has-error')
@@ -208,7 +188,7 @@
   Validator.prototype.toggleSubmit = function () {
     var $btn = this.$element.find('input[type="submit"], button[type="submit"]')
     $btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
-      .css({'pointer-events': 'all', 'cursor': 'pointer'})
+      //.css({'pointer-events': 'all', 'cursor': 'pointer'})
   }
 
   Validator.prototype.defer = function ($el, callback) {
