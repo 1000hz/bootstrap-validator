@@ -8,7 +8,6 @@ permalink:         pretty
 # Server
 source:            docs
 destination:       _gh_pages
-exclude:           [".gitignore", "bower.json", "LICENSE", "Gruntfile.js", "package.json", "node_modules", "README.md"]
 port:              9001
 baseurl:           /
 encoding:          UTF-8
