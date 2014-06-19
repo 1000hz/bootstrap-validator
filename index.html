@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>
+  Validator, for Bootstrap 3
+</title>
+
+<!-- Bootstrap core CSS -->
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Documentation extras -->
+<link href="../assets/css/docs.css" rel="stylesheet">
+<link href="../assets/css/pygments-manni.css" rel="stylesheet">
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
+
+<!-- Favicons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+                               <link rel="shortcut icon" href="../assets/ico/favicon.png">
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45851020-1', '1000hz.github.io');
+  ga('send', 'pageview');
+
+</script>
+  </head>
+  <body>
+    <a class="sr-only" href="#content">Skip to main content</a>
+
+    <!-- Docs master nav -->
+    <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="../" class="navbar-brand">Bootstrap Validator</a>
+    </div>
+    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="https://github.com/1000hz/bootstrap-validator">View on GitHub</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+    <!-- Docs page layout -->
+    <div class="bs-header" id="content">
+      <div class="container">
+        <h1>Validator</h1>
+        <p>A simple and user-friendly form validator plugin for Bootstrap 3</p>
+      </div>
+    </div>
+
+    <div class="container bs-docs-container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">
+              <li class="active">
+  <a href="#validator">Validator</a>
+  <ul class="nav">
+    <li><a href="#validator-examples">Examples</a></li>
+    <li><a href="#validator-usage">Usage</a></li>
+    <li><a href="#validator-markup">Markup</a></li>
+    <li><a href="#validator-options">Options</a></li>
+    <li><a href="#validator-methods">Methods</a></li>
+    <li><a href="#validator-events">Events</a></li>
+  </ul>
+</li>
+
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-9" role="main">
+            <!-- Dropdowns
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="validator">Validator <small>validator.js</small></h1>
+    </div>
+
+    <h2 id="validator-examples">Examples</h2>
+    <p>Add validation to your forms with this simple plugin.</p>
+
+    <div class="bs-example">
+      <form data-toggle="validator" role="form">
+        <div class="form-group">
+          <label for="inputName" class="control-label">Name</label>
+          <input type="text" class="form-control" id="inputName" placeholder="Cina Saffary" required>
+        </div>
+        <div class="form-group">
+          <label for="inputTwitter" class="control-label">Twitter</label>
+          <div class="input-group">
+            <span class="input-group-addon">@</span>
+            <input type="text" pattern="^([_A-z0-9]){3,}$" maxlength="20" class="form-control" id="inputTwitter" placeholder="1000hz" required>
+          </div>
+          <span class="help-block with-errors">Up to 20 letters, numbers and underscores</span>
+        </div>
+        <div class="form-group">
+          <label for="inputEmail" class="control-label">Email</label>
+          <input type="email" class="form-control" id="inputEmail" placeholder="Email" data-error="Bruh, that email address is invalid" required>
+          <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword" class="control-label">Password</label>
+          <div class="form-inline row">
+            <div class="form-group col-sm-6">
+              <input type="password" data-toggle="validator" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" required>
+              <span class="help-block">Minimum of 6 characters</span>
+            </div>
+            <div class="form-group col-sm-6">
+              <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm" required>
+              <div class="help-block with-errors"></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="radio">
+            <label>
+              <input type="radio" name="underwear" required>
+              Boxers
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="underwear" required>
+              Briefs
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="terms" data-error="Before you wreck yourself" required>
+              Check yourself
+            </label>
+            <div class="help-block with-errors"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div> <!-- /example -->
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">data-toggle=</span><span class="s">&quot;validator&quot;</span> <span class="na">role=</span><span class="s">&quot;form&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;inputName&quot;</span> <span class="na">class=</span><span class="s">&quot;control-label&quot;</span><span class="nt">&gt;</span>Name<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id=</span><span class="s">&quot;inputName&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;Cina Saffary&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;inputTwitter&quot;</span> <span class="na">class=</span><span class="s">&quot;control-label&quot;</span><span class="nt">&gt;</span>Twitter<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;input-group&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;input-group-addon&quot;</span><span class="nt">&gt;</span>@<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">pattern=</span><span class="s">&quot;^([_A-z0-9]){3,}$&quot;</span> <span class="na">maxlength=</span><span class="s">&quot;20&quot;</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id=</span><span class="s">&quot;inputTwitter&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;1000hz&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;help-block with-errors&quot;</span><span class="nt">&gt;</span>Up to 20 letters, numbers and underscores<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;inputEmail&quot;</span> <span class="na">class=</span><span class="s">&quot;control-label&quot;</span><span class="nt">&gt;</span>Email<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;email&quot;</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id=</span><span class="s">&quot;inputEmail&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;Email&quot;</span> <span class="na">data-error=</span><span class="s">&quot;Bruh, that email address is invalid&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;help-block with-errors&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;inputPassword&quot;</span> <span class="na">class=</span><span class="s">&quot;control-label&quot;</span><span class="nt">&gt;</span>Password<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group col-sm-6&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;password&quot;</span> <span class="na">data-minlength=</span><span class="s">&quot;6&quot;</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id=</span><span class="s">&quot;inputPassword&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;Password&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;help-block&quot;</span><span class="nt">&gt;</span>Minimum of 6 characters<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group col-sm-6&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;password&quot;</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id=</span><span class="s">&quot;inputPasswordConfirm&quot;</span> <span class="na">data-match=</span><span class="s">&quot;#inputPassword&quot;</span> <span class="na">data-match-error=</span><span class="s">&quot;Whoops, these don&#39;t match&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;Confirm&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;help-block with-errors&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;radio&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;radio&quot;</span> <span class="na">name=</span><span class="s">&quot;underwear&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
+        Boxers
+      <span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;radio&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;radio&quot;</span> <span class="na">name=</span><span class="s">&quot;underwear&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
+        Briefs
+      <span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;checkbox&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">id=</span><span class="s">&quot;terms&quot;</span> <span class="na">data-error=</span><span class="s">&quot;Before you wreck yourself&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
+        Check yourself
+      <span class="nt">&lt;/label&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;help-block with-errors&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">class=</span><span class="s">&quot;btn btn-primary&quot;</span><span class="nt">&gt;</span>Submit<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/form&gt;</span></code></pre></div>
+
+
+    <h2 id="validator-usage">Usage</h2>
+    Form validation can be enabled in markup via the data-api or via JavaScript.
+
+    Automatically enable form validation by adding <code>data-toggle="validator"</code> to your form element.
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">role=</span><span class="s">&quot;form&quot;</span> <span class="na">data-toggle=</span><span class="s">&quot;validator&quot;</span><span class="nt">&gt;</span>
+  ...
+<span class="nt">&lt;/form&gt;</span></code></pre></div>
+
+    Or activate validation via JavaScript:
+
+<div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#myForm&#39;</span><span class="p">).</span><span class="nx">validator</span><span class="p">()</span></code></pre></div>
+
+    <h3 id="validator-markup">Markup</h3>
+    <p>Follow Bootstrap's <a href="http://getbootstrap.com/css/#forms" target="_blank">examples</a> for appropriate form markup.</p>
+
+    <p>Validation rules are specified on form inputs via the following standard HTML5 attributes:</p>
+    <ul>
+      <li><code>type="email"</code></li>
+      <li><code>type="url"</code></li>
+      <li><code>type="number"</code>, with additional constraints via <code>max</code> and <code>min</code> attributes</li>
+      <li><code>pattern="Reg(ular )?Exp(ression)?"</code> (for input types of <code>text</code>, <code>search</code>, <code>tel</code>, <code>url</code> or <code>email</code>)</li>
+      <li><code>required</code></li>
+    </ul>
+
+    <p>As well as the following non-standard attributes:</p>
+    <ul>
+      <li><code>data-match="#inputToMatch"</code> to ensure two fields match, e.g. password confirmations</li>
+      <li><code>data-minlength="5"</code> to enforce a minimum amount of characters</li>
+      <li><code>data-remote="/path/to/remote/validator"</code> to make an AJAX request to determine if the field is valid or not. Be sure to give the input a <code>name</code> attribute, as the request will be sent to <code>/path/to/remote/validator?&lt;name&gt;=&lt;value&gt;</code>. The remote endpoint should return a <code>200 OK</code> if the field is valid, and a <code>4xx</code> otherwise.</li>
+    </ul>
+
+    <p>To display error messages, include a container after the input field with both <code>help-block</code> and <code>with-errors</code> classes.</p>
+
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">role=</span><span class="s">&quot;form&quot;</span> <span class="na">data-toggle=</span><span class="s">&quot;validator&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;inputEmail&quot;</span><span class="nt">&gt;</span>Email<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;email&quot;</span> <span class="na">id=</span><span class="s">&quot;inputEmail&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;help-block with-errors&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/form&gt;</span></code></pre></div>
+
+
+    <h3 id="validator-options">Options</h3>
+    <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-delay=""</code>.</p>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+         <tr>
+           <th style="width: 100px;">Name</th>
+           <th style="width: 100px;">type</th>
+           <th style="width: 50px;">default</th>
+           <th>description</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+           <td>delay</td>
+           <td>number</td>
+           <td>500</td>
+           <td>Number of milliseconds to wait before displaying an error on a form field.</td>
+         </tr>
+         <tr>
+           <td>html</td>
+           <td>boolean</td>
+           <td>false</td>
+           <td>Insert HTML into the error messages. If false, jQuery's text method will be used to insert content into the DOM. Use text if you're worried about XSS attacks.</td>
+         </tr>
+         <tr>
+           <td>errors</td>
+           <td>object</td>
+           <td>sensible defaults</td>
+           <td><p>Error messages to show for each type of validation. Defaults to:</p>
+<div class="highlight"><pre><code class="js"><span class="nx">errors</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">match</span><span class="o">:</span> <span class="s2">&quot;Does not match&quot;</span><span class="p">,</span>
+  <span class="nx">minlength</span><span class="o">:</span> <span class="s2">&quot;Not long enough&quot;</span>
+<span class="p">}</span></code></pre></div>
+           </td>
+         </tr>
+        </tbody>
+      </table>
+    </div><!-- /.table-responsive -->
+    <div class="bs-callout bs-callout-info">
+      <h4>Error messages for individual form fields</h4>
+      <p>Error messages for individual form fields can alternatively be specified through the use of data attributes. You can specify an error message for each type of validator on a field, i.e. <code>data-match-error=""</code> or use <code>data-error=""</code> for a blanket error message to show for any errors on that field.</p>
+    </div>
+
+    <h3 id="validator-methods"> Methods</h3>
+    <h4>$().validator(options)</h4>
+    <p>Attaches a validator to a form collection.</p>
+
+    <h4>$().validator('validate')</h4>
+    <p>Immediately validates the entire form.</p>
+
+    <h3 id="validator-events">Events</h3>
+    <p>All events are fired on the form element and provide a reference to the form field to which the event pertains via <code>event.relatedTarget</code>.</p>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th style="width: 150px;">Event Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>validate.bs.validator</td>
+            <td>This event fires immediately when a form field is validated.</td>
+          </tr>
+          <tr>
+            <td>invalid.bs.validator</td>
+            <td>This event is fired when a form field becomes invalid. Field errors are provided via <code>event.detail</code>.</td>
+          </tr>
+          <tr>
+            <td>valid.bs.validator</td>
+            <td>This event is fired when a form field becomes valid. Previous field errors are provided via <code>event.detail</code>.</td>
+          </tr>
+          <tr>
+            <td>validated.bs.validator</td>
+            <td>This event is fired after a form field has been validated.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- ./bs-table-responsive -->
+
+  </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer
+    ================================================== -->
+    <footer class="bs-footer" role="contentinfo">
+      <div class="container">
+        <div class="bs-social">
+  <ul class="bs-social-buttons">
+    <li>
+      <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=1000hz&amp;repo=bootstrap-validator&amp;type=watch&amp;count=true" width="100" height="20" title="Star on GitHub"></iframe>
+    </li>
+    <li>
+      <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=1000hz&amp;repo=bootstrap-validator&amp;type=fork&amp;count=true" width="102" height="20" title="Fork on GitHub"></iframe>
+    </li>
+    <li class="follow-btn">
+      <a href="https://twitter.com/1000hz" class="twitter-follow-button" data-link-color="#0069D6" data-show-count="true">Follow @1000hz</a>
+    </li>
+  </ul>
+</div>
+
+
+        <p>Built by <a href="http://twitter.com/1000hz" target="_blank">@1000hz</a> with all the love in the world for <a href="http://twitter.com/mdo" target="_blank">@mdo</a> and <a href="http://twitter.com/fat" target="_blank">@fat</a>.</p>
+        <p>This project is not affiliated with Bootstrap in any official capacity.</p>
+        <p>This documentation page has been adapted from Bootstrap's official docs.</p>
+        <p>Code licensed under <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a>, documentation under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+      </div>
+    </footer>
+
+    <!-- JS and analytics only. -->
+    <!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="../dist/validator.min.js"></script>
+<script src="http://platform.twitter.com/widgets.js"></script>
+<script src="../assets/js/application.js"></script>
+
+  </body>
+</html>

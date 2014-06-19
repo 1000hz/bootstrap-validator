@@ -192,6 +192,7 @@
   }
 
   Validator.prototype.defer = function ($el, callback) {
+    if (!this.options.delay) return callback()
     window.clearTimeout($el.data('bs.validator.timeout'))
     $el.data('bs.validator.timeout', window.setTimeout(callback, this.options.delay))
   }
