@@ -1,5 +1,9 @@
 Changelog
 ========
+### HEAD
+* Not calling window.setTimeout() if options.delay == 0
+* Fixing broken docs example
+* Moved docs content to /docs directory of project
 
 ### 0.5.0
 * Adding `remote` validator to send an AJAX request to determine a fields validity. Fixes #2
