@@ -50,7 +50,30 @@ base_url: "../"
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary" disabled="disabled">Submit</button>
+          <div class="radio">
+            <label>
+              <input type="radio" name="underwear" required>
+              Boxers
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="underwear" required>
+              Briefs
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="terms" data-error="Before you wreck yourself" required>
+              Check yourself
+            </label>
+            <div class="help-block with-errors"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form>
     </div> <!-- /example -->
@@ -76,7 +99,7 @@ base_url: "../"
   <div class="form-group">
     <label for="inputPassword" class="control-label">Password</label>
     <div class="form-group col-sm-6">
-      <input type="password" data-toggle="validator" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" required>
+      <input type="password" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" required>
       <span class="help-block">Minimum of 6 characters</span>
     </div>
     <div class="form-group col-sm-6">
@@ -86,7 +109,30 @@ base_url: "../"
     </div>
   </div>
   <div class="form-group">
-    <button type="submit" class="btn btn-primary" disabled="disabled">Submit</button>
+    <div class="radio">
+      <label>
+        <input type="radio" name="underwear" required>
+        Boxers
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="underwear" required>
+        Briefs
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" id="terms" data-error="Before you wreck yourself" required>
+        Check yourself
+      </label>
+      <div class="help-block with-errors"></div>
+    </div>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">Submit</button>
   </div>
 </form>
 {% endhighlight %}
@@ -125,6 +171,7 @@ $('#myForm').validator()
     <ul>
       <li><code>data-match="#inputToMatch"</code> to ensure two fields match, e.g. password confirmations</li>
       <li><code>data-minlength="5"</code> to enforce a minimum amount of characters</li>
+      <li><code>data-remote="/path/to/remote/validator"</code> to make an AJAX request to determine if the field is valid or not. Be sure to give the input a <code>name</code> attribute, as the request will be sent to <code>/path/to/remote/validator?&lt;name&gt;=&lt;value&gt;</code>. The remote endpoint should return a <code>200 OK</code> if the field is valid, and a <code>4xx</code> otherwise.</li>
     </ul>
 
     <p>To display error messages, include a container after the input field with both <code>help-block</code> and <code>with-errors</code> classes.</p>
@@ -159,6 +206,12 @@ $('#myForm').validator()
            <td>number</td>
            <td>500</td>
            <td>Number of milliseconds to wait before displaying an error on a form field.</td>
+         </tr>
+         <tr>
+           <td>html</td>
+           <td>boolean</td>
+           <td>false</td>
+           <td>Insert HTML into the error messages. If false, jQuery's text method will be used to insert content into the DOM. Use text if you're worried about XSS attacks.</td>
          </tr>
          <tr>
            <td>errors</td>

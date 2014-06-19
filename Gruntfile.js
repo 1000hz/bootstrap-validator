@@ -43,6 +43,15 @@ module.exports = function(grunt) {
       }
     },
 
+    copy: {
+      docs: {
+        expand: true,
+        cwd: './dist',
+        src: '*',
+        dest: 'docs/dist'
+      }
+    },
+
     uglify: {
       options: {
         banner: '<%= banner %>',
@@ -93,6 +102,7 @@ module.exports = function(grunt) {
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -107,8 +117,14 @@ module.exports = function(grunt) {
   // Test task.
   grunt.registerTask('test', ['jshint', 'qunit']);
 
+  // Docs distribution task.
+  grunt.registerTask('dist-docs', 'copy:docs');
+
   // Distribution task.
-  grunt.registerTask('dist', ['concat', 'uglify']);
+  grunt.registerTask('dist', ['concat', 'uglify', 'dist-docs']);
+
+  // Default task.
+  grunt.registerTask('default', ['test', 'dist']);
 
   // Version numbering task.
   // grunt change-version-number --oldver=A.B.C --newver=X.Y.Z
