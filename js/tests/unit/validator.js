@@ -215,13 +215,13 @@ $(function () {
 
     var $btn = $('#btn')
 
-    ok($btn.attr('disabled'), 'submit button disabled because form is incomplete and invalid')
+    ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete and invalid')
     $('#required').val('hamburgers').trigger('input')
-    ok(!$btn.attr('disabled'), 'submit button enabled because form is sufficiently complete and no fields are invalid')
+    ok(!$btn.hasClass('disabled'), 'submit button enabled because form is sufficiently complete and no fields are invalid')
     $('#minlength').val('pizza').trigger('input')
-    ok($btn.attr('disabled'), 'submit button disabled because form is invalid')
+    ok($btn.hasClass('disabled'), 'submit button disabled because form is invalid')
     $('#minlength').val('pizzas').trigger('input')
-    ok(!$btn.attr('disabled'), 'submit button enabled because form is complete and valid')
+    ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete and valid')
   })
 
   test('should only disable the submit buttons', function () {
@@ -241,9 +241,9 @@ $(function () {
     var $cancel = $('#cancel')
     var $btn    = $('#btn')
 
-    ok($submit.attr('disabled'), 'submit button disabled')
-    ok(!$cancel.attr('disabled'), 'cancel button not disabled')
-    ok(!$btn.attr('disabled'), 'button without a type not disabled')
+    ok($submit.hasClass('disabled'), 'submit button disabled')
+    ok(!$cancel.hasClass('disabled'), 'cancel button not disabled')
+    ok(!$btn.hasClass('disabled'), 'button without a type not disabled')
   })
 
   test('should respect the required attribute on checkboxes', function () {
@@ -258,13 +258,13 @@ $(function () {
 
     var $btn = $('#btn')
 
-    ok($btn.attr('disabled'), 'submit button disabled because form is incomplete')
+    ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete')
     $('#required').prop('checked', true).trigger('change')
-    ok(!$btn.attr('disabled'), 'submit button enabled because form is complete')
+    ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete')
     $('#required').prop('checked', false).trigger('change')
-    ok($btn.attr('disabled'), 'submit button disabled because form is incomplete')
+    ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete')
     $('#required').prop('checked', true).trigger('change')
-    ok(!$btn.attr('disabled'), 'submit button enabled because form is complete')
+    ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete')
   })
 
   test('should respect the required attribute on radio button groups', function () {
@@ -280,11 +280,11 @@ $(function () {
 
     var $btn = $('#btn')
 
-    ok($btn.attr('disabled'), 'submit button disabled because form is incomplete')
+    ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete')
     $('#required1').prop('checked', true).trigger('change')
-    ok(!$btn.attr('disabled'), 'submit button enabled because form is complete')
+    ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete')
     $('#required2').prop('checked', false).trigger('change')
-    ok(!$btn.attr('disabled'), 'submit button still enabled')
+    ok(!$btn.hasClass('disabled'), 'submit button still enabled')
   })
 
   test('should ignore disabled fields', function () {
@@ -300,8 +300,8 @@ $(function () {
 
     var $btn = $('#btn')
 
-    ok($btn.attr('disabled'), 'submit button disabled because form is incomplete and invalid')
+    ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete and invalid')
     $('#required').val('hamburgers').trigger('input')
-    ok(!$btn.attr('disabled'), 'submit button enabled regardless of disabled form being incomplete')
+    ok(!$btn.hasClass('disabled'), 'submit button enabled regardless of disabled form being incomplete')
   })
 })
