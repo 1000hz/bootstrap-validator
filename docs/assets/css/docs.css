@@ -631,3 +631,7 @@ h1[id] {
   margin-bottom: 20px;
 }
 
+/* Undo width of inline form controls */
+.form-inline .form-control {
+  width: 100%;
+}

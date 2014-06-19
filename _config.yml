@@ -1,17 +1,20 @@
 # Dependencies
-markdown:          rdiscount
-pygments:          true
+markdown:          kramdown
+highlighter:       pygments
 
 # Permalinks
 permalink:         pretty
 
-baseurl:           /
 
 # Server
+source:            docs
 destination:       ./_gh_pages
 exclude:           [".gitignore", "bower.json", "LICENSE", "Gruntfile.js", "package.json", "node_modules", "README.md"]
+host:              0.0.0.0
 port:              9001
+baseurl:           /
+encoding:          UTF-8
 
 repo:              https://github.com/1000hz/bootstrap-validator
-cdn_bootstrap_css: //netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css
-cdn_bootstrap_js:  //netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js
+cdn_bootstrap_css: //netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css
+cdn_bootstrap_js:  //netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js
