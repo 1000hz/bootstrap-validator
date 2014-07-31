@@ -139,13 +139,14 @@
 
         if (!errors.length && $el.val() && $el.data('remote')) {
             this.defer($el, function() {
-                $.get($el.data('remote'), [$el.attr('name'), $el.val()].join('='))
-                    .fail(function(jqXHR, textStatus, error) {
-                        errors.push(getErrorMessage('remote') || error)
-                    })
-                    .always(function() {
-                        deferred.resolve(errors)
-                    })
+                var data = {};
+                data[$el.attr('name')] = $el.val();
+                data['csrf_token'] = $el.data('token');
+                $.post($el.data('remote'), data).fail(function(jqXHR, textStatus, error) {
+                    errors.push(getErrorMessage('remote') || error)
+                }).always(function() {
+                    deferred.resolve(errors)
+                })
             })
         } else deferred.resolve(errors)
 
