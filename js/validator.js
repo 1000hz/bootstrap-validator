@@ -134,7 +134,10 @@
 
     if (!errors.length && $el.val() && $el.data('remote')) {
       this.defer($el, function () {
-        $.get($el.data('remote'), [$el.attr('name'), $el.val()].join('='))
+        var _d = {};
+        _d[$el.attr('name')] = $el.val();
+        _d['csrf_token'] = $el.data('token');
+        $.post($el.data('remote'), _d)
           .fail(function (jqXHR, textStatus, error) { errors.push(getErrorMessage('remote') || error) })
           .always(function () { deferred.resolve(errors)})
       })
