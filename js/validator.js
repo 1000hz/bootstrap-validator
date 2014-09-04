@@ -207,6 +207,8 @@
 
   Validator.prototype.toggleSubmit = function () {
     var $btn = this.$element.find('input[type="submit"], button[type="submit"]')
+    $btn.prop('disabled', this.isIncomplete() || this.hasErrors());
+
     $btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
       .css({'pointer-events': 'all', 'cursor': 'pointer'})
   }
