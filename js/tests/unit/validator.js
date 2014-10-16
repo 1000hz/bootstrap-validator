@@ -304,4 +304,26 @@ $(function () {
     $('#required').val('hamburgers').trigger('input')
     ok(!$btn.hasClass('disabled'), 'submit button enabled regardless of disabled form being incomplete')
   })
+
+  test('should clean up after itself when destroy called', function () {
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-error="error message" required>'
+      +   '<div class="help-block with-errors">original content</div>'
+      + '</div>'
+      + '<button type="submit">Submit</button>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator('validate')
+      .validator('destroy')
+
+    ok(!form.data('bs.validator'), 'removed data reference to plugin instance')
+    ok(!form.attr('novalidate'), 'removed novalidate browser override')
+    ok(Object.keys(form.find('input').data()).length === 1, 'removed data left on inputs (excluding data-* attrs)')
+    ok(!form.find('.has-error').length, 'removed has-error class from all inputs')
+    ok(form.find('.help-block').html() === 'original content', 'help block content restored')
+    ok(!form.find('button').is('.disabled'), 're-enabled submit button')
+  })
 })
