@@ -1,5 +1,5 @@
 /*!
- * Validator v0.5.0 for Bootstrap 3, by @1000hz
+ * Validator v0.6.0 for Bootstrap 3, by @1000hz
  * Copyright 2014 Spiceworks, Inc.
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -192,8 +192,35 @@
   }
 
   Validator.prototype.defer = function ($el, callback) {
+    if (!this.options.delay) return callback()
     window.clearTimeout($el.data('bs.validator.timeout'))
     $el.data('bs.validator.timeout', window.setTimeout(callback, this.options.delay))
+  }
+
+  Validator.prototype.destroy = function () {
+    this.$element
+      .removeAttr('novalidate')
+      .removeData('bs.validator')
+      .off('.bs.validator')
+
+    this.$element.find(':input')
+      .removeData(['bs.validator.errors', 'bs.validator.deferred', 'bs.validator.timeout'])
+      .off('.bs.validator')
+
+    this.$element.find('.help-block.with-errors').each(function () {
+      var $this = $(this)
+      var originalContent = $this.data('bs.validator.originalContent')
+
+      $this
+        .removeData('bs.validator.originalContent')
+        .html(originalContent)
+    })
+
+    this.$element.find('input[type="submit"], button[type="submit"]').removeClass('disabled')
+
+    this.$element.find('.has-error').removeClass('has-error')
+
+    return this
   }
 
   // VALIDATOR PLUGIN DEFINITION
@@ -206,6 +233,7 @@
       var options = $.extend({}, Validator.DEFAULTS, $this.data(), typeof option == 'object' && option)
       var data    = $this.data('bs.validator')
 
+      if (!data && option == 'destroy') return
       if (!data) $this.data('bs.validator', (data = new Validator(this, options)))
       if (typeof option == 'string') data[option]()
     })

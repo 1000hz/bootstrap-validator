@@ -1,6 +1,7 @@
 Changelog
 ========
-### HEAD
+### 0.6.0
+* Adding `.validator('destroy')` method. Fixes #10
 * Not calling window.setTimeout() if options.delay == 0
 * Fixing broken docs example
 * Moved docs content to /docs directory of project
