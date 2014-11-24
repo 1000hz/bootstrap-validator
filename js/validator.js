@@ -248,6 +248,10 @@
 
 
   function Plugin(option) {
+    var data    = $(this).data('bs.validator')
+    if (data && typeof option == 'string' && option == 'hasErrors') return data[option]()
+
+
     return this.each(function () {
       var $this   = $(this)
       var options = $.extend({}, Validator.DEFAULTS, $this.data(), typeof option == 'object' && option)

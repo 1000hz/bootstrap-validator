@@ -326,4 +326,36 @@ $(function () {
     ok(form.find('.help-block').html() === 'original content', 'help block content restored')
     ok(!form.find('button').is('.disabled'), 're-enabled submit button')
   })
+
+  test('should return true  on hasErrors call', function () {
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-error="error message" required>'
+      +   '<div class="help-block with-errors">original content</div>'
+      + '</div>'
+      + '<button type="submit">Submit</button>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator('validate')
+
+    ok(form.validator('hasErrors'), 'there are errors')
+  })
+
+  test('should return false on hasErrors call', function () {
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-error="error message">'
+      +   '<div class="help-block with-errors">original content</div>'
+      + '</div>'
+      + '<button type="submit">Submit</button>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator('validate')
+
+    ok(!form.validator('hasErrors'), 'there are not errors')
+  })
 })
