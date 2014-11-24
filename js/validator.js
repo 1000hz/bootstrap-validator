@@ -35,8 +35,6 @@
   var Validator = function (element, options) {
     this.$element = $(element)
     this.options  = options
-    
-    this.deferred = []
 
     this.$element.attr('novalidate', true) // disable automatic native validation
     this.toggleSubmit()
@@ -216,23 +214,19 @@
   Validator.prototype.defer = function ($el, callback) {
     if (!this.options.delay) return callback()
     window.clearTimeout($el.data('bs.validator.timeout'))
-    var timer = window.setTimeout(callback, this.options.delay)
-    this.deferred.push(timer)
-    $el.data('bs.validator.timeout', timer)
+    $el.data('bs.validator.timeout', window.setTimeout(callback, this.options.delay))
   }
-  
+
   Validator.prototype.clearAllDeferred = function () {
-    var arrayLength = this.deferred.length
-    for (var i = 0; i < arrayLength; i++){
-        var timer = this.deferred[i];
-        window.clearTimeout(timer)
-      }
+    this.$element.find(':input').each(function () {
+      window.clearTimeout($(this).data('bs.validator.timeout'))
+    })
   }
 
   Validator.prototype.destroy = function () {
-    
+
     this.clearAllDeferred()
-    
+
     this.$element
       .removeAttr('novalidate')
       .removeData('bs.validator')
