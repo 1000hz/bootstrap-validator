@@ -224,7 +224,7 @@
   }
 
   Validator.prototype.destroy = function () {
-
+    
     this.clearAllDeferred()
 
     this.$element
