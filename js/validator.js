@@ -217,7 +217,16 @@
     $el.data('bs.validator.timeout', window.setTimeout(callback, this.options.delay))
   }
 
+  Validator.prototype.clearAllDeferred = function () {
+    this.$element.find(':input').each(function () {
+      window.clearTimeout($(this).data('bs.validator.timeout'))
+    })
+  }
+
   Validator.prototype.destroy = function () {
+    
+    this.clearAllDeferred()
+
     this.$element
       .removeAttr('novalidate')
       .removeData('bs.validator')
