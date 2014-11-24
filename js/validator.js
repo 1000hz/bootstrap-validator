@@ -57,7 +57,8 @@
     html: false,
     errors: {
       match: 'Does not match',
-      minlength: 'Not long enough'
+      minlength: 'Not long enough',
+      fnvalidation: 'error in fnvalidation'
     }
   }
 
@@ -73,6 +74,12 @@
     minlength: function ($el) {
       var minlength = $el.data('minlength')
       return !$el.val() || $el.val().length >= minlength
+    },
+    fnvalidation: function ($el) {
+      var fn = window[$el.data('fnvalidation')]
+      if(typeof fn === 'function') {
+        return fn($el)
+      }
     }
   }
 
@@ -245,7 +252,6 @@
 
   // VALIDATOR PLUGIN DEFINITION
   // ===========================
-
 
   function Plugin(option) {
     return this.each(function () {
