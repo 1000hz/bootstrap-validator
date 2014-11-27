@@ -59,7 +59,8 @@
       match: 'Does not match',
       minlength: 'Not long enough',
       fnvalidation: 'error in fnvalidation'
-    }
+    },
+    custom: {}
   }
 
   Validator.VALIDATORS = {
@@ -75,11 +76,14 @@
       var minlength = $el.data('minlength')
       return !$el.val() || $el.val().length >= minlength
     },
-    fnvalidation: function ($el) {
-      var fn = window[$el.data('fnvalidation')]
-      if(typeof fn === 'function') {
-        return fn($el)
+    custom: function ($el) {
+      var fns = $el.data('custom').split(' ')
+      var fn = null
+      for (var i=0; i<fns.length; i++){
+        fn = this.options.custom[fns[i]]
+        if (typeof fn === 'function' && !fn($el)) return false
       }
+      return true
     }
   }
 
