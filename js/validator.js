@@ -58,7 +58,7 @@
     errors: {
       match: 'Does not match',
       minlength: 'Not long enough',
-      fnvalidation: 'error in fnvalidation'
+      custom: 'error validating'
     },
     custom: {}
   }

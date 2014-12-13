@@ -347,8 +347,8 @@ $(function () {
   test('should fail with multiple function validation', function () {
     var form = '<form>'
       + '<div class="form-group">'
-      +   '<input type="text" data-error="error message" data-custom="dont_give_error give_error">'
-      +   '<div class="help-block with-errors">original content</div>'
+      +   '<input type="text" data-custom="dont_give_error give_error">'
+      +   '<div class="help-block with-errors"></div>'
       + '</div>'
       + '<button type="submit">Submit</button>'
       + '</form>'
@@ -359,6 +359,7 @@ $(function () {
       .validator('validate')
 
     ok(form.find('.has-error').length, 'validation function error')
+    ok(form.find('.help-block.with-errors').text() === 'error validating', 'validation function error')
   })
 
   test('should be ok with function validation', function () {
