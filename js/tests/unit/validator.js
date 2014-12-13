@@ -224,6 +224,25 @@ $(function () {
     ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete and valid')
   })
 
+  test('should not disable submit button if disableSubmit option is set to false', function () {
+    var form = '<form>'
+    + '<input id="required" type="text" required>'
+    + '<input id="minlength" type="text" data-minlength="6">'
+    + '<button type="submit" id="btn">Submit</button>'
+    + '</form>'
+
+    form = $(form)
+    .appendTo('#qunit-fixture')
+    .validator({ disableSubmit: false })
+
+    var $btn = $('#btn')
+
+    ok($btn.not('.disabled'), 'submit button enabled although form is incomplete and invalid because disabling of submit is disabled')
+    $('#required').val('hamburgers').trigger('input')
+    $('#minlength').val('pizza').trigger('input')
+    ok($btn.not('.disabled'), 'submit button enabled although form is invalid because disabling of submit is disable')
+  })
+
   test('should only disable the submit buttons', function () {
     var form = '<form>'
       + '<input id="required" type="text" required>'
