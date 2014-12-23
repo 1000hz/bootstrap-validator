@@ -35,7 +35,7 @@
   Validator.DEFAULTS = {
     delay: 500,
     html: false,
-    disableSubmit: true,
+    disable: true,
     errors: {
       match: 'Does not match',
       minlength: 'Not long enough'
@@ -187,7 +187,7 @@
   }
 
   Validator.prototype.toggleSubmit = function () {
-    if(!this.options.disableSubmit) return
+    if(!this.options.disable) return
     var $btn = this.$element.find('input[type="submit"], button[type="submit"]')
     $btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
       .css({'pointer-events': 'all', 'cursor': 'pointer'})

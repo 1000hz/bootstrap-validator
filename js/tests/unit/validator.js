@@ -224,7 +224,7 @@ $(function () {
     ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete and valid')
   })
 
-  test('should not disable submit button if disableSubmit option is set to false', function () {
+  test('should not disable submit button if disable option is set to false', function () {
     var form = '<form>'
     + '<input id="required" type="text" required>'
     + '<input id="minlength" type="text" data-minlength="6">'
@@ -233,7 +233,7 @@ $(function () {
 
     form = $(form)
     .appendTo('#qunit-fixture')
-    .validator({ disableSubmit: false })
+    .validator({ disable: false })
 
     var $btn = $('#btn')
 
