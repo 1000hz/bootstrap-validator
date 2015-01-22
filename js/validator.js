@@ -224,8 +224,13 @@
       .off('.bs.validator')
 
     this.$element.find(':input')
-      .removeData(['bs.validator.errors', 'bs.validator.deferred', 'bs.validator.timeout'])
       .off('.bs.validator')
+      .removeData(['bs.validator.errors', 'bs.validator.deferred'])
+      .each(function () {
+        var $this = $(this)
+        var timeout = $this.data('bs.validator.timeout')
+        window.clearTimeout(timeout) && $this.removeData('bs.validator.timeout')
+      })
 
     this.$element.find('.help-block.with-errors').each(function () {
       var $this = $(this)
