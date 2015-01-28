@@ -3,7 +3,7 @@
   "version": "0.6.0",
   "homepage": "https://github.com/1000hz/bootstrap-validator",
   "authors": [
-    "Cina Saffary <cina@spiceworks.com>"
+    "Cina Saffary <itscina@gmail.com>"
   ],
   "description": "A user-friendly HTML5 Form validator for Bootstrap 3",
   "main": "./dist/validator.min.js",

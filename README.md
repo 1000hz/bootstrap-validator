@@ -32,4 +32,4 @@ Lastly, don't pollute your patch branch with any unrelated changes.
 Thanks to  [@mdo](https://github.com/mdo) and [@fat](https://github.com/fat) for [Bootstrap](http://getbootstrap.com). <3
 
 ## Copyright and license
-Copyright 2013 Spiceworks, Inc under the MIT license.
+Copyright 2013 Cina Saffary, Inc under the MIT license.
