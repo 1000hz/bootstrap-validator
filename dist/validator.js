@@ -1,6 +1,6 @@
 /*!
  * Validator v0.6.0 for Bootstrap 3, by @1000hz
- * Copyright 2014 Spiceworks, Inc.
+ * Copyright 2015 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
  * https://github.com/1000hz/bootstrap-validator
@@ -115,7 +115,9 @@
 
     if (!errors.length && $el.val() && $el.data('remote')) {
       this.defer($el, function () {
-        $.get($el.data('remote'), [$el.attr('name'), $el.val()].join('='))
+        var data = {};
+        data[$el.attr('name')] = $el.val()
+        $.get($el.data('remote'), data)
           .fail(function (jqXHR, textStatus, error) { errors.push(getErrorMessage('remote') || error) })
           .always(function () { deferred.resolve(errors)})
       })
@@ -206,8 +208,13 @@
       .off('.bs.validator')
 
     this.$element.find(':input')
-      .removeData(['bs.validator.errors', 'bs.validator.deferred', 'bs.validator.timeout'])
       .off('.bs.validator')
+      .removeData(['bs.validator.errors', 'bs.validator.deferred'])
+      .each(function () {
+        var $this = $(this)
+        var timeout = $this.data('bs.validator.timeout')
+        window.clearTimeout(timeout) && $this.removeData('bs.validator.timeout')
+      })
 
     this.$element.find('.help-block.with-errors').each(function () {
       var $this = $(this)
