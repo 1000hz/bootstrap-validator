@@ -1,5 +1,9 @@
 Changelog
 ========
+### 0.7.0
+* Adding a `disable` option to control whether or not the form submit is disabled if the form is invalid. Defaults to true. See #46.
+* URI-encoding params sent via remote validator. Fixes #56.
+
 ### 0.6.0
 * Adding `.validator('destroy')` method. Fixes #10
 * Not calling window.setTimeout() if options.delay == 0

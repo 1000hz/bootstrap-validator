@@ -1,5 +1,5 @@
 /*!
- * Validator v0.6.0 for Bootstrap 3, by @1000hz
+ * Validator v0.7.0 for Bootstrap 3, by @1000hz
  * Copyright 2015 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -115,7 +115,7 @@
 
     if (!errors.length && $el.val() && $el.data('remote')) {
       this.defer($el, function () {
-        var data = {};
+        var data = {}
         data[$el.attr('name')] = $el.val()
         $.get($el.data('remote'), data)
           .fail(function (jqXHR, textStatus, error) { errors.push(getErrorMessage('remote') || error) })
