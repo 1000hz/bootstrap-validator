@@ -135,7 +135,7 @@
 
     if (!errors.length && $el.val() && $el.data('remote')) {
       this.defer($el, function () {
-        var data = {};
+        var data = {}
         data[$el.attr('name')] = $el.val()
         $.get($el.data('remote'), data)
           .fail(function (jqXHR, textStatus, error) { errors.push(getErrorMessage('remote') || error) })
