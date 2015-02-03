@@ -214,14 +214,13 @@ $(function () {
       .validator()
 
     var $btn = $('#btn')
-
-    ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete and invalid')
+    ok($btn.hasClass('disabled') && $btn.prop('disabled'), 'submit button disabled because form is incomplete and invalid')
     $('#required').val('hamburgers').trigger('input')
-    ok(!$btn.hasClass('disabled'), 'submit button enabled because form is sufficiently complete and no fields are invalid')
+    ok(!$btn.hasClass('disabled') && !$btn.prop('disabled'), 'submit button enabled because form is sufficiently complete and no fields are invalid')
     $('#minlength').val('pizza').trigger('input')
-    ok($btn.hasClass('disabled'), 'submit button disabled because form is invalid')
+    ok($btn.hasClass('disabled') && $btn.prop('disabled'), 'submit button disabled because form is invalid')
     $('#minlength').val('pizzas').trigger('input')
-    ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete and valid')
+    ok(!$btn.hasClass('disabled') && !$btn.prop('disabled'), 'submit button enabled because form is complete and valid')
   })
 
   test('should not disable submit button if disable option is set to false', function () {

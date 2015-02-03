@@ -213,6 +213,7 @@
     var $btn = this.$element.find('input[type="submit"], button[type="submit"]')
     $btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
       .css({'pointer-events': 'all', 'cursor': 'pointer'})
+      .prop('disabled', this.isIncomplete() || this.hasErrors())
   }
 
   Validator.prototype.defer = function ($el, callback) {
@@ -245,7 +246,7 @@
         .html(originalContent)
     })
 
-    this.$element.find('input[type="submit"], button[type="submit"]').removeClass('disabled')
+    this.$element.find('input[type="submit"], button[type="submit"]').removeClass('disabled').prop('disabled', false)
 
     this.$element.find('.has-error').removeClass('has-error')
 
