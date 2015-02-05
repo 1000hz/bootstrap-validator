@@ -1,6 +1,6 @@
 Changelog
 ========
-### 0.7.1
+### 0.7.2
 * Namespacing the manually-triggered `input` events. Fixes #38.
 * Adding a note to the docs about polyfills and cross-browser compatibility in IE9 and older. Fixes #18.
 * Adding a note to the docs about conditionally handling the submit event if the form is invalid. Fixes #44.

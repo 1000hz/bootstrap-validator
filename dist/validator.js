@@ -1,5 +1,5 @@
 /*!
- * Validator v0.7.0 for Bootstrap 3, by @1000hz
+ * Validator v0.7.2 for Bootstrap 3, by @1000hz
  * Copyright 2015 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -27,7 +27,7 @@
       var target = $this.data('match')
 
       $(target).on('input.bs.validator', function (e) {
-        $this.val() && $this.trigger('input')
+        $this.val() && $this.trigger('input.bs.validator')
       })
     })
   }
@@ -130,7 +130,7 @@
     var delay = this.options.delay
 
     this.options.delay = 0
-    this.$element.find(':input').trigger('input')
+    this.$element.find(':input').trigger('input.bs.validator')
     this.options.delay = delay
 
     return this
