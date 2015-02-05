@@ -47,7 +47,7 @@
       var target = $this.data('match')
 
       $(target).on('input.bs.validator', function (e) {
-        $this.val() && $this.trigger('input')
+        $this.val() && $this.trigger('input.bs.validator')
       })
     })
   }
@@ -150,7 +150,7 @@
     var delay = this.options.delay
 
     this.options.delay = 0
-    this.$element.find(':input').trigger('input')
+    this.$element.find(':input').trigger('input.bs.validator')
     this.options.delay = delay
 
     return this
