@@ -255,6 +255,11 @@
       <li><code>data-remote="/path/to/remote/validator"</code> to make an AJAX request to determine if the field is valid or not. Be sure to give the input a <code>name</code> attribute, as the request will be sent to <code>/path/to/remote/validator?&lt;name&gt;=&lt;value&gt;</code>. The remote endpoint should return a <code>200 OK</code> if the field is valid, and a <code>4xx</code> otherwise.</li>
     </ul>
 
+    <div class="bs-callout bs-callout-danger">
+      <h4>Cross-browser Compatibility</h4>
+      <p>Because this plugin depends on the HTML5 Constraint Validation API, Internet Explorer 9 and older are not supported. If you need to support these browsers, you must add a polyfill like Ryan Seddon's <a href="https://github.com/ryanseddon/H5F" target="_blank">H5F</a>.</p>
+    </div>
+
     <p>To display error messages, include a container after the input field with both <code>help-block</code> and <code>with-errors</code> classes.</p>
 
 
@@ -357,6 +362,19 @@
         </tbody>
       </table>
     </div><!-- ./bs-table-responsive -->
+
+    <div class="bs-callout bs-callout-info">
+      <h4>Conditionally handling the submit event</h4>
+      <p>When the form is invalid, <code>.preventDefault()</code> is called on the submit event. As a result, if you want to hook into the submit event and do something conditionally based on whether or not the form was valid, you can check if the event <code>.isDefaultPrevented()</code>. Be sure your submit handler is bound after the plugin has been initialized on your form.</p>
+    </div>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#form&#39;</span><span class="p">).</span><span class="nx">validator</span><span class="p">().</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">isDefaultPrevented</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// handle the invalid form...</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// everything looks good!</span>
+  <span class="p">}</span>
+<span class="p">})</span></code></pre></div>
 
   </div>
 
