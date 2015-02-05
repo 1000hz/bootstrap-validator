@@ -1,19 +1,24 @@
 Changelog
 ========
+### 0.7.1
+* Namespacing the manually-triggered `input` events. Fixes #38.
+* Adding a note to the docs about polyfills and cross-browser compatibility in IE9 and older. Fixes #18.
+* Adding a note to the docs about conditionally handling the submit event if the form is invalid. Fixes #44.
+
 ### 0.7.0
 * Adding a `disable` option to control whether or not the form submit is disabled if the form is invalid. Defaults to true. See #46.
 * URI-encoding params sent via remote validator. Fixes #56.
 
 ### 0.6.0
-* Adding `.validator('destroy')` method. Fixes #10
+* Adding `.validator('destroy')` method. Fixes #10.
 * Not calling window.setTimeout() if options.delay == 0
 * Fixing broken docs example
 * Moved docs content to /docs directory of project
 
 ### 0.5.0
-* Adding `remote` validator to send an AJAX request to determine a fields validity. Fixes #2
-* Making the disabled submit button clickable to reveal what errors are keeping the form disabled. Fixes #8
-* Fixing small issue with errored radio buttons that made the form stay disabled until you toggled through each radio button. Fixes #21
+* Adding `remote` validator to send an AJAX request to determine a fields validity. Fixes #2.
+* Making the disabled submit button clickable to reveal what errors are keeping the form disabled. Fixes #8.
+* Fixing small issue with errored radio buttons that made the form stay disabled until you toggled through each radio button. Fixes #21.
 
 ### 0.4.0
 * Adding `html` option to allow html in error messages. Defaults to false.
