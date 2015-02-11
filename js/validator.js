@@ -162,6 +162,7 @@
     this.defer($el, function () {
       var $group = $el.closest('.form-group')
       var $block = $group.find('.help-block.with-errors')
+      var $feedback = $group.find('.form-control-feedback')
       var errors = $el.data('bs.validator.errors')
 
       if (!errors.length) return
@@ -172,17 +173,24 @@
 
       $block.data('bs.validator.originalContent') === undefined && $block.data('bs.validator.originalContent', $block.html())
       $block.empty().append(errors)
-
+      $group.removeClass('has-success')
       $group.addClass('has-error')
+
+      $feedback.removeClass('glyphicon-ok')
+      $feedback.addClass('glyphicon-warn')
     })
   }
 
   Validator.prototype.clearErrors = function ($el) {
     var $group = $el.closest('.form-group')
     var $block = $group.find('.help-block.with-errors')
+    var $feedback = $group.find('.form-control-feedback')
 
     $block.html($block.data('bs.validator.originalContent'))
     $group.removeClass('has-error')
+    $group.addClass('has-success')
+    $feedback.removeClass('glyphicon-warn')
+    $feedback.addClass('glyphicon-ok')
   }
 
   Validator.prototype.hasErrors = function () {
