@@ -173,6 +173,7 @@
       $block.data('bs.validator.originalContent') === undefined && $block.data('bs.validator.originalContent', $block.html())
       $block.empty().append(errors)
 
+      $group.removeClass('has-success')
       $group.addClass('has-error')
     })
   }
@@ -183,6 +184,7 @@
 
     $block.html($block.data('bs.validator.originalContent'))
     $group.removeClass('has-error')
+    $group.addClass('has-success')
   }
 
   Validator.prototype.hasErrors = function () {
