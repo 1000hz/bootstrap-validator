@@ -177,7 +177,7 @@
       $group.addClass('has-error')
 
       $feedback.removeClass('glyphicon-ok')
-      $feedback.addClass('glyphicon-warn')
+      $feedback.addClass('glyphicon-warning-sign')
     })
   }
 
@@ -189,7 +189,7 @@
     $block.html($block.data('bs.validator.originalContent'))
     $group.removeClass('has-error')
     $group.addClass('has-success')
-    $feedback.removeClass('glyphicon-warn')
+    $feedback.removeClass('glyphicon-warning-sign')
     $feedback.addClass('glyphicon-ok')
   }
 
