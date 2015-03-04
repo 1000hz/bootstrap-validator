@@ -1,5 +1,19 @@
 $(function () {
 
+  $.mockjaxSettings.logging = false
+
+  $.mockjax({
+    url: '/success',
+    status: 200,
+    responseText: 'cool'
+  })
+
+  $.mockjax({
+    url: '/error',
+    status: 418,
+    responseText: 'dang'
+  })
+
   module("validator")
 
   test("should provide no conflict", function () {
@@ -322,6 +336,36 @@ $(function () {
     ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete and invalid')
     $('#required').val('hamburgers').trigger('input')
     ok(!$btn.hasClass('disabled'), 'submit button enabled regardless of disabled form being incomplete')
+  })
+
+  test('should validate remote endpoints with success if response is 200', function () {
+    stop()
+    var form = '<form>'
+      + '<input id="remote" type="text" value="foo" data-remote="/success">'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .on('valid.bs.validator', function (e) {
+        ok(e.relatedTarget === $('#remote')[0], 'remote endpoint validated successfully with a 200 response')
+        start()
+      })
+      .validator('validate')
+  })
+
+  test('should validate remote endpoints with error if response is 4xx', function () {
+    stop()
+    var form = '<form>'
+      + '<input id="remote" type="text" value="foo" data-remote="/error">'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .on('invalid.bs.validator', function (e) {
+        ok(e.relatedTarget === $('#remote')[0], 'remote endpoint validated with error with a 4xx response')
+        start()
+      })
+      .validator('validate')
   })
 
   test('should clean up after itself when destroy called', function () {
