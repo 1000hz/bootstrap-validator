@@ -150,7 +150,7 @@
     var delay = this.options.delay
 
     this.options.delay = 0
-    this.$element.find(':input').trigger('input.bs.validator')
+    this.$element.find(':input:not([type="hidden"])').trigger('input.bs.validator')
     this.options.delay = delay
 
     return this
