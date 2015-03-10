@@ -58,8 +58,10 @@
     disable: true,
     errors: {
       match: 'Does not match',
-      minlength: 'Not long enough'
-    }
+      minlength: 'Not long enough',
+      custom: 'error validating'
+    },
+    custom: {}
   }
 
   Validator.VALIDATORS = {
@@ -74,6 +76,15 @@
     minlength: function ($el) {
       var minlength = $el.data('minlength')
       return !$el.val() || $el.val().length >= minlength
+    },
+    custom: function ($el) {
+      var fns = $el.data('custom').split(' ')
+      var fn = null
+      for (var i=0; i<fns.length; i++){
+        fn = this.options.custom[fns[i]]
+        if (typeof fn === 'function' && !fn($el)) return false
+      }
+      return true
     }
   }
 
@@ -262,7 +273,6 @@
 
   // VALIDATOR PLUGIN DEFINITION
   // ===========================
-
 
   function Plugin(option) {
     return this.each(function () {

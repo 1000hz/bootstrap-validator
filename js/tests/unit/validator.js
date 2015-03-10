@@ -389,4 +389,73 @@ $(function () {
     ok(form.find('.help-block').html() === 'original content', 'help block content restored')
     ok(!form.find('button').is('.disabled'), 're-enabled submit button')
   })
+
+  test('should fail with function validation', function () {
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-error="error message" data-custom="give_error">'
+      +   '<div class="help-block with-errors">original content</div>'
+      + '</div>'
+      + '<button type="submit">Submit</button>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator({custom: {give_error: function(el){return false}}})
+      .validator('validate')
+
+    ok(form.find('.has-error').length, 'validation function error')
+  })
+
+  test('should fail with multiple function validation', function () {
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-custom="dont_give_error give_error">'
+      +   '<div class="help-block with-errors"></div>'
+      + '</div>'
+      + '<button type="submit">Submit</button>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator({custom: {dont_give_error: function(el){return true}, give_error: function(el){return false}}})
+      .validator('validate')
+
+    ok(form.find('.has-error').length, 'validation function error')
+    ok(form.find('.help-block.with-errors').text() === 'error validating', 'validation function error')
+  })
+
+  test('should be ok with function validation', function () {
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-error="error message" data-custom="dont_give_error">'
+      +   '<div class="help-block with-errors">original content</div>'
+      + '</div>'
+      + '<button type="submit">Submit</button>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator({custom: {dont_give_error: function(el){return true}}})
+      .validator('validate')
+
+    ok(!form.find('.has-error').length, 'validation function ok')
+  })
+
+  test('should be ok with multiple function validation', function () {
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-error="error message" data-custom="dont_give_error dont_give_error2">'
+      +   '<div class="help-block with-errors">original content</div>'
+      + '</div>'
+      + '<button type="submit">Submit</button>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator({custom: {dont_give_error: function(el){return true}, dont_give_error2: function(el){return true}}})
+      .validator('validate')
+
+    ok(!form.find('.has-error').length, 'validation function ok')
+  })
 })
