@@ -1,5 +1,10 @@
 Changelog
 ========
+
+### 0.7.3
+* No longer validating `input[type="hidden"]` fields. Fixes #84.
+* Adding support for Bootstrap's feedback icons.
+
 ### 0.7.2
 * Namespacing the manually-triggered `input` events. Fixes #38.
 * Adding a note to the docs about polyfills and cross-browser compatibility in IE9 and older. Fixes #18.
