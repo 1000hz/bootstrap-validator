@@ -1,5 +1,5 @@
 /*!
- * Validator v0.7.2 for Bootstrap 3, by @1000hz
+ * Validator v0.7.3 for Bootstrap 3, by @1000hz
  * Copyright 2015 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -130,7 +130,7 @@
     var delay = this.options.delay
 
     this.options.delay = 0
-    this.$element.find(':input').trigger('input.bs.validator')
+    this.$element.find(':input:not([type="hidden"])').trigger('input.bs.validator')
     this.options.delay = delay
 
     return this
@@ -142,6 +142,7 @@
     this.defer($el, function () {
       var $group = $el.closest('.form-group')
       var $block = $group.find('.help-block.with-errors')
+      var $feedback = $group.find('.form-control-feedback')
       var errors = $el.data('bs.validator.errors')
 
       if (!errors.length) return
@@ -152,17 +153,24 @@
 
       $block.data('bs.validator.originalContent') === undefined && $block.data('bs.validator.originalContent', $block.html())
       $block.empty().append(errors)
-
+      $group.removeClass('has-success')
       $group.addClass('has-error')
+
+      $feedback.removeClass('glyphicon-ok')
+      $feedback.addClass('glyphicon-warning-sign')
     })
   }
 
   Validator.prototype.clearErrors = function ($el) {
     var $group = $el.closest('.form-group')
     var $block = $group.find('.help-block.with-errors')
+    var $feedback = $group.find('.form-control-feedback')
 
     $block.html($block.data('bs.validator.originalContent'))
     $group.removeClass('has-error')
+    $group.addClass('has-success')
+    $feedback.removeClass('glyphicon-warning-sign')
+    $feedback.addClass('glyphicon-ok')
   }
 
   Validator.prototype.hasErrors = function () {
