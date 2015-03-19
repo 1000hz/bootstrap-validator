@@ -253,6 +253,9 @@ errors: {
     <h4>$().validator('destroy')</h4>
     <p>Destroys form validator and cleans up data left behind.</p>
 
+    <h4>$().validator('register', name, func)</h4>
+    <p>Registers a custom validation function. The validation function will be passed a single parameter set to a jQuery object. The function should return true or false.</p>
+
     <h3 id="validator-events">Events</h3>
     <p>All events are fired on the form element and provide a reference to the form field to which the event pertains via <code>event.relatedTarget</code>.</p>
 

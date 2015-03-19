@@ -56,6 +56,7 @@
     delay: 500,
     html: false,
     disable: true,
+    custom: {},
     errors: {
       match: 'Does not match',
       minlength: 'Not long enough'
@@ -112,9 +113,11 @@
 
   Validator.prototype.runValidators = function ($el) {
     var errors     = []
-    var validators = [Validator.VALIDATORS.native]
+    var validators = {}
     var deferred   = $.Deferred()
     var options    = this.options
+
+    $.extend(validators, Validator.VALIDATORS, options.custom)
 
     $el.data('bs.validator.deferred') && $el.data('bs.validator.deferred').reject()
     $el.data('bs.validator.deferred', deferred)
@@ -126,7 +129,7 @@
         || options.errors[key]
     }
 
-    $.each(Validator.VALIDATORS, $.proxy(function (key, validator) {
+    $.each(validators, $.proxy(function (key, validator) {
       if (($el.data(key) || key == 'native') && !validator.call(this, $el)) {
         var error = getErrorMessage(key)
         !~errors.indexOf(error) && errors.push(error)
@@ -144,6 +147,11 @@
     } else deferred.resolve(errors)
 
     return deferred.promise()
+  }
+
+  Validator.prototype.registerValidator = function (name, func) {
+    this.options.custom = this.options.custom || {}
+    this.options.custom[name] = func
   }
 
   Validator.prototype.validate = function () {
@@ -265,6 +273,8 @@
 
 
   function Plugin(option) {
+    var args = (arguments.length > 1) ?
+      Array.prototype.slice.call(arguments, 1) : []
     return this.each(function () {
       var $this   = $(this)
       var options = $.extend({}, Validator.DEFAULTS, $this.data(), typeof option == 'object' && option)
@@ -272,6 +282,10 @@
 
       if (!data && option == 'destroy') return
       if (!data) $this.data('bs.validator', (data = new Validator(this, options)))
+      if (typeof option === 'string' && option.toLowerCase() === 'register') {
+        data.registerValidator.apply(data, args)
+        return
+      }
       if (typeof option == 'string') data[option]()
     })
   }

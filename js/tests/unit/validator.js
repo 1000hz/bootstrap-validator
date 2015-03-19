@@ -389,4 +389,27 @@ $(function () {
     ok(form.find('.help-block').html() === 'original content', 'help block content restored')
     ok(!form.find('button').is('.disabled'), 're-enabled submit button')
   })
+
+  test("should register custom validators to the custom options object", function () {
+    stop()
+    var form = '<form data-form="true">'
+      + '<input type="text" data-foo="bar">'
+      + '</form>'
+
+    form = $(form)
+      .on('invalid.bs.validator', function (e) {
+        ok(false)
+      })
+      .on('valid.bs.validator', function (e) {
+        ok(true)
+      })
+
+    form.validator('register', 'foo', function(el){
+      return el.attr('data-foo') === 'bar'
+    })
+
+    start()
+    form.validator('validate')
+
+  })
 })
