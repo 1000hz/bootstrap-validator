@@ -302,6 +302,18 @@
            <td>boolean</td>
            <td>true</td>
            <td>Disable the submit button until the form is valid and all required fields are complete.</td>
+         </tr>
+         <tr>
+           <td>custom</td>
+           <td>object</td>
+           <td>{}</td>
+           <td>
+             <p>Add custom validators to be run. Validators should be functions that receive the jQuery element as an argument and return a truthy or falsy value based on the validity of the input.</p>
+             <p>Object structure is: <code>{foo: function($el) { return true || false } }</code></p>
+             <p>Adding the validator to an input is done just like the others, <code>data-foo="bar"</code>.</p>
+             <p>You must also add default error messages for any custom validators via the <code>errors</code> option.
+           </td>
+         </tr>
          <tr>
            <td>errors</td>
            <td>object</td>
