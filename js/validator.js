@@ -181,11 +181,12 @@
 
       $block.data('bs.validator.originalContent') === undefined && $block.data('bs.validator.originalContent', $block.html())
       $block.empty().append(errors)
-      $group.removeClass('has-success')
       $group.addClass('has-error')
 
-      $feedback.removeClass('glyphicon-ok')
-      $feedback.addClass('glyphicon-warning-sign')
+      $feedback.length
+        && $feedback.removeClass('glyphicon-ok')
+        && $feedback.addClass('glyphicon-warning-sign')
+        && $group.removeClass('has-success')
     })
   }
 
@@ -196,9 +197,11 @@
 
     $block.html($block.data('bs.validator.originalContent'))
     $group.removeClass('has-error')
-    $group.addClass('has-success')
-    $feedback.removeClass('glyphicon-warning-sign')
-    $feedback.addClass('glyphicon-ok')
+
+    $feedback.length
+      && $feedback.removeClass('glyphicon-warning-sign')
+      && $feedback.addClass('glyphicon-ok')
+      && $group.addClass('has-success')
   }
 
   Validator.prototype.hasErrors = function () {
