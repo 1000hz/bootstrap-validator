@@ -389,4 +389,44 @@ $(function () {
     ok(form.find('.help-block').html() === 'original content', 'help block content restored')
     ok(!form.find('button').is('.disabled'), 're-enabled submit button')
   })
+
+  test('should throw an error if custom validator has no default error message', function () {
+    raises(function () {
+      $('<form></form>').validator({custom: {foo: function () {}}})
+    })
+  })
+
+  test ('should run custom validators', function () {
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" id="foo" data-foo="foo" value="foo">'
+      +   '<div class="help-block with-errors"></div>'
+      + '</div>'
+      + '<div class="form-group">'
+      +   '<input type="text" id="bar" data-foo="foo" value="bar">'
+      +   '<div class="help-block with-errors"></div>'
+      + '</div>'
+      + '<button type="submit">Submit</button>'
+      + '</form>'
+
+    var options = {
+      custom: {
+        foo: function ($el) {
+          return $el.data('foo') == $el.val()
+        }
+      },
+      errors: {
+        foo: 'not equal to foo'
+      }
+    }
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator(options)
+      .validator('validate')
+
+    ok($('#foo').data('bs.validator.errors').length === 0, 'foo input is valid')
+    ok($('#bar').data('bs.validator.errors').length === 1, 'bar input is invalid')
+    ok($('#bar').data('bs.validator.errors')[0] === options.errors.foo, 'bar error is custom error')
+  })
 })

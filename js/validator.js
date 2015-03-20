@@ -36,6 +36,14 @@
     this.$element = $(element)
     this.options  = options
 
+    options.errors = $.extend({}, Validator.DEFAULTS.errors, options.errors)
+
+    for (var custom in options.custom) {
+      if (!options.errors[custom]) throw new Error('Missing default error message for custom validator: ' + custom)
+    }
+
+    $.extend(Validator.VALIDATORS, options.custom)
+
     this.$element.attr('novalidate', true) // disable automatic native validation
     this.toggleSubmit()
 
@@ -56,6 +64,7 @@
     delay: 500,
     html: false,
     disable: true,
+    custom: {},
     errors: {
       match: 'Does not match',
       minlength: 'Not long enough'
@@ -111,10 +120,9 @@
 
 
   Validator.prototype.runValidators = function ($el) {
-    var errors     = []
-    var validators = [Validator.VALIDATORS.native]
-    var deferred   = $.Deferred()
-    var options    = this.options
+    var errors   = []
+    var deferred = $.Deferred()
+    var options  = this.options
 
     $el.data('bs.validator.deferred') && $el.data('bs.validator.deferred').reject()
     $el.data('bs.validator.deferred', deferred)
