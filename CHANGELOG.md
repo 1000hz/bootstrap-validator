@@ -1,6 +1,10 @@
 Changelog
 ========
 
+### 0.8.0
+* Adding custom validators option.
+* Only adding .has-success class if there is a .form-control-feedback present.
+
 ### 0.7.3
 * No longer validating `input[type="hidden"]` fields. Fixes #84.
 * Adding support for Bootstrap's feedback icons.

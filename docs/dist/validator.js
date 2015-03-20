@@ -1,5 +1,5 @@
 /*!
- * Validator v0.7.3 for Bootstrap 3, by @1000hz
+ * Validator v0.8.0 for Bootstrap 3, by @1000hz
  * Copyright 2015 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -15,6 +15,14 @@
   var Validator = function (element, options) {
     this.$element = $(element)
     this.options  = options
+
+    options.errors = $.extend({}, Validator.DEFAULTS.errors, options.errors)
+
+    for (var custom in options.custom) {
+      if (!options.errors[custom]) throw new Error('Missing default error message for custom validator: ' + custom)
+    }
+
+    $.extend(Validator.VALIDATORS, options.custom)
 
     this.$element.attr('novalidate', true) // disable automatic native validation
     this.toggleSubmit()
@@ -36,6 +44,7 @@
     delay: 500,
     html: false,
     disable: true,
+    custom: {},
     errors: {
       match: 'Does not match',
       minlength: 'Not long enough'
@@ -91,10 +100,9 @@
 
 
   Validator.prototype.runValidators = function ($el) {
-    var errors     = []
-    var validators = [Validator.VALIDATORS.native]
-    var deferred   = $.Deferred()
-    var options    = this.options
+    var errors   = []
+    var deferred = $.Deferred()
+    var options  = this.options
 
     $el.data('bs.validator.deferred') && $el.data('bs.validator.deferred').reject()
     $el.data('bs.validator.deferred', deferred)
@@ -153,11 +161,12 @@
 
       $block.data('bs.validator.originalContent') === undefined && $block.data('bs.validator.originalContent', $block.html())
       $block.empty().append(errors)
-      $group.removeClass('has-success')
       $group.addClass('has-error')
 
-      $feedback.removeClass('glyphicon-ok')
-      $feedback.addClass('glyphicon-warning-sign')
+      $feedback.length
+        && $feedback.removeClass('glyphicon-ok')
+        && $feedback.addClass('glyphicon-warning-sign')
+        && $group.removeClass('has-success')
     })
   }
 
@@ -168,9 +177,11 @@
 
     $block.html($block.data('bs.validator.originalContent'))
     $group.removeClass('has-error')
-    $group.addClass('has-success')
-    $feedback.removeClass('glyphicon-warning-sign')
-    $feedback.addClass('glyphicon-ok')
+
+    $feedback.length
+      && $feedback.removeClass('glyphicon-warning-sign')
+      && $feedback.addClass('glyphicon-ok')
+      && $group.addClass('has-success')
   }
 
   Validator.prototype.hasErrors = function () {
