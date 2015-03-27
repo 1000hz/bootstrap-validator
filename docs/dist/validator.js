@@ -48,7 +48,9 @@
     errors: {
       match: 'Does not match',
       minlength: 'Not long enough'
-    }
+    },
+    feedback_success: 'glyphicon-ok',
+    feedback_error: 'glyphicon-warning-sign'
   }
 
   Validator.VALIDATORS = {
@@ -164,8 +166,8 @@
       $group.addClass('has-error')
 
       $feedback.length
-        && $feedback.removeClass('glyphicon-ok')
-        && $feedback.addClass('glyphicon-warning-sign')
+        && $feedback.removeClass(this.options.feedback_success)
+        && $feedback.addClass(this.options.feedback_error)
         && $group.removeClass('has-success')
     })
   }
@@ -179,8 +181,8 @@
     $group.removeClass('has-error')
 
     $feedback.length
-      && $feedback.removeClass('glyphicon-warning-sign')
-      && $feedback.addClass('glyphicon-ok')
+      && $feedback.removeClass(this.options.feedback_error)
+      && $feedback.addClass(this.options.feedback_success)
       && $group.addClass('has-success')
   }
 
@@ -215,9 +217,12 @@
   }
 
   Validator.prototype.defer = function ($el, callback) {
-    if (!this.options.delay) return callback()
+    var _this = this;
+    if (!this.options.delay) return callback.apply(_this)
     window.clearTimeout($el.data('bs.validator.timeout'))
-    $el.data('bs.validator.timeout', window.setTimeout(callback, this.options.delay))
+    $el.data('bs.validator.timeout', window.setTimeout(function () {
+      callback.apply(_this)
+    }, this.options.delay))
   }
 
   Validator.prototype.destroy = function () {
