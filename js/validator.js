@@ -1,9 +1,9 @@
 /* ========================================================================
- * Bootstrap (plugin): validator.js v0.8.0
+ * Bootstrap (plugin): validator.js v0.8.1
  * ========================================================================
  * The MIT License (MIT)
  *
- * Copyright (c) 2013 Cina Saffary.
+ * Copyright (c) 2015 Cina Saffary.
  * Made by @1000hz in the style of Bootstrap 3 era @fat
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy

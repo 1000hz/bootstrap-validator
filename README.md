@@ -33,4 +33,4 @@ Lastly, don't pollute your patch branch with any unrelated changes.
 Thanks to  [@mdo](https://github.com/mdo) and [@fat](https://github.com/fat) for [Bootstrap](http://getbootstrap.com). <3
 
 ## Copyright and license
-Copyright 2013 Cina Saffary under the MIT license.
+Copyright 2015 Cina Saffary under the MIT license.
