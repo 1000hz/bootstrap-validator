@@ -7,7 +7,8 @@ It also provides an unobtrusive user experience, because nobody likes a naggy fo
 - Patient to inform user of errors and eager to let them know the errors have been resolved
 - Submit is disabled until the form is valid and all required fields are complete
 - Customizable error messages
-
+- Custom validator functions
+- Validation of an input field via AJAX
 
 ## Documentation
 
