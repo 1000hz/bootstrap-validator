@@ -29,6 +29,7 @@
 +function ($) {
   'use strict';
 
+  var inputSelector = ':input:not([type="hidden"], [type="submit"], button):enabled:visible'
   // VALIDATOR CLASS DEFINITION
   // ==========================
 
@@ -209,7 +210,7 @@
       return !!($(this).data('bs.validator.errors') || []).length
     }
 
-    return !!this.$element.find(':input:enabled').filter(fieldErrors).length
+    return !!this.$element.find(inputSelector).filter(fieldErrors).length
   }
 
   Validator.prototype.isIncomplete = function () {
@@ -219,7 +220,7 @@
                                         $.trim(this.value) === ''
     }
 
-    return !!this.$element.find(':input[required]:enabled').filter(fieldIncomplete).length
+    return !!this.$element.find(inputSelector).filter('[required]').filter(fieldIncomplete).length
   }
 
   Validator.prototype.onSubmit = function (e) {
@@ -246,7 +247,7 @@
       .removeData('bs.validator')
       .off('.bs.validator')
 
-    this.$element.find(':input')
+    this.$element.find(inputSelector)
       .off('.bs.validator')
       .removeData(['bs.validator.errors', 'bs.validator.deferred'])
       .each(function () {

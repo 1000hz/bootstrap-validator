@@ -337,6 +337,42 @@ $(function () {
     assert.ok(!$btn.hasClass('disabled'), 'submit button enabled regardless of disabled form elements being incomplete')
   })
 
+  QUnit.test('should ignore hidden fields', function (assert) {
+    var form = '<form>'
+      + '<input id="required" type="text" required>'
+      + '<input type="hidden" required>'
+      + '<input type="text" required hidden>'
+      + '<button type="submit" id="btn">Submit</button>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator()
+
+    var $btn = $('#btn')
+
+    assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete and invalid')
+    $('#required').val('hamburgers').trigger('input')
+    assert.ok(!$btn.hasClass('disabled'), 'submit button enabled regardless of hidden form elements being incomplete')
+  })
+
+  QUnit.test('should ignore button fields', function (assert) {
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-error="error" required>'
+      +   '<div id="errors" class="help-block with-errors">valid</div>'
+      + '</div>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator('validate')
+
+    var $errors = $('#errors')
+
+    assert.equal($errors.text(), 'error', 'buttons did not inadvertently get validated and clear the form-group errors')
+  })
+
   QUnit.test('should validate remote endpoints with success if response is 200', function (assert) {
     var done = assert.async()
     var form = '<form>'
