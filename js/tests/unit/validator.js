@@ -319,6 +319,23 @@ $(function () {
     assert.ok(!$btn.hasClass('disabled'), 'submit button still enabled')
   })
 
+  QUnit.test('should support [form] attribute on submit buttons outside of form element', function (assert) {
+    var form = '<form id="myForm">'
+      + '<input type="text" id="input" required>'
+      + '</form>'
+      + '<button type="submit" form="myForm" id="btn">Submit</button>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator()
+
+    var $btn = $('#btn')
+
+    assert.ok($btn.hasClass('disabled'), 'submit button outside of referenced form is disabled')
+    $('#input').val('sup').trigger('change')
+    assert.ok(!$btn.hasClass('disabled'), 'submit button outside of referenced form reacted to changes')
+  })
+
   QUnit.test('should ignore disabled fields', function (assert) {
     var form = '<form>'
       + '<input id="required" type="text" required>'
