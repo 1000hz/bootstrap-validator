@@ -29,7 +29,7 @@
 +function ($) {
   'use strict';
 
-  var inputSelector = ':input:not([type="hidden"], [type="submit"], button):enabled:visible'
+  var inputSelector = ':input:not([type="submit"], button):enabled:visible'
   // VALIDATOR CLASS DEFINITION
   // ==========================
 
@@ -159,7 +159,7 @@
     var delay = this.options.delay
 
     this.options.delay = 0
-    this.$element.find(':input:not([type="hidden"])').trigger('input.bs.validator')
+    this.$element.find(inputSelector).trigger('input.bs.validator')
     this.options.delay = delay
 
     return this
