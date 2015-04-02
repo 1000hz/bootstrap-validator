@@ -14,44 +14,44 @@ $(function () {
     responseText: 'dang'
   })
 
-  module("validator")
+  QUnit.module("validator")
 
-  test("should provide no conflict", function () {
+  QUnit.test("should provide no conflict", function (assert) {
     var validator = $.fn.validator.noConflict()
-    ok(!$.fn.validator, 'validator was set back to undefined (org value)')
+    assert.ok(!$.fn.validator, 'validator was set back to undefined (org value)')
     $.fn.validator = validator
   })
 
-  test("should be defined on jquery object", function () {
+  QUnit.test("should be defined on jquery object", function (assert) {
     var div = $('<div></div>')
-    ok(div.validator, 'validator method is defined')
+    assert.ok(div.validator, 'validator method is defined')
   })
 
-  test("should return element", function () {
+  QUnit.test("should return element", function (assert) {
     var form = $('<form></form>')
-    ok(form.validator()[0] == form[0], 'same element returned')
+    assert.ok(form.validator()[0] == form[0], 'same element returned')
   })
 
-  test("should expose defaults var for settings", function () {
-    ok($.fn.validator.Constructor.DEFAULTS, 'default object exposed')
+  QUnit.test("should expose defaults var for settings", function (assert) {
+    assert.ok($.fn.validator.Constructor.DEFAULTS, 'default object exposed')
   })
 
-  test('should not fire validated when validate is prevented', function () {
-    stop()
+  QUnit.test('should not fire validated when validate is prevented', function (assert) {
+    var done = assert.async()
     $('<form><input type="email"></form>')
       .on('validate.bs.validator', function (e) {
         e.preventDefault()
-        ok(true)
-        start()
+        assert.ok(true)
+        done()
       })
       .on('validated.bs.validator', function (e) {
-        ok(false)
+        assert.ok(false)
       })
       .validator('validate')
   })
 
-  test('should validate match', 2, function () {
-    stop()
+  QUnit.test('should validate match', 2, function (assert) {
+    var done = assert.async()
     var form = '<form>'
      + '<input type="text" id="canon" value="pizza">'
      + '<input type="text" id="wannabe" value="hotpocket" data-match="#canon">'
@@ -62,34 +62,34 @@ $(function () {
       .on('invalid.bs.validator', function (e) {
         var $el = $(e.relatedTarget)
         if ($el.attr('id') !== 'wannabe') return
-        ok(true)
+        assert.ok(true)
         $el.val('pizza').trigger('input')
       })
       .on('valid.bs.validator', function (e) {
         var $el = $(e.relatedTarget)
         if ($el.attr('id') !== 'wannabe') return
-        ok(true)
-        start()
+        assert.ok(true)
+        done()
       })
       .validator('validate')
   })
 
-  test('should validate minlength', 2, function () {
-    stop()
+  QUnit.test('should validate minlength', 2, function (assert) {
+    var done = assert.async()
     $('<form><input type="text" data-minlength="6" value="pizza"></form>')
       .on('invalid.bs.validator', function (e) {
-        ok(true)
+        assert.ok(true)
         $(e.relatedTarget).val('pizzas').trigger('input')
       })
       .on('valid.bs.validator', function (e) {
-        ok(true)
-        start()
+        assert.ok(true)
+        done()
       })
       .validator('validate')
   })
 
-  test('should allow custom generic error message', function () {
-    stop()
+  QUnit.test('should allow custom generic error message', function (assert) {
+    var done = assert.async()
     var form = '<form>'
       + '<div class="form-group">'
       +   '<input type="text" data-minlength="6" data-error="generic error" value="pizza">'
@@ -99,14 +99,14 @@ $(function () {
 
     $(form)
       .on('invalid.bs.validator', function (e) {
-        ok($(this).find('.help-block.with-errors').text() == 'generic error', 'generic error message was set')
-        start()
+        assert.ok($(this).find('.help-block.with-errors').text() == 'generic error', 'generic error message was set')
+        done()
       })
       .validator('validate')
   })
 
-  test('should allow custom error-specific message', function () {
-    stop()
+  QUnit.test('should allow custom error-specific message', function (assert) {
+    var done = assert.async()
     var form = '<form>'
       + '<div class="form-group">'
       +   '<input type="text" data-minlength="6" data-minlength-error="minlength error" value="pizza">'
@@ -116,14 +116,14 @@ $(function () {
 
     $(form)
       .on('invalid.bs.validator', function (e) {
-        ok($(this).find('.help-block.with-errors').text() == 'minlength error', 'specific error message was set')
-        start()
+        assert.ok($(this).find('.help-block.with-errors').text() == 'minlength error', 'specific error message was set')
+        done()
       })
       .validator('validate')
   })
 
-  test('should give precedence to specific error message over generic error message', function () {
-    stop()
+  QUnit.test('should give precedence to specific error message over generic error message', function (assert) {
+    var done = assert.async()
     var form = '<form>'
       + '<div class="form-group">'
       +   '<input type="text" data-minlength="6" data-error="generic error" data-minlength-error="minlength error" value="pizza">'
@@ -133,14 +133,14 @@ $(function () {
 
     $(form)
       .on('invalid.bs.validator', function (e) {
-        ok($(this).find('.help-block.with-errors').text() == 'minlength error', 'specific error message displayed instead of generic error')
-        start()
+        assert.ok($(this).find('.help-block.with-errors').text() == 'minlength error', 'specific error message displayed instead of generic error')
+        done()
       })
       .validator('validate')
   })
 
-  test('should escape html in error messages if html option is false', function () {
-    stop()
+  QUnit.test('should escape html in error messages if html option is false', function (assert) {
+    var done = assert.async()
     var form = '<form>'
       + '<div class="form-group">'
       +   '<input type="text" data-minlength="6" data-minlength-error="<em>Too short</em>" value="pizza">'
@@ -150,15 +150,15 @@ $(function () {
 
     $(form)
       .on('invalid.bs.validator', function (e) {
-        ok($(this).find('.help-block.with-errors').text() == '<em>Too short</em>', 'html escaped from error message')
-        start()
+        assert.ok($(this).find('.help-block.with-errors').text() == '<em>Too short</em>', 'html escaped from error message')
+        done()
       })
       .validator({html: false})
       .validator('validate')
   })
 
-  test('should allow html in error messages if html option is true', function () {
-    stop()
+  QUnit.test('should allow html in error messages if html option is true', function (assert) {
+    var done = assert.async()
     var form = '<form>'
       + '<div class="form-group">'
       +   '<input type="text" data-minlength="6" data-minlength-error="<em>Too short</em>" value="pizza">'
@@ -168,15 +168,15 @@ $(function () {
 
     $(form)
       .on('invalid.bs.validator', function (e) {
-        ok($(this).find('.help-block.with-errors').text() == 'Too short', 'html allowed in error message')
-        start()
+        assert.ok($(this).find('.help-block.with-errors').text() == 'Too short', 'html allowed in error message')
+        done()
       })
       .validator({html: true})
       .validator('validate')
   })
 
-  test('should restore .help-block content once valid', function () {
-    stop()
+  QUnit.test('should restore .help-block content once valid', function (assert) {
+    var done = assert.async()
     var form = '<form>'
       + '<div class="form-group">'
       +   '<input type="text" data-minlength="6" value="pizza">'
@@ -186,18 +186,18 @@ $(function () {
 
     $(form)
       .on('invalid.bs.validator', function (e) {
-        ok($(this).find('.help-block.with-errors').text() != '6 characters', 'error message was set')
+        assert.ok($(this).find('.help-block.with-errors').text() != '6 characters', 'error message was set')
         $(e.relatedTarget).val('pizzas').trigger('input')
       })
       .on('valid.bs.validator', function (e) {
-        ok($(this).find('.help-block.with-errors').text() == '6 characters', 'help text was restored')
-        start()
+        assert.ok($(this).find('.help-block.with-errors').text() == '6 characters', 'help text was restored')
+        done()
       })
       .validator('validate')
   })
 
-  test('should add .has-error class to the closest .form-group', function () {
-    stop()
+  QUnit.test('should add .has-error class to the closest .form-group', function (assert) {
+    var done = assert.async()
     var form = '<form>'
       + '<div class="form-group">'
       +   '<input type="text" data-minlength="6" value="pizza">'
@@ -206,17 +206,17 @@ $(function () {
 
     $(form)
       .on('invalid.bs.validator', function (e) {
-        ok($(this).find('.form-group').hasClass('has-error'), '.has-error class added to form-group')
+        assert.ok($(this).find('.form-group').hasClass('has-error'), '.has-error class added to form-group')
         $(e.relatedTarget).val('pizzas').trigger('input')
       })
       .on('valid.bs.validator', function (e) {
-        ok(!$(this).find('.form-group').hasClass('has-error'), '.has-error class removed from form-group')
-        start()
+        assert.ok(!$(this).find('.form-group').hasClass('has-error'), '.has-error class removed from form-group')
+        done()
       })
       .validator('validate')
   })
 
-  test('should disable submit button unless form is complete and valid', function () {
+  QUnit.test('should disable submit button unless form is complete and valid', function (assert) {
     var form = '<form>'
       + '<input id="required" type="text" required>'
       + '<input id="minlength" type="text" data-minlength="6">'
@@ -229,16 +229,16 @@ $(function () {
 
     var $btn = $('#btn')
 
-    ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete and invalid')
+    assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete and invalid')
     $('#required').val('hamburgers').trigger('input')
-    ok(!$btn.hasClass('disabled'), 'submit button enabled because form is sufficiently complete and no fields are invalid')
+    assert.ok(!$btn.hasClass('disabled'), 'submit button enabled because form is sufficiently complete and no fields are invalid')
     $('#minlength').val('pizza').trigger('input')
-    ok($btn.hasClass('disabled'), 'submit button disabled because form is invalid')
+    assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is invalid')
     $('#minlength').val('pizzas').trigger('input')
-    ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete and valid')
+    assert.ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete and valid')
   })
 
-  test('should not disable submit button if disable option is set to false', function () {
+  QUnit.test('should not disable submit button if disable option is set to false', function (assert) {
     var form = '<form>'
     + '<input id="required" type="text" required>'
     + '<input id="minlength" type="text" data-minlength="6">'
@@ -251,16 +251,15 @@ $(function () {
 
     var $btn = $('#btn')
 
-    ok($btn.not('.disabled'), 'submit button enabled although form is incomplete and invalid because disabling of submit is disabled')
+    assert.ok($btn.not('.disabled'), 'submit button enabled although form is incomplete and invalid because disabling of submit is disabled')
     $('#required').val('hamburgers').trigger('input')
     $('#minlength').val('pizza').trigger('input')
-    ok($btn.not('.disabled'), 'submit button enabled although form is invalid because disabling of submit is disable')
+    assert.ok($btn.not('.disabled'), 'submit button enabled although form is invalid because disabling of submit is disable')
   })
 
-  test('should only disable the submit buttons', function () {
+  QUnit.test('should only disable the submit buttons', function (assert) {
     var form = '<form>'
       + '<input id="required" type="text" required>'
-      + '<input id="minlength" type="text" data-minlength="6">'
       + '<button type="submit" id="submit">Submit</button>'
       + '<button type="button" id="cancel">Cancel</button>'
       + '<button id="btn">Undefined Type</button>'
@@ -274,12 +273,12 @@ $(function () {
     var $cancel = $('#cancel')
     var $btn    = $('#btn')
 
-    ok($submit.hasClass('disabled'), 'submit button disabled')
-    ok(!$cancel.hasClass('disabled'), 'cancel button not disabled')
-    ok(!$btn.hasClass('disabled'), 'button without a type not disabled')
+    assert.ok($submit.hasClass('disabled'), 'submit button disabled')
+    assert.ok(!$cancel.hasClass('disabled'), 'cancel button not disabled')
+    assert.ok(!$btn.hasClass('disabled'), 'button without a type not disabled')
   })
 
-  test('should respect the required attribute on checkboxes', function () {
+  QUnit.test('should respect the required attribute on checkboxes', function (assert) {
     var form = '<form>'
       + '<input id="required" type="checkbox" required>'
       + '<button type="submit" id="btn">Submit</button>'
@@ -291,16 +290,16 @@ $(function () {
 
     var $btn = $('#btn')
 
-    ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete')
+    assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete')
     $('#required').prop('checked', true).trigger('change')
-    ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete')
+    assert.ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete')
     $('#required').prop('checked', false).trigger('change')
-    ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete')
+    assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete')
     $('#required').prop('checked', true).trigger('change')
-    ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete')
+    assert.ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete')
   })
 
-  test('should respect the required attribute on radio button groups', function () {
+  QUnit.test('should respect the required attribute on radio button groups', function (assert) {
     var form = '<form>'
       + '<input type="radio" id="required1" name="radioGroup" required>'
       + '<input type="radio" id="required2" name="radioGroup" required>'
@@ -313,14 +312,14 @@ $(function () {
 
     var $btn = $('#btn')
 
-    ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete')
+    assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete')
     $('#required1').prop('checked', true).trigger('change')
-    ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete')
+    assert.ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete')
     $('#required2').prop('checked', false).trigger('change')
-    ok(!$btn.hasClass('disabled'), 'submit button still enabled')
+    assert.ok(!$btn.hasClass('disabled'), 'submit button still enabled')
   })
 
-  test('should ignore disabled fields', function () {
+  QUnit.test('should ignore disabled fields', function (assert) {
     var form = '<form>'
       + '<input id="required" type="text" required>'
       + '<input id="disabled" type="text" required disabled>'
@@ -333,13 +332,13 @@ $(function () {
 
     var $btn = $('#btn')
 
-    ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete and invalid')
+    assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete and invalid')
     $('#required').val('hamburgers').trigger('input')
-    ok(!$btn.hasClass('disabled'), 'submit button enabled regardless of disabled form being incomplete')
+    assert.ok(!$btn.hasClass('disabled'), 'submit button enabled regardless of disabled form elements being incomplete')
   })
 
-  test('should validate remote endpoints with success if response is 200', function () {
-    stop()
+  QUnit.test('should validate remote endpoints with success if response is 200', function (assert) {
+    var done = assert.async()
     var form = '<form>'
       + '<input id="remote" type="text" value="foo" data-remote="/success">'
       + '</form>'
@@ -347,14 +346,14 @@ $(function () {
     form = $(form)
       .appendTo('#qunit-fixture')
       .on('valid.bs.validator', function (e) {
-        ok(e.relatedTarget === $('#remote')[0], 'remote endpoint validated successfully with a 200 response')
-        start()
+        assert.ok(e.relatedTarget === $('#remote')[0], 'remote endpoint validated successfully with a 200 response')
+        done()
       })
       .validator('validate')
   })
 
-  test('should validate remote endpoints with error if response is 4xx', function () {
-    stop()
+  QUnit.test('should validate remote endpoints with error if response is 4xx', function (assert) {
+    var done = assert.async()
     var form = '<form>'
       + '<input id="remote" type="text" value="foo" data-remote="/error">'
       + '</form>'
@@ -362,13 +361,13 @@ $(function () {
     form = $(form)
       .appendTo('#qunit-fixture')
       .on('invalid.bs.validator', function (e) {
-        ok(e.relatedTarget === $('#remote')[0], 'remote endpoint validated with error with a 4xx response')
-        start()
+        assert.ok(e.relatedTarget === $('#remote')[0], 'remote endpoint validated with error with a 4xx response')
+        done()
       })
       .validator('validate')
   })
 
-  test('should clean up after itself when destroy called', function () {
+  QUnit.test('should clean up after itself when destroy called', function (assert) {
     var form = '<form>'
       + '<div class="form-group">'
       +   '<input type="text" data-error="error message" required>'
@@ -382,21 +381,21 @@ $(function () {
       .validator('validate')
       .validator('destroy')
 
-    ok(!form.data('bs.validator'), 'removed data reference to plugin instance')
-    ok(!form.attr('novalidate'), 'removed novalidate browser override')
-    ok(Object.keys(form.find('input').data()).length === 1, 'removed data left on inputs (excluding data-* attrs)')
-    ok(!form.find('.has-error').length, 'removed has-error class from all inputs')
-    ok(form.find('.help-block').html() === 'original content', 'help block content restored')
-    ok(!form.find('button').is('.disabled'), 're-enabled submit button')
+    assert.ok(!form.data('bs.validator'), 'removed data reference to plugin instance')
+    assert.ok(!form.attr('novalidate'), 'removed novalidate browser override')
+    assert.ok(Object.keys(form.find('input').data()).length === 1, 'removed data left on inputs (excluding data-* attrs)')
+    assert.ok(!form.find('.has-error').length, 'removed has-error class from all inputs')
+    assert.ok(form.find('.help-block').html() === 'original content', 'help block content restored')
+    assert.ok(!form.find('button').is('.disabled'), 're-enabled submit button')
   })
 
-  test('should throw an error if custom validator has no default error message', function () {
-    raises(function () {
+  QUnit.test('should throw an error if custom validator has no default error message', function (assert) {
+    assert.raises(function () {
       $('<form></form>').validator({custom: {foo: function () {}}})
     })
   })
 
-  test ('should run custom validators', function () {
+  QUnit.test('should run custom validators', function (assert) {
     var form = '<form>'
       + '<div class="form-group">'
       +   '<input type="text" id="foo" data-foo="foo" value="foo">'
@@ -425,8 +424,8 @@ $(function () {
       .validator(options)
       .validator('validate')
 
-    ok($('#foo').data('bs.validator.errors').length === 0, 'foo input is valid')
-    ok($('#bar').data('bs.validator.errors').length === 1, 'bar input is invalid')
-    ok($('#bar').data('bs.validator.errors')[0] === options.errors.foo, 'bar error is custom error')
+    assert.ok($('#foo').data('bs.validator.errors').length === 0, 'foo input is valid')
+    assert.ok($('#bar').data('bs.validator.errors').length === 1, 'bar input is invalid')
+    assert.ok($('#bar').data('bs.validator.errors')[0] === options.errors.foo, 'bar error is custom error')
   })
 })
