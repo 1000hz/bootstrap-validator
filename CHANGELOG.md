@@ -1,5 +1,10 @@
 Changelog
-========
+=========
+
+### 0.8.1
+* No longer running validators on button elements. Fixes #93.
+* No longer running validators on invisible input elements. Fixes #65.
+* Adding support for button[form="myForm"]. Fixes #74.
 
 ### 0.8.0
 * Adding custom validators option.

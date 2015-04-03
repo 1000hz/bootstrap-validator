@@ -1,5 +1,5 @@
 /*!
- * Validator v0.8.0 for Bootstrap 3, by @1000hz
+ * Validator v0.8.1 for Bootstrap 3, by @1000hz
  * Copyright 2015 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -9,6 +9,7 @@
 +function ($) {
   'use strict';
 
+  var inputSelector = ':input:not([type="submit"], button):enabled:visible'
   // VALIDATOR CLASS DEFINITION
   // ==========================
 
@@ -140,7 +141,7 @@
     var delay = this.options.delay
 
     this.options.delay = 0
-    this.$element.find(':input:not([type="hidden"])').trigger('input.bs.validator')
+    this.$element.find(inputSelector).trigger('input.bs.validator')
     this.options.delay = delay
 
     return this
@@ -191,7 +192,7 @@
       return !!($(this).data('bs.validator.errors') || []).length
     }
 
-    return !!this.$element.find(':input:enabled').filter(fieldErrors).length
+    return !!this.$element.find(inputSelector).filter(fieldErrors).length
   }
 
   Validator.prototype.isIncomplete = function () {
@@ -201,7 +202,7 @@
                                         $.trim(this.value) === ''
     }
 
-    return !!this.$element.find(':input[required]:enabled').filter(fieldIncomplete).length
+    return !!this.$element.find(inputSelector).filter('[required]').filter(fieldIncomplete).length
   }
 
   Validator.prototype.onSubmit = function (e) {
@@ -211,7 +212,9 @@
 
   Validator.prototype.toggleSubmit = function () {
     if(!this.options.disable) return
-    var $btn = this.$element.find('input[type="submit"], button[type="submit"]')
+    var $btn = $('button[type="submit"], input[type="submit"]')
+      .filter('[form="' + this.$element.attr('id') + '"]')
+      .add(this.$element.find('input[type="submit"], button[type="submit"]'))
     $btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
       .css({'pointer-events': 'all', 'cursor': 'pointer'})
   }
@@ -231,7 +234,7 @@
       .removeData('bs.validator')
       .off('.bs.validator')
 
-    this.$element.find(':input')
+    this.$element.find(inputSelector)
       .off('.bs.validator')
       .removeData(['bs.validator.errors', 'bs.validator.deferred'])
       .each(function () {
