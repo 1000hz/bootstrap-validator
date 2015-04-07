@@ -264,15 +264,27 @@
 
 
   function Plugin(option) {
-    return this.each(function () {
-      var $this   = $(this)
-      var options = $.extend({}, Validator.DEFAULTS, $this.data(), typeof option == 'object' && option)
-      var data    = $this.data('bs.validator')
+    var result = this
 
-      if (!data && option == 'destroy') return
-      if (!data) $this.data('bs.validator', (data = new Validator(this, options)))
-      if (typeof option == 'string') data[option]()
+    this.each(function () {
+      var $this   = $(this)
+
+      var options = $.extend({}, Validator.DEFAULTS, $this.data(), typeof option == 'object' && option)
+
+      var validator    = $this.data('bs.validator')
+      if (!validator && option == 'destroy') return
+      if (!validator) $this.data('bs.validator', (validator = new Validator(this, options)))
+
+      if (typeof option == 'string') {
+        var _result = validator[option]()
+
+        if (_result !== validator) {
+          result = _result
+        }
+
+      }
     })
+    return result
   }
 
   var old = $.fn.validator

@@ -38,7 +38,9 @@ $(function () {
 
   QUnit.test('should not fire validated when validate is prevented', function (assert) {
     var done = assert.async()
+
     $('<form><input type="email"></form>')
+      .appendTo($('#qunit-fixture'))
       .on('validate.bs.validator', function (e) {
         e.preventDefault()
         assert.ok(true)
@@ -76,7 +78,8 @@ $(function () {
 
   QUnit.test('should validate minlength', 2, function (assert) {
     var done = assert.async()
-    $('<form><input type="text" data-minlength="6" value="pizza"></form>')
+    $('<form><input type="text" name="hello" data-minlength="6" value="pizza"></form>')
+      .appendTo($('#qunit-fixture'))
       .on('invalid.bs.validator', function (e) {
         assert.ok(true)
         $(e.relatedTarget).val('pizzas').trigger('input')
@@ -98,6 +101,7 @@ $(function () {
       + '</form>'
 
     $(form)
+      .appendTo($('#qunit-fixture'))
       .on('invalid.bs.validator', function (e) {
         assert.ok($(this).find('.help-block.with-errors').text() == 'generic error', 'generic error message was set')
         done()
@@ -115,6 +119,7 @@ $(function () {
       + '</form>'
 
     $(form)
+      .appendTo($('#qunit-fixture'))
       .on('invalid.bs.validator', function (e) {
         assert.ok($(this).find('.help-block.with-errors').text() == 'minlength error', 'specific error message was set')
         done()
@@ -132,6 +137,7 @@ $(function () {
       + '</form>'
 
     $(form)
+      .appendTo($('#qunit-fixture'))
       .on('invalid.bs.validator', function (e) {
         assert.ok($(this).find('.help-block.with-errors').text() == 'minlength error', 'specific error message displayed instead of generic error')
         done()
@@ -149,6 +155,7 @@ $(function () {
       + '</form>'
 
     $(form)
+      .appendTo($('#qunit-fixture'))
       .on('invalid.bs.validator', function (e) {
         assert.ok($(this).find('.help-block.with-errors').text() == '<em>Too short</em>', 'html escaped from error message')
         done()
@@ -167,6 +174,7 @@ $(function () {
       + '</form>'
 
     $(form)
+      .appendTo($('#qunit-fixture'))
       .on('invalid.bs.validator', function (e) {
         assert.ok($(this).find('.help-block.with-errors').text() == 'Too short', 'html allowed in error message')
         done()
@@ -185,6 +193,7 @@ $(function () {
       + '</form>'
 
     $(form)
+      .appendTo($('#qunit-fixture'))
       .on('invalid.bs.validator', function (e) {
         assert.ok($(this).find('.help-block.with-errors').text() != '6 characters', 'error message was set')
         $(e.relatedTarget).val('pizzas').trigger('input')
@@ -205,6 +214,7 @@ $(function () {
       + '</form>'
 
     $(form)
+      .appendTo($('#qunit-fixture'))
       .on('invalid.bs.validator', function (e) {
         assert.ok($(this).find('.form-group').hasClass('has-error'), '.has-error class added to form-group')
         $(e.relatedTarget).val('pizzas').trigger('input')
@@ -440,6 +450,7 @@ $(function () {
     assert.ok(!form.find('.has-error').length, 'removed has-error class from all inputs')
     assert.ok(form.find('.help-block').html() === 'original content', 'help block content restored')
     assert.ok(!form.find('button').is('.disabled'), 're-enabled submit button')
+
   })
 
   QUnit.test('should throw an error if custom validator has no default error message', function (assert) {
@@ -481,4 +492,38 @@ $(function () {
     assert.ok($('#bar').data('bs.validator.errors').length === 1, 'bar input is invalid')
     assert.ok($('#bar').data('bs.validator.errors')[0] === options.errors.foo, 'bar error is custom error')
   })
+
+
+  QUnit.test('should be still chainable after call to validate', function (assert) {
+
+    $('<form><input id="foo" type="text" name="hello"></form>')
+      .appendTo($('#qunit-fixture'))
+      .validator('validate')
+      .find('input')
+      .remove()
+
+    assert.ok($('#foo').length === 0, 'foo not found')
+  })
+
+
+  QUnit.test('should be return true after call to hasErrors', function (assert) {
+    var hasErrors = $('<form><input type="text" name="hello" data-minlength="6" value="pizza"></form>')
+      .appendTo($('#qunit-fixture'))
+      .validator('validate')
+      .validator('hasErrors')
+
+    assert.ok(hasErrors, "hasErrors to be true")
+  })
+
+
+ QUnit.test('should be return false after call to hasErrors', function (assert) {
+    var hasErrors = $('<form><input type="text" name="hello" data-minlength="5" value="pizza"></form>')
+      .appendTo($('#qunit-fixture'))
+      .validator('validate')
+      .validator('hasErrors')
+
+    assert.ok(!hasErrors, "hasErrors to be false")
+ })
+
+
 })
