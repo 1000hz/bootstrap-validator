@@ -9,7 +9,6 @@
 +function ($) {
   'use strict';
 
-  var inputSelector = ':input:not([type="submit"], button):enabled:visible'
   // VALIDATOR CLASS DEFINITION
   // ==========================
 
@@ -53,7 +52,8 @@
     feedback: {
       success: 'glyphicon-ok',
       error: 'glyphicon-warning-sign'
-    }
+    },
+    filter: ':input:not([type="submit"], button):enabled:visible'
   }
 
   Validator.VALIDATORS = {
@@ -143,7 +143,7 @@
     var delay = this.options.delay
 
     this.options.delay = 0
-    this.$element.find(inputSelector).trigger('input.bs.validator')
+    this.$element.find(this.options.filter).trigger('input.bs.validator')
     this.options.delay = delay
 
     return this
@@ -194,7 +194,7 @@
       return !!($(this).data('bs.validator.errors') || []).length
     }
 
-    return !!this.$element.find(inputSelector).filter(fieldErrors).length
+    return !!this.$element.find(this.options.filter).filter(fieldErrors).length
   }
 
   Validator.prototype.isIncomplete = function () {
@@ -204,7 +204,7 @@
                                         $.trim(this.value) === ''
     }
 
-    return !!this.$element.find(inputSelector).filter('[required]').filter(fieldIncomplete).length
+    return !!this.$element.find(this.options.filter).filter('[required]').filter(fieldIncomplete).length
   }
 
   Validator.prototype.onSubmit = function (e) {
@@ -234,7 +234,7 @@
       .removeData('bs.validator')
       .off('.bs.validator')
 
-    this.$element.find(inputSelector)
+    this.$element.find(this.options.filter)
       .off('.bs.validator')
       .removeData(['bs.validator.errors', 'bs.validator.deferred'])
       .each(function () {
