@@ -160,10 +160,15 @@
   }
 
   Validator.prototype.validate = function () {
+    var self = this
     var delay = this.options.delay
 
     this.options.delay = 0
-    this.$element.find(inputSelector).trigger('input.bs.validator')
+    $.when(
+      this.$element.find(inputSelector).trigger('input.bs.validator')
+    ).then(function() {
+      self.$element.trigger('form.validated.bs.validator')
+    });
     this.options.delay = delay
 
     return this
