@@ -77,7 +77,7 @@
   }
 
   Validator.VALIDATORS = {
-    native: function ($el) {
+    'native': function ($el) {
       var el = $el[0]
       return el.checkValidity ? el.checkValidity() : true
     },
