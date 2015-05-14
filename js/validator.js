@@ -71,8 +71,8 @@
       minlength: 'Not long enough'
     },
     feedback: {
-      success: 'glyphicon-ok',
-      error: 'glyphicon-warning-sign'
+      success: 'glyphicon glyphicon-ok',
+      error: 'glyphicon glyphicon-warning-sign'
     }
   }
 
@@ -179,6 +179,9 @@
       var errors = $el.data('bs.validator.errors')
 
       if (!errors.length) return
+
+      if (!$feedback.length && this.options.feedback.error) $feedback = $('<span class="form-control-feedback"/>').insertAfter($el);
+      if (!$block.length) $block = $('<div class="help-block with-errors"/>').insertAfter($feedback.length ? $feedback : $el);
 
       errors = $('<ul/>')
         .addClass('list-unstyled')
