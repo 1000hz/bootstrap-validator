@@ -133,10 +133,20 @@
     $el.data('bs.validator.deferred', deferred)
 
     function getErrorMessage(key) {
+    if (key == 'native'){
+        for (var i in $el[0].validity){
+          if ($el[0].validity[i]){
+            if (options.errors.hasOwnProperty(key)){
+              key = i;
+            }
+            break;
+          }
+        }
+      }
       return $el.data(key + '-error')
         || $el.data('error')
-        || key == 'native' && $el[0].validationMessage
         || options.errors[key]
+        || key == 'native' && $el[0].validationMessage
     }
 
     $.each(Validator.VALIDATORS, $.proxy(function (key, validator) {
