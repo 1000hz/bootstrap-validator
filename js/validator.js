@@ -104,21 +104,17 @@
 
     var self = this
 
-    this.runValidators($el).done(function (errors) {
+    return this.runValidators($el)
+    .then(function(data) {
+      self.clearErrors($el);
+      self.$element.trigger($.Event('valid.bs.validator', {relatedTarget: $el[0], detail: prevErrors}))
+    }, function(errors){
+      self.showErrors($el);
       $el.data('bs.validator.errors', errors)
-
-      errors.length ? self.showErrors($el) : self.clearErrors($el)
-
-      if (!prevErrors || errors.toString() !== prevErrors.toString()) {
-        e = errors.length
-          ? $.Event('invalid.bs.validator', {relatedTarget: $el[0], detail: errors})
-          : $.Event('valid.bs.validator', {relatedTarget: $el[0], detail: prevErrors})
-
-        self.$element.trigger(e)
-      }
-
+      self.$element.trigger($.Event('invalid.bs.validator', {relatedTarget: $el[0], detail: errors}))
+    })
+    .always(function(){
       self.toggleSubmit()
-
       self.$element.trigger($.Event('validated.bs.validator', {relatedTarget: $el[0]}))
     })
   }
@@ -151,10 +147,19 @@
         var data = {}
         data[$el.attr('name')] = $el.val()
         $.get($el.data('remote'), data)
-          .fail(function (jqXHR, textStatus, error) { errors.push(getErrorMessage('remote') || error) })
-          .always(function () { deferred.resolve(errors)})
+        .then(function(data){
+          deferred.resolve(data);
+        }, function(error){
+          errors.push(
+            error.responseText
+            || getErrorMessage('remote')
+            || error.statusText
+            || error
+          );
+          deferred.reject(errors);
+        });
       })
-    } else deferred.resolve(errors)
+    } else deferred.reject(errors)
 
     return deferred.promise()
   }
