@@ -85,8 +85,11 @@
     Validator.VALIDATORS = {
         'native': function ($el) {
             var el = $el[0];
-            el.setCustomValidity(Validator.DEFAULTS.errors[$el.prop("type")]);
-            return el.checkValidity ? el.checkValidity() : true
+            var response = el.checkValidity ? el.checkValidity() : true;
+            if (!response) {
+                el.setCustomValidity(Validator.DEFAULTS.errors[$el.prop("type")]);
+            }
+            return response;
         },
         match: function ($el) {
             var target = $el.data('match');
