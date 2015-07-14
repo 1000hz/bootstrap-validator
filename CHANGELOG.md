@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.8.2
+* Docs Bootstrap files updated to 3.3.5
+* Removing additional CSS pointer-events and cursor as Boostrap 3.3.5 only disable pointer-events on disabled <a> .btns [#16092](https://github.com/twbs/bootstrap/pull/16092)
+
 ### 0.8.1
 * No longer running validators on button elements. Fixes #93.
 * No longer running validators on invisible input elements. Fixes #65.
