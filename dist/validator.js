@@ -218,7 +218,6 @@
       .filter('[form="' + this.$element.attr('id') + '"]')
       .add(this.$element.find('input[type="submit"], button[type="submit"]'))
     $btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
-      .css({'pointer-events': 'all', 'cursor': 'pointer'})
   }
 
   Validator.prototype.defer = function ($el, callback) {
