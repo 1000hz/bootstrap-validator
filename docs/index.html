@@ -22,13 +22,14 @@ lead: "A simple and user-friendly form validator plugin for Bootstrap 3"
           <label for="inputName" class="control-label">Name</label>
           <input type="text" class="form-control" id="inputName" placeholder="Cina Saffary" required>
         </div>
-        <div class="form-group">
+        <div class="form-group has-feedback">
           <label for="inputTwitter" class="control-label">Twitter</label>
           <div class="input-group">
             <span class="input-group-addon">@</span>
-            <input type="text" pattern="^([_A-z0-9]){3,}$" maxlength="20" class="form-control" id="inputTwitter" placeholder="1000hz" required>
+            <input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" class="form-control" id="inputTwitter" placeholder="1000hz" required>
           </div>
-          <span class="help-block with-errors">Up to 20 letters, numbers and underscores</span>
+          <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+          <span class="help-block with-errors">Hey look, this one has feedback icons!</span>
         </div>
         <div class="form-group">
           <label for="inputEmail" class="control-label">Email</label>
@@ -82,13 +83,14 @@ lead: "A simple and user-friendly form validator plugin for Bootstrap 3"
     <label for="inputName" class="control-label">Name</label>
     <input type="text" class="form-control" id="inputName" placeholder="Cina Saffary" required>
   </div>
-  <div class="form-group">
+  <div class="form-group has-feedback">
     <label for="inputTwitter" class="control-label">Twitter</label>
     <div class="input-group">
       <span class="input-group-addon">@</span>
-      <input type="text" pattern="^([_A-z0-9]){3,}$" maxlength="20" class="form-control" id="inputTwitter" placeholder="1000hz" required>
+      <input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" class="form-control" id="inputTwitter" placeholder="1000hz" required>
     </div>
-    <span class="help-block with-errors">Up to 20 letters, numbers and underscores</span>
+    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+    <span class="help-block with-errors">Hey look, this one has feedback icons!</span>
   </div>
   <div class="form-group">
     <label for="inputEmail" class="control-label">Email</label>
