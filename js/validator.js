@@ -81,11 +81,11 @@
       var el = $el[0]
       return el.checkValidity ? el.checkValidity() : true
     },
-    match: function ($el) {
+    'match': function ($el) {
       var target = $el.data('match')
       return !$el.val() || $el.val() === $(target).val()
     },
-    minlength: function ($el) {
+    'minlength': function ($el) {
       var minlength = $el.data('minlength')
       return !$el.val() || $el.val().length >= minlength
     }
