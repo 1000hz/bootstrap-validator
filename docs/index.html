@@ -172,7 +172,7 @@ $('#myForm').validator()
     <ul>
       <li><code>data-match="#inputToMatch"</code> to ensure two fields match, e.g. password confirmations</li>
       <li><code>data-minlength="5"</code> to enforce a minimum amount of characters</li>
-      <li><code>data-remote="/path/to/remote/validator"</code> to make an AJAX request to determine if the field is valid or not. Be sure to give the input a <code>name</code> attribute, as the request will be sent to <code>/path/to/remote/validator?&lt;name&gt;=&lt;value&gt;</code>. The remote endpoint should return a <code>200 OK</code> if the field is valid, and a <code>4xx</code> otherwise.</li>
+      <li><code>data-remote="/path/to/remote/validator"</code> to make an AJAX request to determine if the field is valid or not. Be sure to give the input a <code>name</code> attribute, as the request will be sent to <code>/path/to/remote/validator?&lt;name&gt;=&lt;value&gt;</code>. The remote endpoint should return a <code>200 OK</code> if the field is valid, and a <code>4xx</code> otherwise. Here's a <a href="https://github.com/1000hz/validator-remote-example">reference server implementation</a> using Express.</li>
     </ul>
 
     <div class="bs-callout bs-callout-danger">
