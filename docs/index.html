@@ -226,6 +226,20 @@ $('#myForm').validator()
            <td>Disable the submit button until the form is valid and all required fields are complete.</td>
          </tr>
          <tr>
+           <td>feedback</td>
+           <td>object</td>
+           <td>glyphicon classes</td>
+           <td>
+             <p>Override the classes used for form feedback icons. Defaults to Bootstrap's glyphicons:</p>
+{% highlight js %}
+feedback: {
+  success: 'glyphicon-ok',
+  error: 'glyphicon-remove'
+}
+{% endhighlight %}
+           </td>
+         </tr>
+         <tr>
            <td>custom</td>
            <td>object</td>
            <td>{}</td>
@@ -243,8 +257,8 @@ $('#myForm').validator()
            <td><p>Error messages to show for each type of validation. Defaults to:</p>
 {% highlight js %}
 errors: {
-  match: "Does not match",
-  minlength: "Not long enough"
+  match: 'Does not match',
+  minlength: 'Not long enough'
 }
 {% endhighlight %}
            </td>
