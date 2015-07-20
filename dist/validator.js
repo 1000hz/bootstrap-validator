@@ -1,5 +1,5 @@
 /*!
- * Validator v0.8.1 for Bootstrap 3, by @1000hz
+ * Validator v0.9.0 for Bootstrap 3, by @1000hz
  * Copyright 2015 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -9,7 +9,6 @@
 +function ($) {
   'use strict';
 
-  var inputSelector = ':input:not([type="submit"], button):enabled:visible'
   // VALIDATOR CLASS DEFINITION
   // ==========================
 
@@ -41,6 +40,8 @@
     })
   }
 
+  Validator.INPUT_SELECTOR = ':input:not([type="submit"], button):enabled:visible'
+
   Validator.DEFAULTS = {
     delay: 500,
     html: false,
@@ -49,19 +50,23 @@
     errors: {
       match: 'Does not match',
       minlength: 'Not long enough'
+    },
+    feedback: {
+      success: 'glyphicon-ok',
+      error: 'glyphicon-remove'
     }
   }
 
   Validator.VALIDATORS = {
-    native: function ($el) {
+    'native': function ($el) {
       var el = $el[0]
       return el.checkValidity ? el.checkValidity() : true
     },
-    match: function ($el) {
+    'match': function ($el) {
       var target = $el.data('match')
       return !$el.val() || $el.val() === $(target).val()
     },
-    minlength: function ($el) {
+    'minlength': function ($el) {
       var minlength = $el.data('minlength')
       return !$el.val() || $el.val().length >= minlength
     }
@@ -139,7 +144,7 @@
     var delay = this.options.delay
 
     this.options.delay = 0
-    this.$element.find(inputSelector).trigger('input.bs.validator')
+    this.$element.find(Validator.INPUT_SELECTOR).trigger('input.bs.validator')
     this.options.delay = delay
 
     return this
@@ -165,8 +170,8 @@
       $group.addClass('has-error')
 
       $feedback.length
-        && $feedback.removeClass('glyphicon-ok')
-        && $feedback.addClass('glyphicon-warning-sign')
+        && $feedback.removeClass(this.options.feedback.success)
+        && $feedback.addClass(this.options.feedback.error)
         && $group.removeClass('has-success')
     })
   }
@@ -180,8 +185,8 @@
     $group.removeClass('has-error')
 
     $feedback.length
-      && $feedback.removeClass('glyphicon-warning-sign')
-      && $feedback.addClass('glyphicon-ok')
+      && $feedback.removeClass(this.options.feedback.error)
+      && $feedback.addClass(this.options.feedback.success)
       && $group.addClass('has-success')
   }
 
@@ -190,7 +195,7 @@
       return !!($(this).data('bs.validator.errors') || []).length
     }
 
-    return !!this.$element.find(inputSelector).filter(fieldErrors).length
+    return !!this.$element.find(Validator.INPUT_SELECTOR).filter(fieldErrors).length
   }
 
   Validator.prototype.isIncomplete = function () {
@@ -200,7 +205,7 @@
                                         $.trim(this.value) === ''
     }
 
-    return !!this.$element.find(inputSelector).filter('[required]').filter(fieldIncomplete).length
+    return !!this.$element.find(Validator.INPUT_SELECTOR).filter('[required]').filter(fieldIncomplete).length
   }
 
   Validator.prototype.onSubmit = function (e) {
@@ -210,14 +215,16 @@
 
   Validator.prototype.toggleSubmit = function () {
     if(!this.options.disable) return
+
     var $btn = $('button[type="submit"], input[type="submit"]')
       .filter('[form="' + this.$element.attr('id') + '"]')
       .add(this.$element.find('input[type="submit"], button[type="submit"]'))
+
     $btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
-      .css({'pointer-events': 'all', 'cursor': 'pointer'})
   }
 
   Validator.prototype.defer = function ($el, callback) {
+    callback = $.proxy(callback, this)
     if (!this.options.delay) return callback()
     window.clearTimeout($el.data('bs.validator.timeout'))
     $el.data('bs.validator.timeout', window.setTimeout(callback, this.options.delay))
@@ -229,7 +236,7 @@
       .removeData('bs.validator')
       .off('.bs.validator')
 
-    this.$element.find(inputSelector)
+    this.$element.find(Validator.INPUT_SELECTOR)
       .off('.bs.validator')
       .removeData(['bs.validator.errors', 'bs.validator.deferred'])
       .each(function () {
