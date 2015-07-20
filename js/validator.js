@@ -234,9 +234,11 @@
 
   Validator.prototype.toggleSubmit = function () {
     if(!this.options.disable) return
+
     var $btn = $('button[type="submit"], input[type="submit"]')
       .filter('[form="' + this.$element.attr('id') + '"]')
       .add(this.$element.find('input[type="submit"], button[type="submit"]'))
+
     $btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
       .css({'pointer-events': 'all', 'cursor': 'pointer'})
   }
