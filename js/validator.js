@@ -72,7 +72,7 @@
     },
     feedback: {
       success: 'glyphicon-ok',
-      error: 'glyphicon-warning-sign'
+      error: 'glyphicon-remove'
     }
   }
 
