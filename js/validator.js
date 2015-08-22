@@ -89,6 +89,10 @@
     'minlength': function ($el) {
       var minlength = $el.data('minlength')
       return !$el.val() || $el.val().length >= minlength
+    },
+    'maxlength': function ($el) {
+      var maxlength = $el.data('maxlength')
+      return !$el.val() || $el.val().length <= maxlength
     }
   }
 
