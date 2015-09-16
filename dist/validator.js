@@ -132,7 +132,7 @@
         var data = {}
         data[$el.attr('name')] = $el.val()
         $.get($el.data('remote'), data)
-          .fail(function (jqXHR, textStatus, error) { errors.push(getErrorMessage('remote') || error) })
+          .fail(function (jqXHR, textStatus, error) { errors.push(getErrorMessage('remote') || jqXHR.responseText || error) })
           .always(function () { deferred.resolve(errors)})
       })
     } else deferred.resolve(errors)
