@@ -69,7 +69,8 @@
     custom: {},
     errors: {
       match: 'Does not match',
-      minlength: 'Not long enough'
+      minlength: 'Not long enough',
+      maxlength: 'Too long enough'
     },
     feedback: {
       success: 'glyphicon-ok',
@@ -87,8 +88,22 @@
       return !$el.val() || $el.val() === $(target).val()
     },
     'minlength': function ($el) {
-      var minlength = $el.data('minlength')
+      var minlength = $el.data('minlength');
+      if($el.attr('type') == 'file'){
+          var filelength = 0;
+          jQuery.each($el[0].files, function(i, f){ filelength += f.size; });
+          return filelength >= minlength;
+      }
       return !$el.val() || $el.val().length >= minlength
+    },
+    'maxlength': function ($el) {
+      var maxlength = $el.data('maxlength');
+      if($el.attr('type') == 'file'){
+          var filelength = 0;
+          jQuery.each($el[0].files, function(i, f){ filelength += (f.size || f.fileSize || 0); });
+          return filelength <= maxlength;
+      }
+      return !$el.val() || $el.val().length <= maxlength
     }
   }
 
