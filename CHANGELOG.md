@@ -1,14 +1,25 @@
 Changelog
 =========
 
+### 0.9.0
+* Adding new `feedback` option to override the classes used for feedback icons (#97)
+* Exposing selector used to determine which inputs to validate as `Validator.INPUT_SELECTOR`
+* Removing inline styles on submit button no longer needed in Bootstrap v3.3.5 (#166)
+* Add `jquery >= 1.8.3` to bower.json (#160)
+
+###### Docs Changes
+* Upgrade to Bootstrap v3.3.5
+* Added a form-feedback example to the docs
+* Added a custom validator server example to the docs
+
 ### 0.8.1
 * No longer running validators on button elements. Fixes #93.
 * No longer running validators on invisible input elements. Fixes #65.
-* Adding support for button[form="myForm"]. Fixes #74.
+* Adding support for `button[form="myForm"]`. Fixes #74.
 
 ### 0.8.0
 * Adding custom validators option.
-* Only adding .has-success class if there is a .form-control-feedback present.
+* Only adding .has-success class if there is a `.form-control-feedback` present.
 
 ### 0.7.3
 * No longer validating `input[type="hidden"]` fields. Fixes #84.

@@ -22,13 +22,14 @@ lead: "A simple and user-friendly form validator plugin for Bootstrap 3"
           <label for="inputName" class="control-label">Name</label>
           <input type="text" class="form-control" id="inputName" placeholder="Cina Saffary" required>
         </div>
-        <div class="form-group">
+        <div class="form-group has-feedback">
           <label for="inputTwitter" class="control-label">Twitter</label>
           <div class="input-group">
             <span class="input-group-addon">@</span>
-            <input type="text" pattern="^([_A-z0-9]){3,}$" maxlength="20" class="form-control" id="inputTwitter" placeholder="1000hz" required>
+            <input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" class="form-control" id="inputTwitter" placeholder="1000hz" required>
           </div>
-          <span class="help-block with-errors">Up to 20 letters, numbers and underscores</span>
+          <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+          <span class="help-block with-errors">Hey look, this one has feedback icons!</span>
         </div>
         <div class="form-group">
           <label for="inputEmail" class="control-label">Email</label>
@@ -82,13 +83,14 @@ lead: "A simple and user-friendly form validator plugin for Bootstrap 3"
     <label for="inputName" class="control-label">Name</label>
     <input type="text" class="form-control" id="inputName" placeholder="Cina Saffary" required>
   </div>
-  <div class="form-group">
+  <div class="form-group has-feedback">
     <label for="inputTwitter" class="control-label">Twitter</label>
     <div class="input-group">
       <span class="input-group-addon">@</span>
-      <input type="text" pattern="^([_A-z0-9]){3,}$" maxlength="20" class="form-control" id="inputTwitter" placeholder="1000hz" required>
+      <input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" class="form-control" id="inputTwitter" placeholder="1000hz" required>
     </div>
-    <span class="help-block with-errors">Up to 20 letters, numbers and underscores</span>
+    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+    <span class="help-block with-errors">Hey look, this one has feedback icons!</span>
   </div>
   <div class="form-group">
     <label for="inputEmail" class="control-label">Email</label>
@@ -170,7 +172,7 @@ $('#myForm').validator()
     <ul>
       <li><code>data-match="#inputToMatch"</code> to ensure two fields match, e.g. password confirmations</li>
       <li><code>data-minlength="5"</code> to enforce a minimum amount of characters</li>
-      <li><code>data-remote="/path/to/remote/validator"</code> to make an AJAX request to determine if the field is valid or not. Be sure to give the input a <code>name</code> attribute, as the request will be sent to <code>/path/to/remote/validator?&lt;name&gt;=&lt;value&gt;</code>. The remote endpoint should return a <code>200 OK</code> if the field is valid, and a <code>4xx</code> otherwise.</li>
+      <li><code>data-remote="/path/to/remote/validator"</code> to make an AJAX request to determine if the field is valid or not. Be sure to give the input a <code>name</code> attribute, as the request will be sent to <code>/path/to/remote/validator?&lt;name&gt;=&lt;value&gt;</code>. The remote endpoint should return a <code>200 OK</code> if the field is valid, and a <code>4xx</code> otherwise. Here's a <a href="https://github.com/1000hz/validator-remote-example">reference server implementation</a> using Express.</li>
     </ul>
 
     <div class="bs-callout bs-callout-danger">
@@ -224,6 +226,20 @@ $('#myForm').validator()
            <td>Disable the submit button until the form is valid and all required fields are complete.</td>
          </tr>
          <tr>
+           <td>feedback</td>
+           <td>object</td>
+           <td>glyphicon classes</td>
+           <td>
+             <p>Override the classes used for form feedback icons. Defaults to Bootstrap's glyphicons:</p>
+{% highlight js %}
+feedback: {
+  success: 'glyphicon-ok',
+  error: 'glyphicon-remove'
+}
+{% endhighlight %}
+           </td>
+         </tr>
+         <tr>
            <td>custom</td>
            <td>object</td>
            <td>{}</td>
@@ -241,8 +257,8 @@ $('#myForm').validator()
            <td><p>Error messages to show for each type of validation. Defaults to:</p>
 {% highlight js %}
 errors: {
-  match: "Does not match",
-  minlength: "Not long enough"
+  match: 'Does not match',
+  minlength: 'Not long enough'
 }
 {% endhighlight %}
            </td>
