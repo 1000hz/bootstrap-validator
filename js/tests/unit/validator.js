@@ -233,6 +233,7 @@ $(function () {
 
     var $btn = $('#btn')
 
+    assert.ok($btn.is('[disabled]'), 'submit button disabled because form is incomplete and invalid')
     assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete and invalid')
     $('#required').val('hamburgers').trigger('input')
     assert.ok(!$btn.hasClass('disabled'), 'submit button enabled because form is sufficiently complete and no fields are invalid')
@@ -277,6 +278,7 @@ $(function () {
     var $cancel = $('#cancel')
     var $btn    = $('#btn')
 
+    assert.ok($submit.is('[disabled]'), 'submit button disabled because form is incomplete and invalid')
     assert.ok($submit.hasClass('disabled'), 'submit button disabled')
     assert.ok(!$cancel.hasClass('disabled'), 'cancel button not disabled')
     assert.ok(!$btn.hasClass('disabled'), 'button without a type not disabled')
@@ -294,6 +296,7 @@ $(function () {
 
     var $btn = $('#btn')
 
+    assert.ok($btn.is('[disabled]'), 'submit button disabled because form is incomplete and invalid')
     assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete')
     $('#required').prop('checked', true).trigger('change')
     assert.ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete')
@@ -316,6 +319,7 @@ $(function () {
 
     var $btn = $('#btn')
 
+    assert.ok($btn.is('[disabled]'), 'submit button disabled because form is incomplete and invalid')
     assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete')
     $('#required1').prop('checked', true).trigger('change')
     assert.ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete')
@@ -335,6 +339,7 @@ $(function () {
 
     var $btn = $('#btn')
 
+    assert.ok($btn.is('[disabled]'), 'submit button disabled because form is incomplete and invalid')
     assert.ok($btn.hasClass('disabled'), 'submit button outside of referenced form is disabled')
     $('#input').val('sup').trigger('change')
     assert.ok(!$btn.hasClass('disabled'), 'submit button outside of referenced form reacted to changes')
@@ -353,6 +358,7 @@ $(function () {
 
     var $btn = $('#btn')
 
+    assert.ok($btn.is('[disabled]'), 'submit button disabled because form is incomplete and invalid')
     assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete and invalid')
     $('#required').val('hamburgers').trigger('input')
     assert.ok(!$btn.hasClass('disabled'), 'submit button enabled regardless of disabled form elements being incomplete')
@@ -372,6 +378,7 @@ $(function () {
 
     var $btn = $('#btn')
 
+    assert.ok($btn.is('[disabled]'), 'submit button disabled because form is incomplete and invalid')
     assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete and invalid')
     $('#required').val('hamburgers').trigger('input')
     assert.ok(!$btn.hasClass('disabled'), 'submit button enabled regardless of hidden form elements being incomplete')

@@ -241,6 +241,7 @@
       .add(this.$element.find('input[type="submit"], button[type="submit"]'))
 
     $btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
+    $btn.attr('disabled', this.isIncomplete() || this.hasErrors())
   }
 
   Validator.prototype.defer = function ($el, callback) {
@@ -275,6 +276,7 @@
     })
 
     this.$element.find('input[type="submit"], button[type="submit"]').removeClass('disabled')
+    this.$element.find('input[type="submit"], button[type="submit"]').removeAttr('disabled')
 
     this.$element.find('.has-error').removeClass('has-error')
 
