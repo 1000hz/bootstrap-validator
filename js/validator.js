@@ -190,7 +190,7 @@
     $block.empty().append(errors)
     $group.addClass('has-error')
 
-    $feedback.length
+    $group.hasClass('has-feedback')
       && $feedback.removeClass(this.options.feedback.success)
       && $feedback.addClass(this.options.feedback.error)
       && $group.removeClass('has-success')
@@ -204,7 +204,7 @@
     $block.html($block.data('bs.validator.originalContent'))
     $group.removeClass('has-error')
 
-    $feedback.length
+    $group.hasClass('has-feedback')
       && $feedback.removeClass(this.options.feedback.error)
       && $feedback.addClass(this.options.feedback.success)
       && $group.addClass('has-success')

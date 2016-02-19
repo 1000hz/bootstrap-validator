@@ -220,6 +220,48 @@ $(function () {
       .validator('validate')
   })
 
+  QUnit.test('should add feedback classes to .form-control-feedback elements when the form group .has-feedback', function (assert) {
+    var done = assert.async()
+    var form = '<form>'
+      + '<div class="form-group has-feedback">'
+      +   '<input type="text" data-minlength="6" value="pizza">'
+      +   '<div class="form-control-feedback"></div>'
+      + '</div>'
+      + '</form>'
+
+    $(form)
+      .on('invalid.bs.validator', function (e) {
+        assert.ok($(this).find('.form-control-feedback').hasClass('glyphicon-remove'), 'error feedback class added to .form-control-feedback')
+        $(e.relatedTarget).val('pizzas').trigger('input')
+      })
+      .on('valid.bs.validator', function (e) {
+        assert.ok($(this).find('.form-control-feedback').hasClass('glyphicon-ok'), 'success feedback class added to .form-control-feedback')
+        done()
+      })
+      .validator('validate')
+  })
+
+  QUnit.test('should not add feedback classes to .form-control-feedback elements when the form group does not .has-feedback', function (assert) {
+    var done = assert.async()
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-minlength="6" value="pizza">'
+      +   '<div class="form-control-feedback"></div>'
+      + '</div>'
+      + '</form>'
+
+    $(form)
+      .on('invalid.bs.validator', function (e) {
+        assert.ok(!$(this).find('.form-control-feedback').hasClass('glyphicon-remove'), 'error feedback class not added to .form-control-feedback')
+        $(e.relatedTarget).val('pizzas').trigger('input')
+      })
+      .on('valid.bs.validator', function (e) {
+        assert.ok(!$(this).find('.form-control-feedback').hasClass('glyphicon-ok'), 'success feedback class not added to .form-control-feedback')
+        done()
+      })
+      .validator('validate')
+  })
+
   QUnit.test('should disable submit button unless form is complete and valid', function (assert) {
     var form = '<form>'
       + '<input id="required" type="text" required>'
