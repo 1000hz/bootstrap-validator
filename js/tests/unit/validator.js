@@ -426,8 +426,9 @@ $(function () {
 
   QUnit.test('should clean up after itself when destroy called', function (assert) {
     var form = '<form>'
-      + '<div class="form-group">'
+      + '<div class="form-group has-feedback">'
       +   '<input type="text" data-error="error message" required>'
+      +   '<div class="form-control-feedback"></div>'
       +   '<div class="help-block with-errors">original content</div>'
       + '</div>'
       + '<button type="submit">Submit</button>'
@@ -442,6 +443,7 @@ $(function () {
     assert.ok(!form.attr('novalidate'), 'removed novalidate browser override')
     assert.ok(Object.keys(form.find('input').data()).length === 1, 'removed data left on inputs (excluding data-* attrs)')
     assert.ok(!form.find('.has-error').length, 'removed has-error class from all inputs')
+    assert.ok(!form.find('.glyphicon-remove').length, 'removed feedback class from all inputs')
     assert.ok(form.find('.help-block').html() === 'original content', 'help block content restored')
     assert.ok(!form.find('button').is('.disabled'), 're-enabled submit button')
   })

@@ -255,6 +255,8 @@
       .removeAttr('novalidate')
       .removeData('bs.validator')
       .off('.bs.validator')
+      .find('.form-control-feedback')
+        .removeClass([this.options.feedback.error, this.options.feedback.success].join(' '))
 
     this.$element.find(Validator.INPUT_SELECTOR)
       .off('.bs.validator')
