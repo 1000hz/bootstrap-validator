@@ -206,6 +206,7 @@
 
     $group.hasClass('has-feedback')
       && $feedback.removeClass(this.options.feedback.error)
+      && $el.val()
       && $feedback.addClass(this.options.feedback.success)
       && $group.addClass('has-success')
   }

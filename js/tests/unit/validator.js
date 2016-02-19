@@ -262,6 +262,28 @@ $(function () {
       .validator('validate')
   })
 
+  QUnit.test('should not add success feedback classes to empty fields', function (assert) {
+    var done = assert.async()
+    var form = '<form>'
+      + '<div class="form-group has-feedback">'
+      +   '<input type="text" data-minlength="6" value="pizza">'
+      +   '<div class="form-control-feedback"></div>'
+      + '</div>'
+      + '</form>'
+
+    $(form)
+      .on('invalid.bs.validator', function (e) {
+        assert.ok($(this).find('.form-control-feedback').hasClass('glyphicon-remove'), 'error feedback class added to .form-control-feedback')
+        $(e.relatedTarget).val('').trigger('input')
+      })
+      .on('valid.bs.validator', function (e) {
+        assert.ok(!$(this).find('.form-control-feedback').hasClass('glyphicon-ok'), 'success feedback class not added to .form-control-feedback')
+        assert.ok(!$(this).find('.form-group').hasClass('has-success'), '.has-success not added to .form-group')
+        done()
+      })
+      .validator('validate')
+  })
+
   QUnit.test('should disable submit button unless form is complete and valid', function (assert) {
     var form = '<form>'
       + '<input id="required" type="text" required>'
