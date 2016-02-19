@@ -94,6 +94,7 @@
 
   Validator.prototype.validateInput = function (e) {
     var $el        = $(e.target)
+    var eventType  = e.type
     var prevErrors = $el.data('bs.validator.errors')
     var errors
 
@@ -108,7 +109,9 @@
     this.runValidators($el).done(function (errors) {
       $el.data('bs.validator.errors', errors)
 
-      errors.length ? self.showErrors($el) : self.clearErrors($el)
+      errors.length
+        ? eventType == 'focusout' ? self.showErrors($el) : self.defer($el, self.showErrors)
+        : self.clearErrors($el)
 
       if (!prevErrors || errors.toString() !== prevErrors.toString()) {
         e = errors.length
@@ -172,28 +175,25 @@
 
   Validator.prototype.showErrors = function ($el) {
     var method = this.options.html ? 'html' : 'text'
+    var errors = $el.data('bs.validator.errors')
+    var $group = $el.closest('.form-group')
+    var $block = $group.find('.help-block.with-errors')
+    var $feedback = $group.find('.form-control-feedback')
 
-    this.defer($el, function () {
-      var $group = $el.closest('.form-group')
-      var $block = $group.find('.help-block.with-errors')
-      var $feedback = $group.find('.form-control-feedback')
-      var errors = $el.data('bs.validator.errors')
+    if (!errors.length) return
 
-      if (!errors.length) return
+    errors = $('<ul/>')
+      .addClass('list-unstyled')
+      .append($.map(errors, function (error) { return $('<li/>')[method](error) }))
 
-      errors = $('<ul/>')
-        .addClass('list-unstyled')
-        .append($.map(errors, function (error) { return $('<li/>')[method](error) }))
+    $block.data('bs.validator.originalContent') === undefined && $block.data('bs.validator.originalContent', $block.html())
+    $block.empty().append(errors)
+    $group.addClass('has-error')
 
-      $block.data('bs.validator.originalContent') === undefined && $block.data('bs.validator.originalContent', $block.html())
-      $block.empty().append(errors)
-      $group.addClass('has-error')
-
-      $feedback.length
-        && $feedback.removeClass(this.options.feedback.success)
-        && $feedback.addClass(this.options.feedback.error)
-        && $group.removeClass('has-success')
-    })
+    $feedback.length
+      && $feedback.removeClass(this.options.feedback.success)
+      && $feedback.addClass(this.options.feedback.error)
+      && $group.removeClass('has-success')
   }
 
   Validator.prototype.clearErrors = function ($el) {
@@ -244,7 +244,7 @@
   }
 
   Validator.prototype.defer = function ($el, callback) {
-    callback = $.proxy(callback, this)
+    callback = $.proxy(callback, this, $el)
     if (!this.options.delay) return callback()
     window.clearTimeout($el.data('bs.validator.timeout'))
     $el.data('bs.validator.timeout', window.setTimeout(callback, this.options.delay))
