@@ -6,7 +6,7 @@
     "Cina Saffary <itscina@gmail.com>"
   ],
   "description": "A user-friendly HTML5 Form validator for Bootstrap 3",
-  "main": "./dist/validator.min.js",
+  "main": "dist/validator.js",
   "keywords": [
     "bootstrap",
     "bootstrap3",
