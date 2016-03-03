@@ -32,8 +32,15 @@
   // VALIDATOR CLASS DEFINITION
   // ==========================
 
+  function getValue($el) {
+    return $el.is('[type="checkbox"]') ? $el.prop('checked')                                     :
+           $el.is('[type="radio"]')    ? !!$('[name="' + $el.attr('name') + '"]:checked').length :
+                                         $.trim($el.val())
+  }
+
   var Validator = function (element, options) {
     this.$element = $(element)
+    this.$inputs  = this.$element.find(Validator.INPUT_SELECTOR)
     this.options  = options
 
     options.errors = $.extend({}, Validator.DEFAULTS.errors, options.errors)
@@ -47,7 +54,7 @@
     this.$element.attr('novalidate', true) // disable automatic native validation
     this.toggleSubmit()
 
-    this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', $.proxy(this.validateInput, this))
+    this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', Validator.INPUT_SELECTOR, $.proxy(this.onInput, this))
     this.$element.on('submit.bs.validator', $.proxy(this.onSubmit, this))
 
     this.$element.find('[data-match]').each(function () {
@@ -92,25 +99,37 @@
     }
   }
 
-  Validator.prototype.validateInput = function (e) {
-    var $el        = $(e.target)
-    var eventType  = e.type
+  Validator.prototype.onInput = function (e) {
+    var self        = this
+    var $el         = $(e.target)
+    var deferErrors = e.type !== 'focusout'
+    this.validateInput($el, deferErrors).done(function () {
+      self.toggleSubmit()
+    })
+  }
+
+  Validator.prototype.validateInput = function ($el, deferErrors) {
+    var value      = getValue($el)
+    var prevValue  = $el.data('bs.validator.previous')
     var prevErrors = $el.data('bs.validator.errors')
     var errors
 
+    if (prevValue === value) return $.Deferred().resolve()
+    else $el.data('bs.validator.previous', value)
+
     if ($el.is('[type="radio"]')) $el = this.$element.find('input[name="' + $el.attr('name') + '"]')
 
-    this.$element.trigger(e = $.Event('validate.bs.validator', {relatedTarget: $el[0]}))
-
+    var e = $.Event('validate.bs.validator', {relatedTarget: $el[0]})
+    this.$element.trigger(e)
     if (e.isDefaultPrevented()) return
 
     var self = this
 
-    this.runValidators($el).done(function (errors) {
+    return this.runValidators($el).done(function (errors) {
       $el.data('bs.validator.errors', errors)
 
       errors.length
-        ? eventType == 'focusout' ? self.showErrors($el) : self.defer($el, self.showErrors)
+        ? deferErrors ? self.defer($el, self.showErrors) : self.showErrors($el)
         : self.clearErrors($el)
 
       if (!prevErrors || errors.toString() !== prevErrors.toString()) {
@@ -164,11 +183,13 @@
   }
 
   Validator.prototype.validate = function () {
-    var delay = this.options.delay
+    var self = this
 
-    this.options.delay = 0
-    this.$element.find(Validator.INPUT_SELECTOR).trigger('input.bs.validator')
-    this.options.delay = delay
+    $.when(this.$inputs.map(function (el) {
+      return self.validateInput($(this), false)
+    })).then(function () {
+      self.toggleSubmit()
+    })
 
     return this
   }
@@ -216,17 +237,15 @@
       return !!($(this).data('bs.validator.errors') || []).length
     }
 
-    return !!this.$element.find(Validator.INPUT_SELECTOR).filter(fieldErrors).length
+    return !!this.$inputs.filter(fieldErrors).length
   }
 
   Validator.prototype.isIncomplete = function () {
     function fieldIncomplete() {
-      return this.type === 'checkbox' ? !this.checked                                   :
-             this.type === 'radio'    ? !$('[name="' + this.name + '"]:checked').length :
-                                        $.trim(this.value) === ''
+      return !getValue($(this))
     }
 
-    return !!this.$element.find(Validator.INPUT_SELECTOR).filter('[required]').filter(fieldIncomplete).length
+    return !!this.$inputs.filter('[required]').filter(fieldIncomplete).length
   }
 
   Validator.prototype.onSubmit = function (e) {
@@ -259,9 +278,9 @@
       .find('.form-control-feedback')
         .removeClass([this.options.feedback.error, this.options.feedback.success].join(' '))
 
-    this.$element.find(Validator.INPUT_SELECTOR)
+    this.$inputs
       .off('.bs.validator')
-      .removeData(['bs.validator.errors', 'bs.validator.deferred'])
+      .removeData(['bs.validator.errors', 'bs.validator.deferred', 'bs.validator.previous'])
       .each(function () {
         var $this = $(this)
         var timeout = $this.data('bs.validator.timeout')
