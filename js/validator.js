@@ -39,9 +39,12 @@
   }
 
   var Validator = function (element, options) {
+    this.options  = options
     this.$element = $(element)
     this.$inputs  = this.$element.find(Validator.INPUT_SELECTOR)
-    this.options  = options
+    this.$btn     = $('button[type="submit"], input[type="submit"]')
+                      .filter('[form="' + this.$element.attr('id') + '"]')
+                      .add(this.$element.find('input[type="submit"], button[type="submit"]'))
 
     options.errors = $.extend({}, Validator.DEFAULTS.errors, options.errors)
 
@@ -73,6 +76,7 @@
     delay: 500,
     html: false,
     disable: true,
+    focus: true,
     custom: {},
     errors: {
       match: 'Does not match',
@@ -191,9 +195,19 @@
       return self.validateInput($(this), false)
     })).then(function () {
       self.toggleSubmit()
+      if (self.$btn.hasClass('disabled')) self.focusError()
     })
 
     return this
+  }
+
+  Validator.prototype.focusError = function () {
+    if (!this.options.focus) return
+
+    var $input = $(".has-error:first :input")
+
+    $(document.body).animate({scrollTop: $input.offset().top - 20}, 250)
+    $input.focus()
   }
 
   Validator.prototype.showErrors = function ($el) {
@@ -252,17 +266,12 @@
 
   Validator.prototype.onSubmit = function (e) {
     this.validate()
-    if (this.isIncomplete() || this.hasErrors()) e.preventDefault()
+    if (this.$btn.hasClass('disabled')) e.preventDefault()
   }
 
   Validator.prototype.toggleSubmit = function () {
     if(!this.options.disable) return
-
-    var $btn = $('button[type="submit"], input[type="submit"]')
-      .filter('[form="' + this.$element.attr('id') + '"]')
-      .add(this.$element.find('input[type="submit"], button[type="submit"]'))
-
-    $btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
+    this.$btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
   }
 
   Validator.prototype.defer = function ($el, callback) {
