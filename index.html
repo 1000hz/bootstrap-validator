@@ -309,7 +309,12 @@
            <td>focus</td>
            <td>boolean</td>
            <td>true</td>
-           <td>Scroll to and focus the first field with an error upon validation of the form.</td>
+           <td>
+             <p>Scroll to and focus the first field with an error upon validation of the form.</p>
+             <p>If, for example, you have a fixed navbar at the top of your page and you need to adjust the amount of padding between the top of the window and the focused field, you can override the following variable:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">validator</span><span class="p">.</span><span class="nx">Constructor</span><span class="p">.</span><span class="nx">FOCUS_OFFSET</span></code></pre></div>
+             <p>It defaults to 20 (px).</p>
+           </td>
          </tr>
          <tr>
            <td>feedback</td>
