@@ -62,7 +62,7 @@
       var target = $this.data('match')
 
       $(target).on('input.bs.validator', function (e) {
-        $this.val() && $this.trigger('input.bs.validator')
+        getValue($this) && $this.trigger('input.bs.validator')
       })
     })
   }
@@ -171,10 +171,10 @@
       }
     }, this))
 
-    if (!errors.length && $el.val() && $el.data('remote')) {
+    if (!errors.length && getValue($el) && $el.data('remote')) {
       this.defer($el, function () {
         var data = {}
-        data[$el.attr('name')] = $el.val()
+        data[$el.attr('name')] = getValue($el)
         $.get($el.data('remote'), data)
           .fail(function (jqXHR, textStatus, error) { errors.push(getErrorMessage('remote') || error) })
           .always(function () { deferred.resolve(errors)})
@@ -229,7 +229,7 @@
 
     $group.hasClass('has-feedback')
       && $feedback.removeClass(this.options.feedback.error)
-      && $el.val()
+      && getValue($el)
       && $feedback.addClass(this.options.feedback.success)
       && $group.addClass('has-success')
   }
