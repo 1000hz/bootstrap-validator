@@ -1,5 +1,17 @@
 Changelog
 =========
+### 0.10.0
+* Adding the `focus` option to scroll to and focus the first field with an error (#128)
+* Add support for Bootstrap 4 `.has-danger` class (#271)
+* Only running validators if the field has a value or is required (#214)
+* Immediately validate on blur (#130)
+* Caching selected form fields to greatly improve performance (#234)
+* Only validate a field if it is dirty or invalid (#258, #152)
+* Handle feedback icons in .destroy() (#123)
+* Change feedback to check if .form-group .has-feedback
+* Only show success feedback if field has value (#252)
+* Scoping `input`/`change`/`focusout` event handlers to `INPUT_SELECTOR` elements (#251)
+* Updated the `main` path in bower.json (#219)
 
 ### 0.9.0
 * Adding new `feedback` option to override the classes used for feedback icons (#97)
