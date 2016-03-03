@@ -117,7 +117,7 @@
             <input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" class="form-control" id="inputTwitter" placeholder="1000hz" required>
           </div>
           <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-          <span class="help-block with-errors">Hey look, this one has feedback icons!</span>
+          <div class="help-block with-errors">Hey look, this one has feedback icons!</div>
         </div>
         <div class="form-group">
           <label for="inputEmail" class="control-label">Email</label>
@@ -129,7 +129,7 @@
           <div class="form-inline row">
             <div class="form-group col-sm-6">
               <input type="password" data-toggle="validator" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" required>
-              <span class="help-block">Minimum of 6 characters</span>
+              <div class="help-block">Minimum of 6 characters</div>
             </div>
             <div class="form-group col-sm-6">
               <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm" required>
@@ -177,7 +177,7 @@
       <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">pattern=</span><span class="s">&quot;^[_A-z0-9]{1,}$&quot;</span> <span class="na">maxlength=</span><span class="s">&quot;15&quot;</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id=</span><span class="s">&quot;inputTwitter&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;1000hz&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
     <span class="nt">&lt;/div&gt;</span>
     <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;glyphicon form-control-feedback&quot;</span> <span class="na">aria-hidden=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;&lt;/span&gt;</span>
-    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;help-block with-errors&quot;</span><span class="nt">&gt;</span>Hey look, this one has feedback icons!<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;help-block with-errors&quot;</span><span class="nt">&gt;</span>Hey look, this one has feedback icons!<span class="nt">&lt;/div&gt;</span>
   <span class="nt">&lt;/div&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;inputEmail&quot;</span> <span class="na">class=</span><span class="s">&quot;control-label&quot;</span><span class="nt">&gt;</span>Email<span class="nt">&lt;/label&gt;</span>
@@ -188,7 +188,7 @@
     <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;inputPassword&quot;</span> <span class="na">class=</span><span class="s">&quot;control-label&quot;</span><span class="nt">&gt;</span>Password<span class="nt">&lt;/label&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group col-sm-6&quot;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;password&quot;</span> <span class="na">data-minlength=</span><span class="s">&quot;6&quot;</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id=</span><span class="s">&quot;inputPassword&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;Password&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;help-block&quot;</span><span class="nt">&gt;</span>Minimum of 6 characters<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;help-block&quot;</span><span class="nt">&gt;</span>Minimum of 6 characters<span class="nt">&lt;/div&gt;</span>
     <span class="nt">&lt;/div&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group col-sm-6&quot;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;password&quot;</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id=</span><span class="s">&quot;inputPasswordConfirm&quot;</span> <span class="na">data-match=</span><span class="s">&quot;#inputPassword&quot;</span> <span class="na">data-match-error=</span><span class="s">&quot;Whoops, these don&#39;t match&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;Confirm&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
@@ -304,6 +304,12 @@
            <td>boolean</td>
            <td>true</td>
            <td>Disable the submit button until the form is valid and all required fields are complete.</td>
+         </tr>
+         <tr>
+           <td>focus</td>
+           <td>boolean</td>
+           <td>true</td>
+           <td>Scroll to and focus the first field with an error upon validation of the form.</td>
          </tr>
          <tr>
            <td>feedback</td>
