@@ -1,5 +1,8 @@
 Changelog
 =========
+### 0.10.1
+* You can now override `$.fn.validator.Constructor.FOCUS_OFFSET` to set a custom offset from the top of the window the page should scroll to when the `focus` option is true. Defaults to 20px.
+
 ### 0.10.0
 * Adding the `focus` option to scroll to and focus the first field with an error (#128)
 * Add support for Bootstrap 4 `.has-danger` class (#271)

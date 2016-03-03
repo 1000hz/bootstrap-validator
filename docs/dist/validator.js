@@ -1,5 +1,5 @@
 /*!
- * Validator v0.10.0 for Bootstrap 3, by @1000hz
+ * Validator v0.10.1 for Bootstrap 3, by @1000hz
  * Copyright 2016 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -51,6 +51,8 @@
   }
 
   Validator.INPUT_SELECTOR = ':input:not([type="submit"], button):enabled:visible'
+
+  Validator.FOCUS_OFFSET = 20
 
   Validator.DEFAULTS = {
     delay: 500,
@@ -186,7 +188,7 @@
 
     var $input = $(".has-error:first :input")
 
-    $(document.body).animate({scrollTop: $input.offset().top - 20}, 250)
+    $(document.body).animate({scrollTop: $input.offset().top - Validator.FOCUS_OFFSET}, 250)
     $input.focus()
   }
 
