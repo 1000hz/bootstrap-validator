@@ -10,6 +10,17 @@ It also provides an unobtrusive user experience, because nobody likes a naggy fo
 - Custom validator functions
 - Validation of an input field via AJAX
 
+## Installing
+
+### Bower
+You can easily install `bootstrap-validator` for your project with [Bower](http://bower.io):
+
+```bash
+bower install --save bootstrap-validator
+```
+
+> For further info about bower installation, read [bower install documentation](http://bower.io/docs/api/#install). 
+
 ## Documentation
 
 See the project docs at http://1000hz.github.io/bootstrap-validator
