@@ -149,10 +149,12 @@
     }
 
     $.each(Validator.VALIDATORS, $.proxy(function (key, validator) {
+      var response=validator.call(this, $el)
+      var has_error=response instanceof Object ? response.valid : response
       if ((getValue($el) || $el.attr('required')) &&
           ($el.data(key) || key == 'native') &&
-          !validator.call(this, $el)) {
-        var error = getErrorMessage(key)
+          !has_error) {
+        var error = response instanceof Object ? response.message : getErrorMessage(key)
         !~errors.indexOf(error) && errors.push(error)
       }
     }, this))
