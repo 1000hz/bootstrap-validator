@@ -57,7 +57,13 @@
     this.$element.attr('novalidate', true) // disable automatic native validation
     this.toggleSubmit()
 
-    this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', Validator.INPUT_SELECTOR, $.proxy(this.onInput, this))
+    var focusOut = " focusout.bs.validator";
+
+    if (this.options.focusout == "0") {
+      focusOut = "";
+    }
+
+    this.$element.on('input.bs.validator change.bs.validator'+focusOut, $.proxy(this.validateInput, this))
     this.$element.on('submit.bs.validator', $.proxy(this.onSubmit, this))
 
     this.$element.find('[data-match]').each(function () {
