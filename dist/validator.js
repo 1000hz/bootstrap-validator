@@ -298,6 +298,33 @@
     return this
   }
 
+  Validator.prototype.reset = function () {
+    this.$element
+      .find('.form-control-feedback')
+        .removeClass([this.options.feedback.error, this.options.feedback.success].join(' '))
+
+    this.$element.find(':input')
+      .removeData(['bs.validator.errors', 'bs.validator.deferred', 'bs.validator.previous'])
+      .each(function () {
+        var $this = $(this)
+        var timeout = $this.data('bs.validator.timeout')
+        window.clearTimeout(timeout) && $this.removeData('bs.validator.timeout')
+      })
+
+    this.$element.find('.help-block.with-errors').each(function () {
+      var $this = $(this)
+      var originalContent = $this.data('bs.validator.originalContent')
+
+      $this
+        .removeData('bs.validator.originalContent')
+        .html(originalContent)
+    })
+
+    this.$element.find('.has-error, .has-danger').removeClass('has-error has-danger')
+
+    return this
+  }
+
   // VALIDATOR PLUGIN DEFINITION
   // ===========================
 
