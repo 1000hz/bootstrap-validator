@@ -269,7 +269,7 @@
 
   Validator.prototype.onSubmit = function (e) {
     this.validate()
-    if (this.$btn.hasClass('disabled')) e.preventDefault()
+    if(this.isIncomplete() || this.hasErrors()) e.preventDefault()
   }
 
   Validator.prototype.toggleSubmit = function () {
