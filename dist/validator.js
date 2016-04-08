@@ -177,7 +177,7 @@
       return self.validateInput($(this), false)
     })).then(function () {
       self.toggleSubmit()
-      if (self.$btn.hasClass('disabled')) self.focusError()
+      self.focusError()
     })
 
     return this
@@ -187,6 +187,7 @@
     if (!this.options.focus) return
 
     var $input = $(".has-error:first :input")
+    if($input.length === 0) return
 
     $(document.body).animate({scrollTop: $input.offset().top - Validator.FOCUS_OFFSET}, 250)
     $input.focus()
