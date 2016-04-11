@@ -207,7 +207,7 @@
     if (!this.options.focus) return
 
     var $input = $(".has-error:first :input")
-    if($input.length === 0) return
+    if ($input.length === 0) return
 
     $(document.body).animate({scrollTop: $input.offset().top - Validator.FOCUS_OFFSET}, 250)
     $input.focus()
@@ -269,11 +269,11 @@
 
   Validator.prototype.onSubmit = function (e) {
     this.validate()
-    if(this.isIncomplete() || this.hasErrors()) e.preventDefault()
+    if (this.isIncomplete() || this.hasErrors()) e.preventDefault()
   }
 
   Validator.prototype.toggleSubmit = function () {
-    if(!this.options.disable) return
+    if (!this.options.disable) return
     this.$btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
   }
 
