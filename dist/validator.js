@@ -1,5 +1,5 @@
 /*!
- * Validator v0.10.1 for Bootstrap 3, by @1000hz
+ * Validator v0.10.2 for Bootstrap 3, by @1000hz
  * Copyright 2016 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -177,7 +177,7 @@
       return self.validateInput($(this), false)
     })).then(function () {
       self.toggleSubmit()
-      if (self.$btn.hasClass('disabled')) self.focusError()
+      self.focusError()
     })
 
     return this
@@ -187,6 +187,7 @@
     if (!this.options.focus) return
 
     var $input = $(".has-error:first :input")
+    if ($input.length === 0) return
 
     $(document.body).animate({scrollTop: $input.offset().top - Validator.FOCUS_OFFSET}, 250)
     $input.focus()
@@ -248,11 +249,11 @@
 
   Validator.prototype.onSubmit = function (e) {
     this.validate()
-    if (this.$btn.hasClass('disabled')) e.preventDefault()
+    if (this.isIncomplete() || this.hasErrors()) e.preventDefault()
   }
 
   Validator.prototype.toggleSubmit = function () {
-    if(!this.options.disable) return
+    if (!this.options.disable) return
     this.$btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
   }
 
