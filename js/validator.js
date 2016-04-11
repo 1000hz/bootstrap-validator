@@ -161,9 +161,18 @@
     $el.data('bs.validator.deferred') && $el.data('bs.validator.deferred').reject()
     $el.data('bs.validator.deferred', deferred)
 
+    function getNativeKey(el) {
+      var key = '';
+      if(el.validity.patternMismatch) key = 'pattern-';
+      if(el.validity.tooShort) key = 'minlength-';
+      if(el.validity.tooLong) key = 'maxlength-';
+
+      return key;
+    }
+
     function getErrorMessage(key) {
       return $el.data(key + '-error')
-        || $el.data('error')
+        || $el.data(getNativeKey($el[0]) + 'error')
         || key == 'native' && $el[0].validationMessage
         || options.errors[key]
     }

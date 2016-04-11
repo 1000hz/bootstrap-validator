@@ -126,6 +126,23 @@ $(function () {
       .validator('validate')
   })
 
+  QUnit.test('should allow pattern specific error message', function (assert) {
+    var done = assert.async()
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" value="pizza" data-pattern-error="pattern error" pattern="^[0-9]*$">'
+      +   '<div class="help-block with-errors">Pattern</div>'
+      + '</div>'
+      + '</form>'
+
+    $(form)
+      .on('invalid.bs.validator', function (e) {
+        assert.ok($(this).find('.help-block.with-errors').text() == 'pattern error', 'specific error message was set')
+        done()
+      })
+      .validator('validate')
+  })
+
   QUnit.test('should give precedence to specific error message over generic error message', function (assert) {
     var done = assert.async()
     var form = '<form>'
