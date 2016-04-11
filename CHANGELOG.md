@@ -1,5 +1,9 @@
 Changelog
 =========
+### 0.10.2
+* Fixed a bug with the form still submitting even with errors when using the `disable: false` option. (#310)
+* Fixed a bug with the error field not being focused when using the `disable: false` option. (#310)
+
 ### 0.10.1
 * You can now override `$.fn.validator.Constructor.FOCUS_OFFSET` to set a custom offset from the top of the window the page should scroll to when the `focus` option is true. Defaults to 20px.
 
