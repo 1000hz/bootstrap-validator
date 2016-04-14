@@ -82,7 +82,8 @@
     custom: {},
     errors: {
       match: 'Does not match',
-      minlength: 'Not long enough'
+      minlength: 'Not long enough',
+      ext: 'This file type is not supported.'
     },
     feedback: {
       success: 'glyphicon-ok',
@@ -102,7 +103,12 @@
     'minlength': function ($el) {
       var minlength = $el.data('minlength')
       return !$el.val() || $el.val().length >= minlength
-    }
+    },
+    'ext': function ($el) {
+        var validExts = $el.data('ext') == 'accept' ? $el.prop('accept') : $el.data('ext');
+        var ext = $el.val().split('.').pop().toLowerCase();
+        return !$el.val() || $.inArray(ext, validExts.toLowerCase().replace(/[\. ]/g,'').split(',')) != -1;
+	}
   }
 
   Validator.prototype.onInput = function (e) {
