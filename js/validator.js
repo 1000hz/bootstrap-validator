@@ -70,7 +70,10 @@
     })
   }
 
-  Validator.INPUT_SELECTOR = ':input:not([type="submit"], button):enabled:visible'
+  //This only takes care of the form that are visible on the page and leaves the form that are hidden at time of page load.
+  //Removing visible as we want to have the same behavior for all the forms
+  //Validator.INPUT_SELECTOR = ':input:not([type="submit"], button):enabled:visible'
+  Validator.INPUT_SELECTOR = ':input:not([type="submit"], button):enabled'
 
   Validator.FOCUS_OFFSET = 20
 
