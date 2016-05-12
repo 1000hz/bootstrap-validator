@@ -149,10 +149,12 @@
     }
 
     $.each(Validator.VALIDATORS, $.proxy(function (key, validator) {
+      var response=validator.call(this, $el)
+      var has_error=response instanceof Object ? response.valid : response
       if ((getValue($el) || $el.attr('required')) &&
           ($el.data(key) || key == 'native') &&
-          !validator.call(this, $el)) {
-        var error = getErrorMessage(key)
+          !has_error) {
+        var error = response instanceof Object ? response.message : getErrorMessage(key)
         !~errors.indexOf(error) && errors.push(error)
       }
     }, this))
@@ -291,6 +293,33 @@
     })
 
     this.$element.find('input[type="submit"], button[type="submit"]').removeClass('disabled')
+
+    this.$element.find('.has-error, .has-danger').removeClass('has-error has-danger')
+
+    return this
+  }
+
+  Validator.prototype.reset = function () {
+    this.$element
+      .find('.form-control-feedback')
+        .removeClass([this.options.feedback.error, this.options.feedback.success].join(' '))
+
+    this.$element.find(':input')
+      .removeData(['bs.validator.errors', 'bs.validator.deferred', 'bs.validator.previous'])
+      .each(function () {
+        var $this = $(this)
+        var timeout = $this.data('bs.validator.timeout')
+        window.clearTimeout(timeout) && $this.removeData('bs.validator.timeout')
+      })
+
+    this.$element.find('.help-block.with-errors').each(function () {
+      var $this = $(this)
+      var originalContent = $this.data('bs.validator.originalContent')
+
+      $this
+        .removeData('bs.validator.originalContent')
+        .html(originalContent)
+    })
 
     this.$element.find('.has-error, .has-danger').removeClass('has-error has-danger')
 
