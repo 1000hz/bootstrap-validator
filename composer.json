@@ -1,0 +1,24 @@
+{
+    "name": "1000hz/bootstrap-validator",
+    "type": "project",
+    "description": "A user-friendly HTML5 form validation",
+    "homepage": "http://1000hz.github.io/bootstrap-validator/",
+    "keywords": ["validation", "jquery", "twitter", "bootsrap"],
+    "authors": [
+        {
+            "name": "Cina Saffary",
+            "email": "itscina@gmail.com",
+            "homepage": "https://twitter.com/1000hz",
+            "role": "Developer"
+        },
+        {
+            "name": "Pavel Rykov",
+            "email": "p.rikov@drteam.rocks",
+            "homepage": "http://drteam.rocks/",
+            "role": "Contributor"
+        }
+    ],
+    "require": {},
+    "autoload": {},
+    "minimum-stability": "stable"
+}
