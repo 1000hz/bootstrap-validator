@@ -54,6 +54,7 @@
 
   Validator.FOCUS_OFFSET = 20
 
+  //Default validation options
   Validator.DEFAULTS = {
     delay: 500,
     html: false,
@@ -62,7 +63,9 @@
     custom: {},
     errors: {
       match: 'Does not match',
-      minlength: 'Not long enough'
+      minlength: 'Not long enough',
+	  maxlength: 'Too long',
+      expectedlength: 'Incorrect number of characters'
     },
     feedback: {
       success: 'glyphicon-ok',
@@ -70,6 +73,7 @@
     }
   }
 
+  //Validators for matching, native, min, max, and expected length
   Validator.VALIDATORS = {
     'native': function ($el) {
       var el = $el[0]
@@ -82,6 +86,14 @@
     'minlength': function ($el) {
       var minlength = $el.data('minlength')
       return !$el.val() || $el.val().length >= minlength
+    },
+	 'maxlength': function ($el) {
+      var maxlength = $el.data('maxlength')
+      return !$el.val() || $el.val().length <= maxlength
+    },
+      'expectedlength': function ($el) {
+          var expectedlength = $el.data('expectedlength')
+          return !$el.val() || $el.val().length == expectedlength
     }
   }
 
