@@ -178,6 +178,12 @@ $('#myForm').validator()
       <li><code>data-remote="/path/to/remote/validator"</code> to make an AJAX request to determine if the field is valid or not. Be sure to give the input a <code>name</code> attribute, as the request will be sent to <code>/path/to/remote/validator?&lt;name&gt;=&lt;value&gt;</code>. The remote endpoint should return a <code>200 OK</code> if the field is valid, and a <code>4xx</code> otherwise. Here's a <a href="https://github.com/1000hz/validator-remote-example">reference server implementation</a> using Express.</li>
     </ul>
 
+    <div class="bs-callout bs-callout-info">
+      <h4>Standard Attribute Validators</h4>
+      <p>The validation rules for standard HTML5 attributes are handled entirely by the browser using the <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation">HTML5 Constraint Validation API</a>. As such, this plugin isn't in control of things like what qualifies as a valid email address or URL. If you find you need more restrictive validations for these fields, you can use the <code>pattern</code> attribute to further constrain what's acceptable.</p>
+      <p>Be careful that you aren't too restrictive though, which might lead to false negatives and a poor user experience. For example, you'd be surprised at what kinds of <a href="https://en.wikipedia.org/wiki/Email_address#Valid_email_addresses">email addresses</a> are considered valid according to standards.</p>
+    </div>
+
     <div class="bs-callout bs-callout-danger">
       <h4>Cross-browser Compatibility</h4>
       <p>Because this plugin depends on the HTML5 Constraint Validation API, Internet Explorer 9 and older are not supported. If you need to support these browsers, you must add a polyfill like Ryan Seddon's <a href="https://github.com/ryanseddon/H5F" target="_blank">H5F</a>.</p>
