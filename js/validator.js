@@ -72,6 +72,8 @@
     this.toggleSubmit()
   }
 
+  Validator.VERSION = '0.10.2'
+
   Validator.INPUT_SELECTOR = ':input:not([type="submit"], button):enabled:visible'
 
   Validator.FOCUS_OFFSET = 20
