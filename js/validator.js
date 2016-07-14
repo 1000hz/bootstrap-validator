@@ -35,7 +35,7 @@
   function getValue($el) {
     return $el.is('[type="checkbox"]') ? $el.prop('checked')                                     :
            $el.is('[type="radio"]')    ? !!$('[name="' + $el.attr('name') + '"]:checked').length :
-                                         $.trim($el.val())
+                                         $el.val()
   }
 
   var Validator = function (element, options) {
@@ -262,7 +262,8 @@
 
   Validator.prototype.isIncomplete = function () {
     function fieldIncomplete() {
-      return !getValue($(this))
+      var value = getValue($(this))
+      return !(typeof value == "string" ? $.trim(value) : value)
     }
 
     return !!this.$inputs.filter('[required]').filter(fieldIncomplete).length
