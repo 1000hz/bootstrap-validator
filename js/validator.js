@@ -121,12 +121,8 @@
 
   Validator.prototype.validateInput = function ($el, deferErrors) {
     var value      = getValue($el)
-    var prevValue  = $el.data('bs.validator.previous')
     var prevErrors = $el.data('bs.validator.errors')
     var errors
-
-    if (prevValue === value) return $.Deferred().resolve()
-    else $el.data('bs.validator.previous', value)
 
     if ($el.is('[type="radio"]')) $el = this.$element.find('input[name="' + $el.attr('name') + '"]')
 
@@ -300,7 +296,7 @@
 
     this.$inputs
       .off('.bs.validator')
-      .removeData(['bs.validator.errors', 'bs.validator.deferred', 'bs.validator.previous'])
+      .removeData(['bs.validator.errors', 'bs.validator.deferred'])
       .each(function () {
         var $this = $(this)
         var timeout = $this.data('bs.validator.timeout')
