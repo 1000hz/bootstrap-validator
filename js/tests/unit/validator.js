@@ -551,4 +551,28 @@ $(function () {
     assert.ok($('#bar').data('bs.validator.errors').length === 1, 'bar input is invalid')
     assert.ok($('#bar').data('bs.validator.errors')[0] === options.errors.foo, 'bar error is custom error')
   })
+
+  QUnit.test('should update set of fields', function (assert) {
+    var form  = '<form></form>'
+    var group = '<div class="form-group">'
+      +   '<input type="text" data-error="error" required>'
+      +   '<div id="errors" class="help-block with-errors"></div>'
+      + '</div>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator()
+      .append(group)
+      .validator('validate')
+
+    var $errors = $('#errors')
+
+    assert.equal($errors.text(), '', 'field was not validated since it was added after the validator was initialized')
+
+    $(form)
+      .validator('update')
+      .validator('validate')
+
+    assert.equal($errors.text(), 'error', 'field was validated after a call to .validator(\'update\')')
+  })
 })

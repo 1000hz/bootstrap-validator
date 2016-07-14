@@ -41,10 +41,11 @@
   var Validator = function (element, options) {
     this.options  = options
     this.$element = $(element)
-    this.$inputs  = this.$element.find(Validator.INPUT_SELECTOR)
     this.$btn     = $('button[type="submit"], input[type="submit"]')
                       .filter('[form="' + this.$element.attr('id') + '"]')
                       .add(this.$element.find('input[type="submit"], button[type="submit"]'))
+
+    this.update()
 
     options.errors = $.extend({}, Validator.DEFAULTS.errors, options.errors)
 
@@ -108,6 +109,11 @@
       var minlength = $el.data('minlength')
       return !$el.val() || $el.val().length >= minlength
     }
+  }
+
+  Validator.prototype.update = function () {
+    this.$inputs = this.$element.find(Validator.INPUT_SELECTOR)
+    return this
   }
 
   Validator.prototype.onInput = function (e) {
