@@ -66,7 +66,7 @@
       })
     })
 
-    this.$inputs.filter(function () { return this.value !== "" }).trigger('focusout')
+    this.$inputs.filter(function () { return getValue($(this)) }).trigger('focusout')
 
     this.$element.attr('novalidate', true) // disable automatic native validation
     this.toggleSubmit()
