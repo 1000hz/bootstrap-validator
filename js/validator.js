@@ -54,9 +54,6 @@
 
     $.extend(Validator.VALIDATORS, options.custom)
 
-    this.$element.attr('novalidate', true) // disable automatic native validation
-    this.toggleSubmit()
-
     this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', Validator.INPUT_SELECTOR, $.proxy(this.onInput, this))
     this.$element.on('submit.bs.validator', $.proxy(this.onSubmit, this))
 
@@ -68,6 +65,11 @@
         getValue($this) && $this.trigger('input.bs.validator')
       })
     })
+
+    this.$inputs.filter(function () { return this.value !== "" }).trigger('focusout')
+
+    this.$element.attr('novalidate', true) // disable automatic native validation
+    this.toggleSubmit()
   }
 
   Validator.INPUT_SELECTOR = ':input:not([type="submit"], button):enabled:visible'
