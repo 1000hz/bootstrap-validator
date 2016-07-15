@@ -234,11 +234,13 @@
     $block.data('bs.validator.originalContent') === undefined && $block.data('bs.validator.originalContent', $block.html())
     $block.empty().append(errors)
     $group.addClass('has-error has-danger')
+    $el.addClass('form-control-danger')
 
     $group.hasClass('has-feedback')
       && $feedback.removeClass(this.options.feedback.success)
       && $feedback.addClass(this.options.feedback.error)
       && $group.removeClass('has-success')
+      && $el.removeClass('form-control-success')
   }
 
   Validator.prototype.clearErrors = function ($el) {
@@ -248,12 +250,14 @@
 
     $block.html($block.data('bs.validator.originalContent'))
     $group.removeClass('has-error has-danger')
+    $el.removeClass('form-control-danger')
 
     $group.hasClass('has-feedback')
       && $feedback.removeClass(this.options.feedback.error)
       && getValue($el)
       && $feedback.addClass(this.options.feedback.success)
       && $group.addClass('has-success')
+      && $el.addClass('form-control-success')
   }
 
   Validator.prototype.hasErrors = function () {
