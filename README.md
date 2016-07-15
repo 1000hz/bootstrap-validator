@@ -10,6 +10,11 @@ It also provides an unobtrusive user experience, because nobody likes a naggy fo
 - Custom validator functions
 - Validation of an input field via AJAX
 
+## Installation
+* Clone the repo: `git clone https://github.com/1000hz/bootstrap-validator.git`.
+* Install with [Bower](http://bower.io): `bower install bootstrap-validator`.
+* Install with [npm](https://www.npmjs.com): `npm install bootstrap-validator`.
+
 ## Documentation
 
 See the project docs at http://1000hz.github.io/bootstrap-validator
