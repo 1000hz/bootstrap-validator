@@ -203,12 +203,12 @@ $('#myForm').validator()
 {% endhighlight %}
 
     <h3 id="validator-fields">Validated fields</h3>
-    <p>By default, the validator will only validate fields that are visible when the validator is initialized. If your form has a dynamic set of fields, you will need to call <code>$(...).validator('update')</code> to inform the plugin that the set of fields to be validated has changed.</p>
+    <p>By default, the validator will only validate fields that are present when the plugin is initialized. If your form has a dynamic set of fields, you will need to call <code>$(...).validator('update')</code> to inform the plugin that the set of fields to be validated has changed.</p>
 
     <p>The default selector used to determine which fields are validated is:</p>
 
 {% highlight js %}
-$.fn.validator.Constructor.INPUT_SELECTOR = ':input:not([type="submit"], button):enabled:visible'
+$.fn.validator.Constructor.INPUT_SELECTOR = ':input:not([type="submit"], button)'
 {% endhighlight %}
 
       <p>You can override this value from within your code if you need to change this default behavior. Alternatively, you can add <code>data-validate="true"</code> / <code>data-validate="false"</code> to a specific input to force its inclusion / exclusion in the set of validated fields.</p>

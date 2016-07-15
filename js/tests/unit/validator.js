@@ -14,10 +14,6 @@ $(function () {
     responseText: 'dang'
   })
 
-  // need this or else the validator won't run headlessly
-  var inputSelector = $.fn.validator.Constructor.INPUT_SELECTOR.replace(':visible', '')
-  $.fn.validator.Constructor.INPUT_SELECTOR = inputSelector
-
   QUnit.module("validator")
 
   QUnit.test("should provide no conflict", function (assert) {
@@ -444,43 +440,6 @@ $(function () {
     assert.ok(!$btn.hasClass('disabled'), 'submit button outside of referenced form reacted to changes')
   })
 
-  QUnit.test('should ignore disabled fields', function (assert) {
-    var form = '<form>'
-      + '<input id="required" type="text" required>'
-      + '<input id="disabled" type="text" required disabled>'
-      + '<button type="submit" id="btn">Submit</button>'
-      + '</form>'
-
-    form = $(form)
-      .appendTo('#qunit-fixture')
-      .validator()
-
-    var $btn = $('#btn')
-
-    assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete and invalid')
-    $('#required').val('hamburgers').trigger('input')
-    assert.ok(!$btn.hasClass('disabled'), 'submit button enabled regardless of disabled form elements being incomplete')
-  })
-
-  QUnit.skip('should ignore hidden fields', function (assert) {
-    var form = '<form>'
-      + '<input id="required" type="text" required>'
-      + '<input type="hidden" required>'
-      + '<input type="text" required hidden>'
-      + '<button type="submit" id="btn">Submit</button>'
-      + '</form>'
-
-    form = $(form)
-      .appendTo('#qunit-fixture')
-      .validator()
-
-    var $btn = $('#btn')
-
-    assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete and invalid')
-    $('#required').val('hamburgers').trigger('input')
-    assert.ok(!$btn.hasClass('disabled'), 'submit button enabled regardless of hidden form elements being incomplete')
-  })
-
   QUnit.test('should ignore button fields', function (assert) {
     var form = '<form>'
       + '<div class="form-group">'
@@ -618,9 +577,12 @@ $(function () {
   })
 
   QUnit.test('should respect data-validate attr to force validation on an input', function (assert) {
+    var inputSelector = $.fn.validator.Constructor.INPUT_SELECTOR
+    $.fn.validator.Constructor.INPUT_SELECTOR = inputSelector + ':not(.skip-validation)'
+
     var form = '<form>'
       + '<div class="form-group">'
-      +   '<input type="text" data-error="error" data-validate="true" style="display:none" required>'
+      +   '<input type="text" class="skip-validation" data-error="error" data-validate="true" required>'
       +   '<div id="validated" class="help-block with-errors"></div>'
       + '</div>'
       + '<div class="form-group">'
@@ -634,8 +596,10 @@ $(function () {
       .appendTo('#qunit-fixture')
       .validator('validate')
 
-    assert.equal($('#validated').text(), 'error', 'validation of hidden field was forced due to data-validate="true"')
+    assert.equal($('#validated').text(), 'error', 'validation of skipped field was forced due to data-validate="true"')
     assert.equal($('#skipped').text(), '', 'validation of field was bypassed due to data-validate="false"')
+
+    $.fn.validator.Constructor.INPUT_SELECTOR = inputSelector
   })
 
   QUnit.test('should not trim spaces off of the end of input values when running validators', function (assert) {
