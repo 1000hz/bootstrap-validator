@@ -81,9 +81,11 @@
               <li class="active">
   <a href="#validator">Validator</a>
   <ul class="nav">
+    <li><a href="#validator-overview">Overview</a></li>
     <li><a href="#validator-examples">Examples</a></li>
     <li><a href="#validator-usage">Usage</a></li>
     <li><a href="#validator-markup">Markup</a></li>
+    <li><a href="#validator-fields">Validated fields</a></li>
     <li><a href="#validator-options">Options</a></li>
     <li><a href="#validator-methods">Methods</a></li>
     <li><a href="#validator-events">Events</a></li>
@@ -100,6 +102,9 @@
     <div class="page-header">
       <h1 id="validator">Validator <small>validator.js</small></h1>
     </div>
+
+    <h2 id="validator-Overview">Overview</h2>
+    <p>This plugin adheres to the <a href="http://getbootstrap.com/javascript/#js-overview">conventions</a> set forth by Bootstrap's core jQuery plugins, so be sure to check those out to get a better understanding of the goals and design of this plugin.</p>
 
     <h2 id="validator-examples">Examples</h2>
     <p>Add validation to your forms with this simple plugin.</p>
@@ -128,7 +133,7 @@
           <label for="inputPassword" class="control-label">Password</label>
           <div class="form-inline row">
             <div class="form-group col-sm-6">
-              <input type="password" data-toggle="validator" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" required>
+              <input type="password" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" required>
               <div class="help-block">Minimum of 6 characters</div>
             </div>
             <div class="form-group col-sm-6">
@@ -186,14 +191,15 @@
   <span class="nt">&lt;/div&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;inputPassword&quot;</span> <span class="na">class=</span><span class="s">&quot;control-label&quot;</span><span class="nt">&gt;</span>Password<span class="nt">&lt;/label&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group col-sm-6&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;password&quot;</span> <span class="na">data-minlength=</span><span class="s">&quot;6&quot;</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id=</span><span class="s">&quot;inputPassword&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;Password&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;help-block&quot;</span><span class="nt">&gt;</span>Minimum of 6 characters<span class="nt">&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group col-sm-6&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;password&quot;</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id=</span><span class="s">&quot;inputPasswordConfirm&quot;</span> <span class="na">data-match=</span><span class="s">&quot;#inputPassword&quot;</span> <span class="na">data-match-error=</span><span class="s">&quot;Whoops, these don&#39;t match&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;Confirm&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;help-block with-errors&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-inline row&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group col-sm-6&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;password&quot;</span> <span class="na">data-minlength=</span><span class="s">&quot;6&quot;</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id=</span><span class="s">&quot;inputPassword&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;Password&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;help-block&quot;</span><span class="nt">&gt;</span>Minimum of 6 characters<span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group col-sm-6&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;password&quot;</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id=</span><span class="s">&quot;inputPasswordConfirm&quot;</span> <span class="na">data-match=</span><span class="s">&quot;#inputPassword&quot;</span> <span class="na">data-match-error=</span><span class="s">&quot;Whoops, these don&#39;t match&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;Confirm&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;help-block with-errors&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
     <span class="nt">&lt;/div&gt;</span>
   <span class="nt">&lt;/div&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
@@ -245,7 +251,7 @@
     <ul>
       <li><code>type="email"</code></li>
       <li><code>type="url"</code></li>
-      <li><code>type="number"</code>, with additional constraints via <code>max</code> and <code>min</code> attributes</li>
+      <li><code>type="number"</code>, with additional constraints via <code>max</code>, <code>min</code> and <code>step</code> attributes</li>
       <li><code>pattern="Reg(ular )?Exp(ression)?"</code> (for input types of <code>text</code>, <code>search</code>, <code>tel</code>, <code>url</code> or <code>email</code>)</li>
       <li><code>required</code></li>
     </ul>
@@ -256,6 +262,12 @@
       <li><code>data-minlength="5"</code> to enforce a minimum amount of characters</li>
       <li><code>data-remote="/path/to/remote/validator"</code> to make an AJAX request to determine if the field is valid or not. Be sure to give the input a <code>name</code> attribute, as the request will be sent to <code>/path/to/remote/validator?&lt;name&gt;=&lt;value&gt;</code>. The remote endpoint should return a <code>200 OK</code> if the field is valid, and a <code>4xx</code> otherwise. Here's a <a href="https://github.com/1000hz/validator-remote-example">reference server implementation</a> using Express.</li>
     </ul>
+
+    <div class="bs-callout bs-callout-info">
+      <h4>Standard Attribute Validators</h4>
+      <p>The validation rules for standard HTML5 attributes are handled entirely by the browser using the <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation">HTML5 Constraint Validation API</a>. As such, this plugin isn't in control of things like what qualifies as a valid email address or URL. If you find you need more restrictive validations for these fields, you can use the <code>pattern</code> attribute to further constrain what's acceptable.</p>
+      <p>Be careful that you aren't too restrictive though, which might lead to false negatives and a poor user experience. For example, you'd be surprised at what kinds of <a href="https://en.wikipedia.org/wiki/Email_address#Valid_email_addresses">email addresses</a> are considered valid according to standards.</p>
+    </div>
 
     <div class="bs-callout bs-callout-danger">
       <h4>Cross-browser Compatibility</h4>
@@ -272,6 +284,16 @@
     <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;help-block with-errors&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
   <span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/form&gt;</span></code></pre></div>
+
+    <h3 id="validator-fields">Validated fields</h3>
+    <p>By default, the validator will only validate fields that are present when the plugin is initialized. If your form has a dynamic set of fields, you will need to call <code>$(...).validator('update')</code> to inform the plugin that the set of fields to be validated has changed.</p>
+
+    <p>The default selector used to determine which fields are validated is:</p>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">validator</span><span class="p">.</span><span class="nx">Constructor</span><span class="p">.</span><span class="nx">INPUT_SELECTOR</span> <span class="o">=</span> <span class="s1">&#39;:input:not([type=&quot;hidden&quot;], [type=&quot;submit&quot;], button)&#39;</span></code></pre></div>
+
+      <p>You can override this value from within your code if you need to change this default behavior. Alternatively, you can add <code>data-validate="true"</code> / <code>data-validate="false"</code> to a specific input to force its inclusion / exclusion in the set of validated fields.</p>
+    </div>
 
 
     <h3 id="validator-options">Options</h3>
@@ -333,21 +355,17 @@
            <td>object</td>
            <td>{}</td>
            <td>
-             <p>Add custom validators to be run. Validators should be functions that receive the jQuery element as an argument and return a truthy or falsy value based on the validity of the input.</p>
-             <p>Object structure is: <code>{foo: function($el) { return true || false } }</code></p>
-             <p>Adding the validator to an input is done just like the others, <code>data-foo="bar"</code>.</p>
-             <p>You must also add default error messages for any custom validators via the <code>errors</code> option.
-           </td>
-         </tr>
-         <tr>
-           <td>errors</td>
-           <td>object</td>
-           <td>sensible defaults</td>
-           <td><p>Error messages to show for each type of validation. Defaults to:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">errors</span><span class="o">:</span> <span class="p">{</span>
-  <span class="nx">match</span><span class="o">:</span> <span class="s1">&#39;Does not match&#39;</span><span class="p">,</span>
-  <span class="nx">minlength</span><span class="o">:</span> <span class="s1">&#39;Not long enough&#39;</span>
+             <p>Add custom validators to be run. Validators should be functions that receive the jQuery element as an argument and return an error message if the field is invalid.</p>
+             <p>Object structure is:<p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
+  <span class="nx">equals</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$el</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">matchValue</span> <span class="o">=</span> <span class="nx">$el</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;equals&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">$el</span><span class="p">.</span><span class="nx">val</span><span class="p">()</span> <span class="o">!==</span> <span class="nx">matchValue</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="s2">&quot;Hey, that&#39;s not valid! It&#39;s gotta be &quot;</span> <span class="o">+</span> <span class="nx">matchValue</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 <span class="p">}</span></code></pre></div>
+             <p>Adding the validator to an input is done just like the others, <code>data-equals="foo"</code>.</p>
            </td>
          </tr>
         </tbody>
@@ -355,17 +373,20 @@
     </div><!-- /.table-responsive -->
     <div class="bs-callout bs-callout-info">
       <h4>Error messages for individual form fields</h4>
-      <p>Error messages for individual form fields can alternatively be specified through the use of data attributes. You can specify an error message for each type of validator on a field, i.e. <code>data-match-error=""</code> or use <code>data-error=""</code> for a blanket error message to show for any errors on that field.</p>
+      <p>Error messages for individual form fields can alternatively be specified through the use of data attributes. You can specify an error message for each type of validator on a field, i.e. <code>data-pattern-error=""</code>, <code>data-required-error=""</code>, <code>data-match-error=""</code>, etc... or use <code>data-error=""</code> for a blanket error message to show for any errors on that field.</p>
     </div>
 
     <h3 id="validator-methods"> Methods</h3>
-    <h4>$().validator(options)</h4>
+    <h4><code>.validator(options)</code></h4>
     <p>Attaches a validator to a form collection.</p>
 
-    <h4>$().validator('validate')</h4>
+    <h4><code>.validator('update')</code></h4>
+    <p>Updates the collection of inputs that will be validated. Call this method if the set of which fields need to be validated has changed.</p>
+
+    <h4><code>.validator('validate')</code></h4>
     <p>Immediately validates the entire form.</p>
 
-    <h4>$().validator('destroy')</h4>
+    <h4><code>.validator('destroy')</code></h4>
     <p>Destroys form validator and cleans up data left behind.</p>
 
     <h3 id="validator-events">Events</h3>
