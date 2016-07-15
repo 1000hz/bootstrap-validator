@@ -596,4 +596,19 @@ $(function () {
     assert.equal($('#validated').text(), 'error', 'validation of hidden field was forced due to data-validate="true"')
     assert.equal($('#skipped').text(), '', 'validation of field was bypassed due to data-validate="false"')
   })
+
+  QUnit.test('should not trim spaces off of the end of input values when running validators', function (assert) {
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-error="error" pattern="foo" value="foo " required>'
+      +   '<div id="errors" class="help-block with-errors"></div>'
+      + '</div>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator('validate')
+
+    assert.equal($('#errors').text(), 'error', 'space at the end of input is not being trimmed off')
+  })
 })
