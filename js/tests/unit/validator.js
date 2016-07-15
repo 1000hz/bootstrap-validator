@@ -485,6 +485,7 @@ $(function () {
     var form = '<form>'
       + '<div class="form-group">'
       +   '<input type="text" data-error="error" required>'
+      +   '<input type="submit" value="Submit">'
       +   '<div id="errors" class="help-block with-errors">valid</div>'
       + '</div>'
       + '</form>'
