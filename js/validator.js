@@ -68,7 +68,7 @@
 
   Validator.VERSION = '0.10.2'
 
-  Validator.INPUT_SELECTOR = ':input:not([type="submit"], button)'
+  Validator.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], button)'
 
   Validator.FOCUS_OFFSET = 20
 
