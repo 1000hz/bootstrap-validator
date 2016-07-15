@@ -166,7 +166,7 @@ $('#myForm').validator()
     <ul>
       <li><code>type="email"</code></li>
       <li><code>type="url"</code></li>
-      <li><code>type="number"</code>, with additional constraints via <code>max</code> and <code>min</code> attributes</li>
+      <li><code>type="number"</code>, with additional constraints via <code>max</code>, <code>min</code> and <code>step</code> attributes</li>
       <li><code>pattern="Reg(ular )?Exp(ression)?"</code> (for input types of <code>text</code>, <code>search</code>, <code>tel</code>, <code>url</code> or <code>email</code>)</li>
       <li><code>required</code></li>
     </ul>
@@ -302,7 +302,7 @@ errors: {
     </div><!-- /.table-responsive -->
     <div class="bs-callout bs-callout-info">
       <h4>Error messages for individual form fields</h4>
-      <p>Error messages for individual form fields can alternatively be specified through the use of data attributes. You can specify an error message for each type of validator on a field, i.e. <code>data-match-error=""</code> or use <code>data-error=""</code> for a blanket error message to show for any errors on that field.</p>
+      <p>Error messages for individual form fields can alternatively be specified through the use of data attributes. You can specify an error message for each type of validator on a field, i.e. <code>data-pattern-error=""</code>, <code>data-required-error=""</code>, <code>data-match-error=""</code>, etc... or use <code>data-error=""</code> for a blanket error message to show for any errors on that field.</p>
     </div>
 
     <h3 id="validator-methods"> Methods</h3>

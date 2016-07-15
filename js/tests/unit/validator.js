@@ -109,7 +109,47 @@ $(function () {
       .validator('validate')
   })
 
-  QUnit.test('should allow custom error-specific message', function (assert) {
+  QUnit.test('should allow custom error-specific message for standard attribute validators', function (assert) {
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="email" data-type-error="type" value="pizza">'
+      +   '<div id="type" class="help-block with-errors"></div>'
+      + '</div>'
+      + '<div class="form-group">'
+      +   '<input type="text" pattern="burger" data-pattern-error="pattern" value="pizza">'
+      +   '<div id="pattern" class="help-block with-errors"></div>'
+      + '</div>'
+      + '<div class="form-group">'
+      +   '<input type="number" min="5" data-min-error="min" value="0">'
+      +   '<div id="min" class="help-block with-errors"></div>'
+      + '</div>'
+      + '<div class="form-group">'
+      +   '<input type="number" max="5" data-max-error="max" value="10">'
+      +   '<div id="max" class="help-block with-errors"></div>'
+      + '</div>'
+      + '<div class="form-group">'
+      +   '<input type="number" min="0" step="5" data-step-error="step" value="3">'
+      +   '<div id="step" class="help-block with-errors"></div>'
+      + '</div>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-required-error="required" required>'
+      +   '<div id="required" class="help-block with-errors"></div>'
+      + '</div>'
+      + '</form>'
+
+    $(form)
+      .appendTo('#qunit-fixture')
+      .validator('validate')
+
+    assert.ok($('#type').text() == 'type', 'type error message was set')
+    assert.ok($('#pattern').text() == 'pattern', 'pattern error message was set')
+    assert.ok($('#min').text() == 'min', 'min error message was set')
+    assert.ok($('#max').text() == 'max', 'max error message was set')
+    assert.ok($('#step').text() == 'step', 'step error message was set')
+    assert.ok($('#required').text() == 'required', 'required error message was set')
+  })
+
+  QUnit.test('should allow custom error-specific message for non-standard validators', function (assert) {
     var done = assert.async()
     var form = '<form>'
       + '<div class="form-group">'

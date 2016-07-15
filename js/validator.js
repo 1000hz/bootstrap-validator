@@ -174,8 +174,21 @@
     $el.data('bs.validator.deferred') && $el.data('bs.validator.deferred').reject()
     $el.data('bs.validator.deferred', deferred)
 
+    function getValidityStateError() {
+      var validity = $el[0].validity
+
+      return validity.typeMismatch    ? $el.data('type-error')
+           : validity.patternMismatch ? $el.data('pattern-error')
+           : validity.stepMismatch    ? $el.data('step-error')
+           : validity.rangeOverflow   ? $el.data('max-error')
+           : validity.rangeUnderflow  ? $el.data('min-error')
+           : validity.valueMissing    ? $el.data('required-error')
+           :                            null
+    }
+
     function getErrorMessage(key) {
       return $el.data(key + '-error')
+        || getValidityStateError()
         || $el.data('error')
         || key == 'native' && $el[0].validationMessage
         || options.errors[key]
