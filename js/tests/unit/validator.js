@@ -611,4 +611,28 @@ $(function () {
 
     assert.equal($('#errors').text(), 'error', 'space at the end of input is not being trimmed off')
   })
+
+  QUnit.test('should re-run match validator on source input change', function (assert) {
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" id="source" value="foo" required>'
+      +   '<div class="help-block with-errors"></div>'
+      + '</div>'
+      + '<div class="form-group">'
+      +   '<input type="text" id="confirm" data-error="error" data-match="#source" value="foo" required>'
+      +   '<div id="errors" class="help-block with-errors"></div>'
+      + '</div>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator('validate')
+
+    assert.equal($('#errors').text(), '', 'fields are initially matching')
+
+    $('#source').val('bar')
+    $(form).validator('validate')
+
+    assert.equal($('#errors').text(), 'error', 'error is raised on source change')
+  })
 })
