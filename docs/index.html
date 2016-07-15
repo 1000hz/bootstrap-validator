@@ -278,7 +278,7 @@ feedback: {
            <td>object</td>
            <td>{}</td>
            <td>
-             <p>Add custom validators to be run. Validators should be functions that receive the jQuery element as an argument and return a truthy or falsy value based on the validity of the input.</p>
+             <p>Add custom validators to be run. Validators should be functions that receive the jQuery element as an argument and return a truthy or falsy value based on whether the input is valid or invalid.</p>
              <p>Object structure is: <code>{foo: function($el) { return true || false } }</code></p>
              <p>Adding the validator to an input is done just like the others, <code>data-foo="bar"</code>.</p>
              <p>You must also add default error messages for any custom validators via the <code>errors</code> option.
