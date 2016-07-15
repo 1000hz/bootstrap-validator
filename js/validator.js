@@ -44,6 +44,7 @@
     this.$btn     = $('button[type="submit"], input[type="submit"]')
                       .filter('[form="' + this.$element.attr('id') + '"]')
                       .add(this.$element.find('input[type="submit"], button[type="submit"]'))
+    this.validators = $.extend({}, Validator.VALIDATORS, options.custom)
 
     this.update()
 
@@ -53,7 +54,6 @@
       if (!options.errors[custom]) throw new Error('Missing default error message for custom validator: ' + custom)
     }
 
-    $.extend(Validator.VALIDATORS, options.custom)
 
     this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', $.proxy(this.onInput, this))
     this.$element.on('submit.bs.validator', $.proxy(this.onSubmit, this))
@@ -194,7 +194,7 @@
         || options.errors[key]
     }
 
-    $.each(Validator.VALIDATORS, $.proxy(function (key, validator) {
+    $.each(this.validators, $.proxy(function (key, validator) {
       if ((getValue($el) || $el.attr('required')) &&
           ($el.data(key) || key == 'native') &&
           !validator.call(this, $el)) {
