@@ -13,7 +13,7 @@ lead: "A simple and user-friendly form validator plugin for Bootstrap 3"
       <h1 id="validator">Validator <small>validator.js</small></h1>
     </div>
 
-    <h2 id="validator-overview">Overview</h2>
+    <h2 id="validator-Overview">Overview</h2>
     <p>This plugin adheres to the <a href="http://getbootstrap.com/javascript/#js-overview">conventions</a> set forth by Bootstrap's core jQuery plugins, so be sure to check those out to get a better understanding of the goals and design of this plugin.</p>
 
     <h2 id="validator-examples">Examples</h2>
@@ -201,6 +201,18 @@ $('#myForm').validator()
   </div>
 </form>
 {% endhighlight %}
+
+    <h3 id="validator-fields">Validated fields</h3>
+    <p>By default, the validator will only validate fields that are visible when the validator is initialized. If your form has a dynamic set of fields, you will need to call <code>$(...).validator('update')</code> to inform the plugin that the set of fields to be validated has changed.</p>
+
+    <p>The default selector used to determine which fields are validated is:</p>
+
+{% highlight js %}
+$.fn.validator.Constructor.INPUT_SELECTOR = ':input:not([type="submit"], button):enabled:visible'
+{% endhighlight %}
+
+      <p>You can override this value from within your code if you need to change this default behavior. Alternatively, you can add <code>data-validate="true"</code> / <code>data-validate="false"</code> to a specific input to force its inclusion / exclusion in the set of validated fields.</p>
+    </div>
 
 
     <h3 id="validator-options">Options</h3>

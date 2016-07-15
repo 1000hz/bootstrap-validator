@@ -575,4 +575,25 @@ $(function () {
 
     assert.equal($errors.text(), 'error', 'field was validated after a call to .validator(\'update\')')
   })
+
+  QUnit.test('should respect data-validate attr to force validation on an input', function (assert) {
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-error="error" data-validate="true" style="display:none" required>'
+      +   '<div id="validated" class="help-block with-errors"></div>'
+      + '</div>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-error="error" data-validate="false" required>'
+      +   '<div id="skipped" class="help-block with-errors"></div>'
+      + '</div>'
+      + '<button type="submit">Submit</button>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator('validate')
+
+    assert.equal($('#validated').text(), 'error', 'validation of hidden field was forced due to data-validate="true"')
+    assert.equal($('#skipped').text(), '', 'validation of field was bypassed due to data-validate="false"')
+  })
 })

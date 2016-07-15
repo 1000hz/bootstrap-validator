@@ -55,7 +55,7 @@
 
     $.extend(Validator.VALIDATORS, options.custom)
 
-    this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', Validator.INPUT_SELECTOR, $.proxy(this.onInput, this))
+    this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', $.proxy(this.onInput, this))
     this.$element.on('submit.bs.validator', $.proxy(this.onSubmit, this))
 
     this.$element.find('[data-match]').each(function () {
@@ -113,6 +113,9 @@
 
   Validator.prototype.update = function () {
     this.$inputs = this.$element.find(Validator.INPUT_SELECTOR)
+      .add(this.$element.find('[data-validate="true"]'))
+      .not(this.$element.find('[data-validate="false"]'))
+
     return this
   }
 
@@ -120,6 +123,9 @@
     var self        = this
     var $el         = $(e.target)
     var deferErrors = e.type !== 'focusout'
+
+    if (!this.$inputs.is($el)) return
+
     this.validateInput($el, deferErrors).done(function () {
       self.toggleSubmit()
     })
