@@ -279,23 +279,19 @@ feedback: {
            <td>object</td>
            <td>{}</td>
            <td>
-             <p>Add custom validators to be run. Validators should be functions that receive the jQuery element as an argument and return a truthy or falsy value based on whether the input is valid or invalid.</p>
-             <p>Object structure is: <code>{foo: function($el) { return true || false } }</code></p>
-             <p>Adding the validator to an input is done just like the others, <code>data-foo="bar"</code>.</p>
-             <p>You must also add default error messages for any custom validators via the <code>errors</code> option.
-           </td>
-         </tr>
-         <tr>
-           <td>errors</td>
-           <td>object</td>
-           <td>sensible defaults</td>
-           <td><p>Error messages to show for each type of validation. Defaults to:</p>
+             <p>Add custom validators to be run. Validators should be functions that receive the jQuery element as an argument and return an error message if the field is invalid.</p>
+             <p>Object structure is:<p>
 {% highlight js %}
-errors: {
-  match: 'Does not match',
-  minlength: 'Not long enough'
+{
+  equals: function($el) {
+    var matchValue = $el.data("equals")
+    if ($el.val() !== matchValue) {
+      return "Hey, that's not valid! It's gotta be " + matchValue
+    }
+  }
 }
 {% endhighlight %}
+             <p>Adding the validator to an input is done just like the others, <code>data-equals="foo"</code>.</p>
            </td>
          </tr>
         </tbody>

@@ -137,12 +137,12 @@ $(function () {
       .appendTo('#qunit-fixture')
       .validator('validate')
 
-    assert.ok($('#type').text() == 'type', 'type error message was set')
-    assert.ok($('#pattern').text() == 'pattern', 'pattern error message was set')
-    assert.ok($('#min').text() == 'min', 'min error message was set')
-    assert.ok($('#max').text() == 'max', 'max error message was set')
-    assert.ok($('#step').text() == 'step', 'step error message was set')
-    assert.ok($('#required').text() == 'required', 'required error message was set')
+    assert.equal($('#type').text(), 'type', 'type error message was set')
+    assert.equal($('#pattern').text(), 'pattern', 'pattern error message was set')
+    assert.equal($('#min').text(), 'min', 'min error message was set')
+    assert.equal($('#max').text(), 'max', 'max error message was set')
+    assert.equal($('#step').text(), 'step', 'step error message was set')
+    assert.equal($('#required').text(), 'required', 'required error message was set')
   })
 
   QUnit.test('should allow custom error-specific message for non-standard validators', function (assert) {
@@ -512,12 +512,6 @@ $(function () {
     assert.ok(!form.find('button').is('.disabled'), 're-enabled submit button')
   })
 
-  QUnit.test('should throw an error if custom validator has no default error message', function (assert) {
-    assert.raises(function () {
-      $('<form></form>').validator({custom: {foo: function () {}}})
-    })
-  })
-
   QUnit.test('should run custom validators', function (assert) {
     var form = '<form>'
       + '<div class="form-group">'
@@ -534,11 +528,8 @@ $(function () {
     var options = {
       custom: {
         foo: function ($el) {
-          return $el.data('foo') == $el.val()
+          if ($el.data('foo') != $el.val()) return 'not equal to ' + $el.data('foo')
         }
-      },
-      errors: {
-        foo: 'not equal to foo'
       }
     }
 
@@ -549,7 +540,7 @@ $(function () {
 
     assert.ok($('#foo').data('bs.validator.errors').length === 0, 'foo input is valid')
     assert.ok($('#bar').data('bs.validator.errors').length === 1, 'bar input is invalid')
-    assert.ok($('#bar').data('bs.validator.errors')[0] === options.errors.foo, 'bar error is custom error')
+    assert.ok($('#bar').data('bs.validator.errors')[0] === 'not equal to foo', 'bar error is custom error')
   })
 
   QUnit.test('should update set of fields', function (assert) {

@@ -39,21 +39,14 @@
   }
 
   var Validator = function (element, options) {
-    this.options  = options
-    this.$element = $(element)
-    this.$btn     = $('button[type="submit"], input[type="submit"]')
-                      .filter('[form="' + this.$element.attr('id') + '"]')
-                      .add(this.$element.find('input[type="submit"], button[type="submit"]'))
+    this.options    = options
     this.validators = $.extend({}, Validator.VALIDATORS, options.custom)
+    this.$element   = $(element)
+    this.$btn       = $('button[type="submit"], input[type="submit"]')
+                        .filter('[form="' + this.$element.attr('id') + '"]')
+                        .add(this.$element.find('input[type="submit"], button[type="submit"]'))
 
     this.update()
-
-    options.errors = $.extend({}, Validator.DEFAULTS.errors, options.errors)
-
-    for (var custom in options.custom) {
-      if (!options.errors[custom]) throw new Error('Missing default error message for custom validator: ' + custom)
-    }
-
 
     this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', $.proxy(this.onInput, this))
     this.$element.on('submit.bs.validator', $.proxy(this.onSubmit, this))
@@ -98,16 +91,17 @@
   Validator.VALIDATORS = {
     'native': function ($el) {
       var el = $el[0]
-      if (!el.checkValidity) return true
-      return el.validity.valid
+      if (el.checkValidity) {
+        return !el.checkValidity() && !el.validity.valid && (el.validationMessage || "error!")
+      }
     },
     'match': function ($el) {
       var target = $el.data('match')
-      return !$el.val() || $el.val() === $(target).val()
+      return $el.val() !== $(target).val() && Validator.DEFAULTS.errors.match
     },
     'minlength': function ($el) {
       var minlength = $el.data('minlength')
-      return !$el.val() || $el.val().length >= minlength
+      return $el.val().length < minlength && Validator.DEFAULTS.errors.minlength
     }
   }
 
@@ -169,14 +163,16 @@
   Validator.prototype.runValidators = function ($el) {
     var errors   = []
     var deferred = $.Deferred()
-    var options  = this.options
 
     $el.data('bs.validator.deferred') && $el.data('bs.validator.deferred').reject()
     $el.data('bs.validator.deferred', deferred)
 
+    function getValidatorSpecificError(key) {
+      return $el.data(key + '-error')
+    }
+
     function getValidityStateError() {
       var validity = $el[0].validity
-
       return validity.typeMismatch    ? $el.data('type-error')
            : validity.patternMismatch ? $el.data('pattern-error')
            : validity.stepMismatch    ? $el.data('step-error')
@@ -186,19 +182,22 @@
            :                            null
     }
 
+    function getGenericError() {
+      return $el.data('error')
+    }
+
     function getErrorMessage(key) {
-      return $el.data(key + '-error')
-        || getValidityStateError()
-        || $el.data('error')
-        || key == 'native' && $el[0].validationMessage
-        || options.errors[key]
+      return getValidatorSpecificError(key)
+          || getValidityStateError()
+          || getGenericError()
     }
 
     $.each(this.validators, $.proxy(function (key, validator) {
+      var error = null
       if ((getValue($el) || $el.attr('required')) &&
           ($el.data(key) || key == 'native') &&
-          !validator.call(this, $el)) {
-        var error = getErrorMessage(key)
+          (error = validator.call(this, $el))) {
+         error = getErrorMessage(key) || error
         !~errors.indexOf(error) && errors.push(error)
       }
     }, this))
