@@ -1,5 +1,32 @@
 Changelog
 =========
+### 0.11.0
+###### BREAKING CHANGES:
+* Custom validators are now expected to return an error string if the field is invalid.
+* The errors option has been removed. Override `$.fn.validator.Constructor.DEFAULTS.errors` if you want to change the default `match` and `minlength` errors.
+* The validator no longer skips disabled/invisible fields. If you want this behavior back, add `$.fn.validator.Constructor.INPUT_SELECTOR += ':enabled:visible'` to your code. ([#115](https://github.com/1000hz/bootstrap-validator/issues/115)) ([#134](https://github.com/1000hz/bootstrap-validator/issues/134)) ([#317](https://github.com/1000hz/bootstrap-validator/issues/317))
+
+###### Enhancements:
+* Added support for distinct custom errors for the standard HTML5 attribute validators. No more being stuck with `data-native-error=""` for all of them. ([#222](https://github.com/1000hz/bootstrap-validator/issues/222)) ([#241](https://github.com/1000hz/bootstrap-validator/issues/241)) ([#285](https://github.com/1000hz/bootstrap-validator/issues/285))
+* Added a `.validator('update')` method to refresh the set of fields that will be validated ([#306](https://github.com/1000hz/bootstrap-validator/issues/306))
+* Added support of `data-validate="true|false"` on inputs to force validation of that field
+* Immediately validating fields that already have a value upon validator initialization ([#350](https://github.com/1000hz/bootstrap-validator/issues/350))
+
+###### Bugfixes:
+* Fixed a bug in Safari where `element.checkValidity()` was returning stale values ([#293](https://github.com/1000hz/bootstrap-validator/issues/293))
+* Fixed a bug where spaces at the end of inputs were being trimmed off before being run through validators ([#338](https://github.com/1000hz/bootstrap-validator/issues/338))
+* Custom validators no longer leak to other instances of Validator. ([#176](https://github.com/1000hz/bootstrap-validator/issues/176))
+* Scrolling with `focus: true` option is now triggered on `$('html, body')` instead of `$(document.body)` for better cross-browser support ([#282](https://github.com/1000hz/bootstrap-validator/issues/282))
+* Removed (value == previousValue => skip) optimization. It was breaking the match validator and wasn't improving perf that much. ([#316](https://github.com/1000hz/bootstrap-validator/issues/316)) ([#340](https://github.com/1000hz/bootstrap-validator/issues/340))
+* Added `$.fn.validator.Constructor.VERSION` property for parity with core Bootstrap plugins
+
+###### Docs Changes:
+* Docs: Added an Overview section which calls out that whatever conventions apply to Bootstrap's core plugins also apply here
+* Docs: Added a callout blurb about the standard attribute validators
+* Docs: Added a "Validated fields" section to document the Validator.INPUT_SELECTOR field
+* Docs: Removed `$()` from method headers, which was confusing some people ([#202](https://github.com/1000hz/bootstrap-validator/issues/202))
+
+
 ### 0.10.2
 * Fixed a bug with the form still submitting even with errors when using the `disable: false` option. ([#310](https://github.com/1000hz/bootstrap-validator/issues/310))
 * Fixed a bug with the error field not being focused when using the `disable: false` option. ([#310](https://github.com/1000hz/bootstrap-validator/issues/310))

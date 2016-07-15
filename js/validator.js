@@ -1,9 +1,9 @@
 /* ========================================================================
- * Bootstrap (plugin): validator.js v0.10.2
+ * Bootstrap (plugin): validator.js v0.11.0
  * ========================================================================
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 Cina Saffary.
+ * Copyright (c) 2016 Cina Saffary.
  * Made by @1000hz in the style of Bootstrap 3 era @fat
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -66,7 +66,7 @@
     this.toggleSubmit()
   }
 
-  Validator.VERSION = '0.10.2'
+  Validator.VERSION = '0.11.0'
 
   Validator.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], button)'
 
