@@ -232,11 +232,13 @@
   Validator.prototype.reset = function () {
     var self = this
 
-    $.when(this.$inputs.map(function (el) {
-      return self.clearErrors($(this))
-    })).then(function () {
-      self.toggleSubmit()
-    })
+    setTimeout(function(){
+      $.when(self.$inputs.map(function (el) {
+        return self.clearErrors($(this))
+      })).then(function () {
+        self.toggleSubmit()
+      })
+    }, 50)
 
     return this
   }
@@ -280,7 +282,7 @@
     var $feedback = $group.find('.form-control-feedback')
 
     $block.html($block.data('bs.validator.originalContent'))
-    $group.removeClass('has-error has-success has-danger')
+    $group.removeClass('has-error has-danger has-success')
 
     $group.hasClass('has-feedback')
       && $feedback.removeClass(this.options.feedback.error)
@@ -334,7 +336,7 @@
       .removeData('bs.validator')
       .off('.bs.validator')
       .find('.form-control-feedback')
-        .removeClass([this.options.feedback.error, this.options.feedback.success].join(' '))
+      .removeClass([this.options.feedback.error, this.options.feedback.success].join(' '))
 
     this.$inputs
       .off('.bs.validator')
@@ -356,7 +358,7 @@
 
     this.$element.find('input[type="submit"], button[type="submit"]').removeClass('disabled')
 
-    this.$element.find('.has-error, .has-danger').removeClass('has-error has-danger')
+    this.$element.find('.has-error, .has-danger, .has-success').removeClass('has-error has-danger has-success')
 
     return this
   }
