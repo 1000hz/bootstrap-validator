@@ -1,5 +1,9 @@
 Changelog
 =========
+### 0.11.1
+* Added a `reset` event listener on the form to reinitialize the plugin.
+* Fixed a missed bit of cleanup in `.validator('destroy')` where it wasn't removing the `.has-success` class.
+
 ### 0.11.0
 ###### BREAKING CHANGES:
 * Custom validators are now expected to return an error string if the field is invalid.

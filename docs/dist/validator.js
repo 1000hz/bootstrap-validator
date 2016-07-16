@@ -1,5 +1,5 @@
 /*!
- * Validator v0.11.0 for Bootstrap 3, by @1000hz
+ * Validator v0.11.1 for Bootstrap 3, by @1000hz
  * Copyright 2016 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -30,6 +30,7 @@
 
     this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', $.proxy(this.onInput, this))
     this.$element.on('submit.bs.validator', $.proxy(this.onSubmit, this))
+    this.$element.on('reset.bs.validator', $.proxy(this.onReset, this))
 
     this.$element.find('[data-match]').each(function () {
       var $this  = $(this)
@@ -46,7 +47,7 @@
     this.toggleSubmit()
   }
 
-  Validator.VERSION = '0.11.0'
+  Validator.VERSION = '0.11.1'
 
   Validator.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], button)'
 
@@ -283,6 +284,16 @@
     this.$btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
   }
 
+  Validator.prototype.onReset = function (e) {
+    var self    = this
+    var options = this.options
+
+    window.setTimeout(function () {
+      self.destroy()
+      Plugin.call(self.$element, options)
+    }, 0)
+  }
+
   Validator.prototype.defer = function ($el, callback) {
     callback = $.proxy(callback, this, $el)
     if (!this.options.delay) return callback()
@@ -318,7 +329,7 @@
 
     this.$element.find('input[type="submit"], button[type="submit"]').removeClass('disabled')
 
-    this.$element.find('.has-error, .has-danger').removeClass('has-error has-danger')
+    this.$element.find('.has-error, .has-danger, .has-success').removeClass('has-error has-danger has-success')
 
     return this
   }
