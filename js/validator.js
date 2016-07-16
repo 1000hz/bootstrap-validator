@@ -50,7 +50,7 @@
 
     this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', $.proxy(this.onInput, this))
     this.$element.on('submit.bs.validator', $.proxy(this.onSubmit, this))
-    this.$element.on('reset.bs.validator', $.proxy(this.onReset, this))
+    this.$element.on('reset.bs.validator', $.proxy(this.reset, this))
 
     this.$element.find('[data-match]').each(function () {
       var $this  = $(this)
@@ -229,20 +229,6 @@
     return this
   }
 
-  Validator.prototype.reset = function () {
-    var self = this
-
-    setTimeout(function(){
-      $.when(self.$inputs.map(function (el) {
-        return self.clearErrors($(this))
-      })).then(function () {
-        self.toggleSubmit()
-      })
-    }, 50)
-
-    return this
-  }
-
   Validator.prototype.focusError = function () {
     if (!this.options.focus) return
 
@@ -314,23 +300,9 @@
     if (this.isIncomplete() || this.hasErrors()) e.preventDefault()
   }
 
-  Validator.prototype.onReset = function (e) {
-    this.reset()
-  }
-
   Validator.prototype.toggleSubmit = function () {
     if (!this.options.disable) return
     this.$btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
-  }
-
-  Validator.prototype.onReset = function (e) {
-    var self    = this
-    var options = this.options
-
-    window.setTimeout(function () {
-      self.destroy()
-      Plugin.call(self.$element, options)
-    }, 0)
   }
 
   Validator.prototype.defer = function ($el, callback) {
@@ -340,16 +312,12 @@
     $el.data('bs.validator.timeout', window.setTimeout(callback, this.options.delay))
   }
 
-  Validator.prototype.destroy = function () {
-    this.$element
-      .removeAttr('novalidate')
-      .removeData('bs.validator')
-      .off('.bs.validator')
-      .find('.form-control-feedback')
-      .removeClass([this.options.feedback.error, this.options.feedback.success].join(' '))
+  Validator.prototype.reset = function () {
+    this.$element.find('.form-control-feedback')
+      .removeClass(this.options.feedback.error)
+      .removeClass(this.options.feedback.success)
 
     this.$inputs
-      .off('.bs.validator')
       .removeData(['bs.validator.errors', 'bs.validator.deferred'])
       .each(function () {
         var $this = $(this)
@@ -357,18 +325,38 @@
         window.clearTimeout(timeout) && $this.removeData('bs.validator.timeout')
       })
 
-    this.$element.find('.help-block.with-errors').each(function () {
-      var $this = $(this)
-      var originalContent = $this.data('bs.validator.originalContent')
+    this.$element.find('.help-block.with-errors')
+      .each(function () {
+        var $this = $(this)
+        var originalContent = $this.data('bs.validator.originalContent')
 
-      $this
-        .removeData('bs.validator.originalContent')
-        .html(originalContent)
-    })
+        $this
+          .removeData('bs.validator.originalContent')
+          .html(originalContent)
+      })
 
-    this.$element.find('input[type="submit"], button[type="submit"]').removeClass('disabled')
+    this.$btn.removeClass('disabled')
 
     this.$element.find('.has-error, .has-danger, .has-success').removeClass('has-error has-danger has-success')
+
+    return this
+  }
+
+  Validator.prototype.destroy = function () {
+    this.reset()
+
+    this.$element
+      .removeAttr('novalidate')
+      .removeData('bs.validator')
+      .off('.bs.validator')
+
+    this.$inputs
+      .off('.bs.validator')
+
+    this.options    = null
+    this.validators = null
+    this.$element   = null
+    this.$btn       = null
 
     return this
   }
