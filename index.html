@@ -290,7 +290,7 @@
 
     <p>The default selector used to determine which fields are validated is:</p>
 
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">validator</span><span class="p">.</span><span class="nx">Constructor</span><span class="p">.</span><span class="nx">INPUT_SELECTOR</span> <span class="o">=</span> <span class="s1">&#39;:input:not([type=&quot;hidden&quot;], [type=&quot;submit&quot;], button)&#39;</span></code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">validator</span><span class="p">.</span><span class="nx">Constructor</span><span class="p">.</span><span class="nx">INPUT_SELECTOR</span> <span class="o">=</span> <span class="s1">&#39;:input:not([type=&quot;hidden&quot;], [type=&quot;submit&quot;], [type=&quot;reset&quot;], button)&#39;</span></code></pre></div>
 
       <p>You can override this value from within your code if you need to change this default behavior. Alternatively, you can add <code>data-validate="true"</code> / <code>data-validate="false"</code> to a specific input to force its inclusion / exclusion in the set of validated fields.</p>
     </div>
