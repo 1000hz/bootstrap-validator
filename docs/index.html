@@ -209,7 +209,7 @@ $('#myForm').validator()
     <p>The default selector used to determine which fields are validated is:</p>
 
 {% highlight js %}
-$.fn.validator.Constructor.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], button)'
+$.fn.validator.Constructor.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], [type="reset"], button)'
 {% endhighlight %}
 
       <p>You can override this value from within your code if you need to change this default behavior. Alternatively, you can add <code>data-validate="true"</code> / <code>data-validate="false"</code> to a specific input to force its inclusion / exclusion in the set of validated fields.</p>

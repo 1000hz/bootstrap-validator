@@ -1,5 +1,5 @@
 /*!
- * Validator v0.11.1 for Bootstrap 3, by @1000hz
+ * Validator v0.11.2 for Bootstrap 3, by @1000hz
  * Copyright 2016 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -47,9 +47,9 @@
     this.toggleSubmit()
   }
 
-  Validator.VERSION = '0.11.1'
+  Validator.VERSION = '0.11.2'
 
-  Validator.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], button)'
+  Validator.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], [type="reset"], button)'
 
   Validator.FOCUS_OFFSET = 20
 

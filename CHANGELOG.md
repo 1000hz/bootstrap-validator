@@ -1,8 +1,11 @@
 Changelog
 =========
+### 0.11.2
+* Added `input[type="reset"]` to the ignored input filter
+
 ### 0.11.1
-* Added a `reset` event listener on the form to reinitialize the plugin.
-* Fixed a missed bit of cleanup in `.validator('destroy')` where it wasn't removing the `.has-success` class.
+* Added a `reset` event listener on the form to reinitialize the plugin
+* Fixed a missed bit of cleanup in `.validator('destroy')` where it wasn't removing the `.has-success` class
 
 ### 0.11.0
 ###### BREAKING CHANGES:
