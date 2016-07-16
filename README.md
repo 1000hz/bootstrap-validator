@@ -11,6 +11,7 @@ It also provides an unobtrusive user experience, because nobody likes a naggy fo
 - Validation of an input field via AJAX
 
 ## Installation
+* CDN on [CDNJS](https://cdnjs.com): https://cdnjs.com/libraries/1000hz-bootstrap-validator
 * Clone the repo: `git clone https://github.com/1000hz/bootstrap-validator.git`.
 * Install with [Bower](http://bower.io): `bower install bootstrap-validator`.
 * Install with [npm](https://www.npmjs.com): `npm install bootstrap-validator`.
