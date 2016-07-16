@@ -349,7 +349,7 @@
 
     this.$element.find('input[type="submit"], button[type="submit"]').removeClass('disabled')
 
-    this.$element.find('.has-error, .has-danger').removeClass('has-error has-danger')
+    this.$element.find('.has-error, .has-danger, .has-success').removeClass('has-error has-danger has-success')
 
     return this
   }
