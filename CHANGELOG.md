@@ -1,5 +1,8 @@
 Changelog
 =========
+### 0.11.5
+* Fixed an event binding order issue when the form is reset. ([#375](https://github.com/1000hz/bootstrap-validator/pull/375))
+
 ### 0.11.3
 * Fixed `.has-success` not being cleared if a field `.has-feedback` and has it's value cleared.  Shoutout to [@net](https://github.com/1000hz/bootstrap-validator/pull/375) for bringing the bugs fixed in 0.11.1 - 0.11.3 to my attention.
 
