@@ -560,7 +560,7 @@ $(function () {
 
     assert.equal($errors.text(), '', 'field was not validated since it was added after the validator was initialized')
 
-    $(form)
+    form
       .validator('update')
       .validator('validate')
 
@@ -627,7 +627,7 @@ $(function () {
     assert.equal($('#errors').text(), '', 'fields are initially matching')
 
     $('#source').val('bar')
-    $(form).validator('validate')
+    form.validator('validate')
 
     assert.equal($('#errors').text(), 'error', 'error is raised on source change')
   })
