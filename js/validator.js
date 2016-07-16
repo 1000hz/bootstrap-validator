@@ -50,6 +50,7 @@
 
     this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', $.proxy(this.onInput, this))
     this.$element.on('submit.bs.validator', $.proxy(this.onSubmit, this))
+    this.$element.on('reset.bs.validator', $.proxy(this.onReset, this))
 
     this.$element.find('[data-match]').each(function () {
       var $this  = $(this)
@@ -68,7 +69,7 @@
 
   Validator.VERSION = '0.11.0'
 
-  Validator.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], button)'
+  Validator.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], [type="reset"], button)'
 
   Validator.FOCUS_OFFSET = 20
 
@@ -228,6 +229,18 @@
     return this
   }
 
+  Validator.prototype.reset = function () {
+    var self = this
+
+    $.when(this.$inputs.map(function (el) {
+      return self.clearErrors($(this))
+    })).then(function () {
+      self.toggleSubmit()
+    })
+
+    return this
+  }
+
   Validator.prototype.focusError = function () {
     if (!this.options.focus) return
 
@@ -267,10 +280,11 @@
     var $feedback = $group.find('.form-control-feedback')
 
     $block.html($block.data('bs.validator.originalContent'))
-    $group.removeClass('has-error has-danger')
+    $group.removeClass('has-error has-success has-danger')
 
     $group.hasClass('has-feedback')
       && $feedback.removeClass(this.options.feedback.error)
+      && $feedback.removeClass(this.options.feedback.success)
       && getValue($el)
       && $feedback.addClass(this.options.feedback.success)
       && $group.addClass('has-success')
@@ -296,6 +310,10 @@
   Validator.prototype.onSubmit = function (e) {
     this.validate()
     if (this.isIncomplete() || this.hasErrors()) e.preventDefault()
+  }
+
+  Validator.prototype.onReset = function (e) {
+    this.reset()
   }
 
   Validator.prototype.toggleSubmit = function () {
