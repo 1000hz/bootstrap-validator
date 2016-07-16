@@ -1,5 +1,5 @@
 /*!
- * Validator v0.11.2 for Bootstrap 3, by @1000hz
+ * Validator v0.11.3 for Bootstrap 3, by @1000hz
  * Copyright 2016 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -47,7 +47,7 @@
     this.toggleSubmit()
   }
 
-  Validator.VERSION = '0.11.2'
+  Validator.VERSION = '0.11.3'
 
   Validator.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], [type="reset"], button)'
 
@@ -248,10 +248,11 @@
     var $feedback = $group.find('.form-control-feedback')
 
     $block.html($block.data('bs.validator.originalContent'))
-    $group.removeClass('has-error has-danger')
+    $group.removeClass('has-error has-danger has-success')
 
     $group.hasClass('has-feedback')
       && $feedback.removeClass(this.options.feedback.error)
+      && $feedback.removeClass(this.options.feedback.success)
       && getValue($el)
       && $feedback.addClass(this.options.feedback.success)
       && $group.addClass('has-success')
