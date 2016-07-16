@@ -631,4 +631,28 @@ $(function () {
 
     assert.equal($('#errors').text(), 'error', 'error is raised on source change')
   })
+
+  QUnit.test('should reinitialize plugin on form reset', function (assert) {
+    var done = assert.async()
+    var form = '<form>'
+      + '<div class="form-group">'
+      +   '<input type="text" data-minlength="6">'
+      +   '<div id="errors" class="help-block with-errors"></div>'
+      + '</div>'
+      + '</form>'
+
+    form = $(form)
+      .appendTo('#qunit-fixture')
+      .validator()
+
+    form.find('input').val('foo')
+
+    form.validator('validate')
+    form.trigger('reset')
+
+    window.setTimeout(function () {
+      assert.equal($('#errors').text(), '', 'error is cleared on form reset')
+      done()
+    }, 0)
+  })
 })

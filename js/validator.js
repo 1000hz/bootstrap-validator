@@ -50,6 +50,7 @@
 
     this.$element.on('input.bs.validator change.bs.validator focusout.bs.validator', $.proxy(this.onInput, this))
     this.$element.on('submit.bs.validator', $.proxy(this.onSubmit, this))
+    this.$element.on('reset.bs.validator', $.proxy(this.onReset, this))
 
     this.$element.find('[data-match]').each(function () {
       var $this  = $(this)
@@ -301,6 +302,16 @@
   Validator.prototype.toggleSubmit = function () {
     if (!this.options.disable) return
     this.$btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
+  }
+
+  Validator.prototype.onReset = function (e) {
+    var self    = this
+    var options = this.options
+
+    window.setTimeout(function () {
+      self.destroy()
+      Plugin.call(self.$element, options)
+    }, 0)
   }
 
   Validator.prototype.defer = function ($el, callback) {
