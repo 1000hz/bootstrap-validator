@@ -229,6 +229,20 @@
     return this
   }
 
+  Validator.prototype.reset = function () {
+    var self = this
+
+    setTimeout(function(){
+      $.when(self.$inputs.map(function (el) {
+        return self.clearErrors($(this))
+      })).then(function () {
+        self.toggleSubmit()
+      })
+    }, 50)
+
+    return this
+  }
+
   Validator.prototype.focusError = function () {
     if (!this.options.focus) return
 
@@ -300,6 +314,10 @@
     if (this.isIncomplete() || this.hasErrors()) e.preventDefault()
   }
 
+  Validator.prototype.onReset = function (e) {
+    this.reset()
+  }
+
   Validator.prototype.toggleSubmit = function () {
     if (!this.options.disable) return
     this.$btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
@@ -328,7 +346,7 @@
       .removeData('bs.validator')
       .off('.bs.validator')
       .find('.form-control-feedback')
-        .removeClass([this.options.feedback.error, this.options.feedback.success].join(' '))
+      .removeClass([this.options.feedback.error, this.options.feedback.success].join(' '))
 
     this.$inputs
       .off('.bs.validator')
