@@ -221,7 +221,7 @@ body {
 
 /* Page headers */
 .bs-header {
-  padding: 30px 15px 40px; /* side padding builds on .container 15px, so 30px */
+  padding: 30px 15px 0px; /* side padding builds on .container 15px, so 30px */
   font-size: 16px;
   text-align: center;
   text-shadow: 0 1px 0 rgba(0,0,0,.15);
@@ -237,8 +237,15 @@ body {
   position: relative;
 }
 
+@media (min-width: 480px) {
+  .bs-header {
+    padding-bottom: 40px;
+  }
+}
+
 @media (min-width: 768px) {
   .bs-header {
+    padding-bottom: 60px;
     font-size: 21px;
     text-align: left;
   }
@@ -267,6 +274,54 @@ body {
   }
   .bs-docs-home .bs-masthead-links {
     margin-top: 10px;
+  }
+}
+
+
+/*
+ * Carbon ads
+ *
+ */
+
+#carbonads {
+  display: block;
+  overflow: hidden;
+  margin: 50px -30px 0 -30px;
+  padding: 15px 15px 15px 160px;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: left;
+  border: 1px solid #866ab3;
+}
+
+#carbonads a {
+  color: #fff;
+}
+
+.carbon-img {
+  float: left;
+  margin-left: -145px;
+}
+
+.carbon-poweredby {
+  display: block;
+  color: #cdbfe3 !important;
+}
+
+@media (min-width: 480px) {
+  #carbonads {
+    max-width: 330px;
+    margin: 50px auto 0;
+    border-radius: 4px;
+  }
+}
+
+@media (min-width: 992px) {
+  #carbonads {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    margin-top: 0;
   }
 }
 
