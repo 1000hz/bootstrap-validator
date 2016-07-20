@@ -22,7 +22,7 @@ See the project docs at http://1000hz.github.io/bootstrap-validator
 
 ## Contributing
 #### Found an issue?
-Be sure to include a reproducible test case on JSbin with your report.
+Be sure to include a reproducible test case on JS Bin with your report. Here's a [template](http://jsbin.com/fopaposaci/1/edit?html,js,output) to get started.
 #### Submitting a pull request?
 Fork this repo and create a new branch for your patch.
 Try to adhere to the code style of Bootstrap 3's JS as much as possible.
