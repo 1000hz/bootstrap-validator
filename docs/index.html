@@ -280,18 +280,18 @@ feedback: {
            <td>{}</td>
            <td>
              <p>Add custom validators to be run. Validators should be functions that receive the jQuery element as an argument and return an error message if the field is invalid.</p>
-             <p>Object structure is:<p>
+             <p>Here's an example of a custom validator that checks that an input is equal to some specified value:<p>
 {% highlight js %}
-{
+custom: {
   equals: function($el) {
-    var matchValue = $el.data("equals")
+    var matchValue = $el.data("equals") // foo
     if ($el.val() !== matchValue) {
       return "Hey, that's not valid! It's gotta be " + matchValue
     }
   }
 }
 {% endhighlight %}
-             <p>Adding the validator to an input is done just like the others, <code>data-equals="foo"</code>.</p>
+             <p>Adding the validator to an input is done just like the others, by referencing its name as a data attribute: <code>&lt;input data-equals="foo"&gt;</code>. In this case, the field will display an error if the user enters anything other than <code>foo</code>.</p>
            </td>
          </tr>
         </tbody>
