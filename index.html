@@ -171,7 +171,7 @@
         </div>
       </form>
     </div> <!-- /example -->
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;form</span> <span class="na">data-toggle=</span><span class="s">&quot;validator&quot;</span> <span class="na">role=</span><span class="s">&quot;form&quot;</span><span class="nt">&gt;</span>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;form</span> <span class="na">data-toggle=</span><span class="s">&quot;validator&quot;</span> <span class="na">role=</span><span class="s">&quot;form&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;inputName&quot;</span> <span class="na">class=</span><span class="s">&quot;control-label&quot;</span><span class="nt">&gt;</span>Name<span class="nt">&lt;/label&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id=</span><span class="s">&quot;inputName&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;Cina Saffary&quot;</span> <span class="na">required</span><span class="nt">&gt;</span>
@@ -229,7 +229,7 @@
   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">class=</span><span class="s">&quot;btn btn-primary&quot;</span><span class="nt">&gt;</span>Submit<span class="nt">&lt;/button&gt;</span>
   <span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;/form&gt;</span></code></pre></div>
+<span class="nt">&lt;/form&gt;</span></code></pre></figure>
 
 
     <h2 id="validator-usage">Usage</h2>
@@ -237,13 +237,13 @@
 
     Automatically enable form validation by adding <code>data-toggle="validator"</code> to your form element.
 
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;form</span> <span class="na">role=</span><span class="s">&quot;form&quot;</span> <span class="na">data-toggle=</span><span class="s">&quot;validator&quot;</span><span class="nt">&gt;</span>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;form</span> <span class="na">role=</span><span class="s">&quot;form&quot;</span> <span class="na">data-toggle=</span><span class="s">&quot;validator&quot;</span><span class="nt">&gt;</span>
   ...
-<span class="nt">&lt;/form&gt;</span></code></pre></div>
+<span class="nt">&lt;/form&gt;</span></code></pre></figure>
 
     Or activate validation via JavaScript:
 
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#myForm&#39;</span><span class="p">).</span><span class="nx">validator</span><span class="p">()</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#myForm&#39;</span><span class="p">).</span><span class="nx">validator</span><span class="p">()</span></code></pre></figure>
 
     <h3 id="validator-markup">Markup</h3>
     <p>Follow Bootstrap's <a href="http://getbootstrap.com/css/#forms" target="_blank">examples</a> for appropriate form markup. It's important that each input field is in its own individual <code>.form-group</code> container for error messages to appear properly.</p>
@@ -278,20 +278,20 @@
     <p>To display error messages, include a container after the input field with both <code>help-block</code> and <code>with-errors</code> classes.</p>
 
 
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;form</span> <span class="na">role=</span><span class="s">&quot;form&quot;</span> <span class="na">data-toggle=</span><span class="s">&quot;validator&quot;</span><span class="nt">&gt;</span>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;form</span> <span class="na">role=</span><span class="s">&quot;form&quot;</span> <span class="na">data-toggle=</span><span class="s">&quot;validator&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;inputEmail&quot;</span><span class="nt">&gt;</span>Email<span class="nt">&lt;/label&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;email&quot;</span> <span class="na">id=</span><span class="s">&quot;inputEmail&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;help-block with-errors&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
   <span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;/form&gt;</span></code></pre></div>
+<span class="nt">&lt;/form&gt;</span></code></pre></figure>
 
     <h3 id="validator-fields">Validated fields</h3>
     <p>By default, the validator will only validate fields that are present when the plugin is initialized. If your form has a dynamic set of fields, you will need to call <code>$(...).validator('update')</code> to inform the plugin that the set of fields to be validated has changed.</p>
 
     <p>The default selector used to determine which fields are validated is:</p>
 
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">validator</span><span class="p">.</span><span class="nx">Constructor</span><span class="p">.</span><span class="nx">INPUT_SELECTOR</span> <span class="o">=</span> <span class="s1">&#39;:input:not([type=&quot;hidden&quot;], [type=&quot;submit&quot;], [type=&quot;reset&quot;], button)&#39;</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">validator</span><span class="p">.</span><span class="nx">Constructor</span><span class="p">.</span><span class="nx">INPUT_SELECTOR</span> <span class="o">=</span> <span class="s1">&#39;:input:not([type=&quot;hidden&quot;], [type=&quot;submit&quot;], [type=&quot;reset&quot;], button)&#39;</span></code></pre></figure>
 
       <p>You can override this value from within your code if you need to change this default behavior. Alternatively, you can add <code>data-validate="true"</code> / <code>data-validate="false"</code> to a specific input to force its inclusion / exclusion in the set of validated fields.</p>
     </div>
@@ -335,7 +335,7 @@
            <td>
              <p>Scroll to and focus the first field with an error upon validation of the form.</p>
              <p>If, for example, you have a fixed navbar at the top of your page and you need to adjust the amount of padding between the top of the window and the focused field, you can override the following variable:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">validator</span><span class="p">.</span><span class="nx">Constructor</span><span class="p">.</span><span class="nx">FOCUS_OFFSET</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">validator</span><span class="p">.</span><span class="nx">Constructor</span><span class="p">.</span><span class="nx">FOCUS_OFFSET</span></code></pre></figure>
              <p>It defaults to 20 (px).</p>
            </td>
          </tr>
@@ -345,10 +345,10 @@
            <td>glyphicon classes</td>
            <td>
              <p>Override the classes used for form feedback icons. Defaults to Bootstrap's glyphicons:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">feedback</span><span class="o">:</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">feedback</span><span class="o">:</span> <span class="p">{</span>
   <span class="nx">success</span><span class="o">:</span> <span class="s1">&#39;glyphicon-ok&#39;</span><span class="p">,</span>
   <span class="nx">error</span><span class="o">:</span> <span class="s1">&#39;glyphicon-remove&#39;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
            </td>
          </tr>
          <tr>
@@ -427,13 +427,13 @@
       <p>When the form is invalid, <code>.preventDefault()</code> is called on the submit event. As a result, if you want to hook into the submit event and do something conditionally based on whether or not the form was valid, you can check if the event <code>.isDefaultPrevented()</code>. Be sure your submit handler is bound after the plugin has been initialized on your form.</p>
     </div>
 
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#form&#39;</span><span class="p">).</span><span class="nx">validator</span><span class="p">().</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#form&#39;</span><span class="p">).</span><span class="nx">validator</span><span class="p">().</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">isDefaultPrevented</span><span class="p">())</span> <span class="p">{</span>
     <span class="c1">// handle the invalid form...</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
     <span class="c1">// everything looks good!</span>
   <span class="p">}</span>
-<span class="p">})</span></code></pre></div>
+<span class="p">})</span></code></pre></figure>
 
   </div>
 
