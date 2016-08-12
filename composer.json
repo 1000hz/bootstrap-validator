@@ -3,6 +3,7 @@
     "type": "project",
     "description": "A user-friendly HTML5 form validation",
     "homepage": "http://1000hz.github.io/bootstrap-validator/",
+    "license": "MIT",
     "keywords": ["validation", "jquery", "twitter", "bootsrap"],
     "authors": [
         {
@@ -18,7 +19,9 @@
             "role": "Contributor"
         }
     ],
-    "require": {},
+    "require": {
+        "components/bootstrap": "~3"
+    },
     "autoload": {},
     "minimum-stability": "stable"
 }
