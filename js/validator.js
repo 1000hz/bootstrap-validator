@@ -61,7 +61,9 @@
       })
     })
 
-    this.$inputs.filter(function () { return getValue($(this)) }).trigger('focusout')
+    if (this.options.auto) {
+      this.$inputs.filter(function () { return getValue($(this)) }).trigger('focusout')
+    }
 
     this.$element.attr('novalidate', true) // disable automatic native validation
     this.toggleSubmit()
@@ -78,6 +80,7 @@
     html: false,
     disable: true,
     focus: true,
+    auto: true,
     custom: {},
     errors: {
       match: 'Does not match',
