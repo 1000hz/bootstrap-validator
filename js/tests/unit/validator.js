@@ -655,4 +655,20 @@ $(function () {
       done()
     }, 0)
   })
+
+  QUnit.test('should not clear help-blocks if auto is disabled', function (assert) {
+      var done = assert.async();
+      var form = '<form>'
+        + '<div class="form-group has-error">'
+        + '<input type="text" value="some value" required>'
+        + '<div id="errors" class="help-block with-errors></div>'
+        + '</div>'
+        + '</form>'
+
+      $(form).validator({auto: false})
+
+      assert.ok($(form).find('.form-group').hasClass('has-error'), '.has-error class not removed from form-group')
+      done();
+  })
+
 })
