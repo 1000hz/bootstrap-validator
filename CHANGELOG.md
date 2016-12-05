@@ -1,5 +1,9 @@
 Changelog
 =========
+### 0.11.7
+* Skip auto-validation of fields with errors that were set before plugin init. (#401)
+* Fixing non-multiple select validation, which accidentally broke in the last release. (#453)
+
 ### 0.11.6
 * Scope `focus` option's error scrolling to only inputs within the validator's form element. (#385)
 * Fixing `<select multiple required />` being marked as invalid by default with jQuery 3.x (#393)

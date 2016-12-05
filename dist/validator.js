@@ -1,5 +1,5 @@
 /*!
- * Validator v0.11.6 for Bootstrap 3, by @1000hz
+ * Validator v0.11.7 for Bootstrap 3, by @1000hz
  * Copyright 2016 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -15,7 +15,7 @@
   function getValue($el) {
     return $el.is('[type="checkbox"]') ? $el.prop('checked')                                     :
            $el.is('[type="radio"]')    ? !!$('[name="' + $el.attr('name') + '"]:checked').length :
-           $el.is('select')            ? +$el.val() ? $el.val() : null                           :
+           $el.is('select[multiple]')  ? +$el.val() ? $el.val() : null                           :
                                          $el.val()
   }
 
@@ -42,13 +42,16 @@
       })
     })
 
-    this.$inputs.filter(function () { return getValue($(this)) }).trigger('focusout')
+    // run validators for fields with values, but don't clobber server-side errors
+    this.$inputs.filter(function () {
+      return getValue($(this)) && !$(this).closest('.has-error').length
+    }).trigger('focusout')
 
     this.$element.attr('novalidate', true) // disable automatic native validation
     this.toggleSubmit()
   }
 
-  Validator.VERSION = '0.11.6'
+  Validator.VERSION = '0.11.7'
 
   Validator.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], [type="reset"], button)'
 
