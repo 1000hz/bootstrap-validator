@@ -489,6 +489,7 @@ $(function () {
   })
 
   QUnit.test('should clean up after itself when destroy called', function (assert) {
+    var done = assert.async()
     var form = '<form>'
       + '<div class="form-group has-feedback">'
       +   '<input type="text" data-error="error message" required>'
@@ -501,15 +502,25 @@ $(function () {
     form = $(form)
       .appendTo('#qunit-fixture')
       .validator('validate')
-      .validator('destroy')
 
-    assert.ok(!form.data('bs.validator'), 'removed data reference to plugin instance')
-    assert.ok(!form.attr('novalidate'), 'removed novalidate browser override')
-    assert.ok(Object.keys(form.find('input').data()).length === 1, 'removed data left on inputs (excluding data-* attrs)')
-    assert.ok(!form.find('.has-error').length, 'removed has-error class from all inputs')
-    assert.ok(!form.find('.glyphicon-remove').length, 'removed feedback class from all inputs')
-    assert.ok(form.find('.help-block').html() === 'original content', 'help block content restored')
-    assert.ok(!form.find('button').is('.disabled'), 're-enabled submit button')
+    var validator = form.data('bs.validator')
+
+    window.setTimeout(function () {
+      form.validator('destroy')
+
+      Object.keys(validator).forEach(function (key) {
+        assert.ok(validator[key] === null, 'removed ' + key + ' reference from plugin instance')
+      })
+
+      assert.ok(!form.data('bs.validator'), 'removed data reference to plugin instance')
+      assert.ok(!form.attr('novalidate'), 'removed novalidate browser override')
+      assert.ok(Object.keys(form.find('input').data()).length === 1, 'removed data left on inputs (excluding data-* attrs)')
+      assert.ok(!form.find('.has-error').length, 'removed has-error class from all inputs')
+      assert.ok(!form.find('.glyphicon-remove').length, 'removed feedback class from all inputs')
+      assert.ok(form.find('.help-block').html() === 'original content', 'help block content restored')
+      assert.ok(!form.find('button').is('.disabled'), 're-enabled submit button')
+      done()
+    })
   })
 
   QUnit.test('should run custom validators', function (assert) {

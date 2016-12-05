@@ -357,6 +357,7 @@
     this.validators = null
     this.$element   = null
     this.$btn       = null
+    this.$inputs    = null
 
     return this
   }
