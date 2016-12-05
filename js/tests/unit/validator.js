@@ -667,19 +667,46 @@ $(function () {
     }, 0)
   })
 
-  QUnit.test('should not add .has-error class to the pristine select with required and mulltiple attribute', function (assert) {
+  QUnit.test('should validate select elements', function (assert) {
       var form = '<form>'
-          + '<div class="form-group">'
-          +   '<select required multiple>'
-          +     '<option value="foo">Foo</option>'
-          +   '</select>'
-          + '<div>'
-          + '</form>'
+        + '<div class="form-group">'
+        +   '<select required>'
+        +     '<option value=""></option>'
+        +     '<option id="option" value="foo">Foo</option>'
+        +   '</select>'
+        + '<div>'
+        + '<button type="submit" id="btn">Submit</button>'
+        + '</form>'
 
       var $form = $(form)
-          .appendTo('#qunit-fixture')
-          .validator()
+        .appendTo('#qunit-fixture')
+        .validator('validate')
 
-      assert.ok(!$form.find('.form-group').hasClass('has-error'), '.has-error class is added to form-group');
+      var $btn = $('#btn')
+
+      assert.ok($form.find('.form-group').hasClass('has-error'), '.has-error class is added to form-group')
+      assert.ok($btn.hasClass('disabled'), 'submit button disabled because form is incomplete')
+
+      $('#option').prop('selected', true)
+      $('select').trigger('input')
+
+      assert.ok(!$form.find('.form-group').hasClass('has-error'), '.has-error class is removed from form-group')
+      assert.ok(!$btn.hasClass('disabled'), 'submit button enabled because form is complete')
+  })
+
+  QUnit.test('should not add .has-error class to the pristine select with required and multiple attribute', function (assert) {
+      var form = '<form>'
+        + '<div class="form-group">'
+        +   '<select required multiple>'
+        +     '<option value="foo">Foo</option>'
+        +   '</select>'
+        + '<div>'
+        + '</form>'
+
+      var $form = $(form)
+        .appendTo('#qunit-fixture')
+        .validator()
+
+      assert.ok(!$form.find('.form-group').hasClass('has-error'), '.has-error class is not added to form-group')
   })
 })
