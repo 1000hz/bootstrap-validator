@@ -35,6 +35,7 @@
   function getValue($el) {
     return $el.is('[type="checkbox"]') ? $el.prop('checked')                                     :
            $el.is('[type="radio"]')    ? !!$('[name="' + $el.attr('name') + '"]:checked').length :
+           $el.is('select')            ? +$el.val() ? $el.val() : null                           :
                                          $el.val()
   }
 
