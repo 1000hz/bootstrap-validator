@@ -655,4 +655,20 @@ $(function () {
       done()
     }, 0)
   })
+
+  QUnit.test('should not add .has-error class to the pristine select with required and mulltiple attribute', function (assert) {
+      var form = '<form>'
+          + '<div class="form-group">'
+          +   '<select required multiple>'
+          +     '<option value="foo">Foo</option>'
+          +   '</select>'
+          + '<div>'
+          + '</form>'
+
+      var $form = $(form)
+          .appendTo('#qunit-fixture')
+          .validator()
+
+      assert.ok(!$form.find('.form-group').hasClass('has-error'), '.has-error class is added to form-group');
+  })
 })
