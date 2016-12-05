@@ -674,7 +674,7 @@ $(function () {
         +     '<option value=""></option>'
         +     '<option id="option" value="foo">Foo</option>'
         +   '</select>'
-        + '<div>'
+        + '</div>'
         + '<button type="submit" id="btn">Submit</button>'
         + '</form>'
 
@@ -700,7 +700,7 @@ $(function () {
         +   '<select required multiple>'
         +     '<option value="foo">Foo</option>'
         +   '</select>'
-        + '<div>'
+        + '</div>'
         + '</form>'
 
       var $form = $(form)
@@ -708,5 +708,20 @@ $(function () {
         .validator()
 
       assert.ok(!$form.find('.form-group').hasClass('has-error'), '.has-error class is not added to form-group')
+  })
+
+  QUnit.test('should not clobber server-side errors', function (assert) {
+      var form = '<form>'
+        + '<div class="form-group has-error">'
+        +   '<input type="text" value="foo" required>'
+        +   '<div class="help-block with-errors">server says foo is invalid</div>'
+        + '</div>'
+        + '</form>'
+
+      var $form = $(form)
+        .appendTo('#qunit-fixture')
+        .validator()
+
+      assert.ok($form.find('.form-group').hasClass('has-error'), '.has-error class is not removed from form-group')
   })
 })

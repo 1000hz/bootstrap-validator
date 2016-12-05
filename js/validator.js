@@ -62,7 +62,10 @@
       })
     })
 
-    this.$inputs.filter(function () { return getValue($(this)) }).trigger('focusout')
+    // run validators for fields with values, but don't clobber server-side errors
+    this.$inputs.filter(function () {
+      return getValue($(this)) && !$(this).closest('.has-error').length
+    }).trigger('focusout')
 
     this.$element.attr('novalidate', true) // disable automatic native validation
     this.toggleSubmit()
