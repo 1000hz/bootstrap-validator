@@ -1,5 +1,10 @@
 Changelog
 =========
+### 0.11.6
+* Scope `focus` option's error scrolling to only inputs within the validator's form element. (#385)
+* Fixing `<select multiple required />` being marked as invalid by default with jQuery 3.x (#393)
+* Fixing a memory leak of `this.$inputs` on `.validator('destroy')`
+
 ### 0.11.5
 * Fixed an event binding order issue when the form is reset. ([#375](https://github.com/1000hz/bootstrap-validator/pull/375))
 

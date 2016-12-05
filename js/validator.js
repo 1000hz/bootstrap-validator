@@ -1,5 +1,5 @@
 /* ========================================================================
- * Bootstrap (plugin): validator.js v0.11.5
+ * Bootstrap (plugin): validator.js v0.11.6
  * ========================================================================
  * The MIT License (MIT)
  *
@@ -68,7 +68,7 @@
     this.toggleSubmit()
   }
 
-  Validator.VERSION = '0.11.5'
+  Validator.VERSION = '0.11.6'
 
   Validator.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], [type="reset"], button)'
 

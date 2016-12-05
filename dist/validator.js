@@ -1,5 +1,5 @@
 /*!
- * Validator v0.11.5 for Bootstrap 3, by @1000hz
+ * Validator v0.11.6 for Bootstrap 3, by @1000hz
  * Copyright 2016 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -48,7 +48,7 @@
     this.toggleSubmit()
   }
 
-  Validator.VERSION = '0.11.5'
+  Validator.VERSION = '0.11.6'
 
   Validator.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], [type="reset"], button)'
 
@@ -110,7 +110,6 @@
   Validator.prototype.validateInput = function ($el, deferErrors) {
     var value      = getValue($el)
     var prevErrors = $el.data('bs.validator.errors')
-    var errors
 
     if ($el.is('[type="radio"]')) $el = this.$element.find('input[name="' + $el.attr('name') + '"]')
 
@@ -338,6 +337,7 @@
     this.validators = null
     this.$element   = null
     this.$btn       = null
+    this.$inputs    = null
 
     return this
   }
