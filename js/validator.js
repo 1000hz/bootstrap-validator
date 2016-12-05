@@ -130,7 +130,6 @@
   Validator.prototype.validateInput = function ($el, deferErrors) {
     var value      = getValue($el)
     var prevErrors = $el.data('bs.validator.errors')
-    var errors
 
     if ($el.is('[type="radio"]')) $el = this.$element.find('input[name="' + $el.attr('name') + '"]')
 
