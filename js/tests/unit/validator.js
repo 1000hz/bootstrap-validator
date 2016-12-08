@@ -603,6 +603,11 @@ $(function () {
     assert.equal($('#validated').text(), 'error', 'validation of skipped field was forced due to data-validate="true"')
     assert.equal($('#skipped').text(), '', 'validation of field was bypassed due to data-validate="false"')
 
+    $('[data-validate="true"]').attr('data-validate', false)
+    form.validator('update')
+
+    assert.equal($('#validated').text(), '', 'error is cleared when data-validate="false" and the form is updated')
+
     $.fn.validator.Constructor.INPUT_SELECTOR = inputSelector
   })
 

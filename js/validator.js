@@ -110,9 +110,13 @@
   }
 
   Validator.prototype.update = function () {
+    var self = this
+
     this.$inputs = this.$element.find(Validator.INPUT_SELECTOR)
       .add(this.$element.find('[data-validate="true"]'))
-      .not(this.$element.find('[data-validate="false"]'))
+      .not(this.$element.find('[data-validate="false"]')
+        .each(function () { self.clearErrors($(this)) })
+      )
 
     this.toggleSubmit()
 
