@@ -30,6 +30,13 @@ Be sure to add any relevant unit tests.
 Make sure everything's still ok by running `grunt test`.
 Lastly, don't pollute your patch branch with any unrelated changes.
 
+## Donating
+If you've found this project particularly useful and feel like giving a little back, you can donate what you want via PayPal or Square Cash.
+
+<a href="https://paypal.me/1000hz"><img src="https://img.shields.io/badge/Donate-PayPal-blue.svg" alt="Donate via PayPal"></a>
+<a href="https://cash.me/$cina"><img src="https://img.shields.io/badge/Donate-Square Cash-brightgreen.svg" alt="Donate via Square Cash"></a>
+
+
 ## Author
 
 **Cina Saffary**
