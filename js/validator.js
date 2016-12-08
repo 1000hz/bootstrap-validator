@@ -68,7 +68,6 @@
     }).trigger('focusout')
 
     this.$element.attr('novalidate', true) // disable automatic native validation
-    this.toggleSubmit()
   }
 
   Validator.VERSION = '0.11.7'
@@ -114,6 +113,8 @@
     this.$inputs = this.$element.find(Validator.INPUT_SELECTOR)
       .add(this.$element.find('[data-validate="true"]'))
       .not(this.$element.find('[data-validate="false"]'))
+
+    this.toggleSubmit()
 
     return this
   }

@@ -555,7 +555,7 @@ $(function () {
   })
 
   QUnit.test('should update set of fields', function (assert) {
-    var form  = '<form></form>'
+    var form  = '<form><button id="btn" type="submit">Submit</button></form>'
     var group = '<div class="form-group">'
       +   '<input type="text" data-error="error" required>'
       +   '<div id="errors" class="help-block with-errors"></div>'
@@ -571,9 +571,11 @@ $(function () {
 
     assert.equal($errors.text(), '', 'field was not validated since it was added after the validator was initialized')
 
-    form
-      .validator('update')
-      .validator('validate')
+    form.validator('update')
+
+    assert.ok($('#btn').hasClass('disabled'), 'submit was disabled after update because form is now incomplete')
+
+    form.validator('validate')
 
     assert.equal($errors.text(), 'error', 'field was validated after a call to .validator(\'update\')')
   })
