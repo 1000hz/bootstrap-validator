@@ -1,5 +1,5 @@
 /*!
- * Validator v0.11.7 for Bootstrap 3, by @1000hz
+ * Validator v0.11.8 for Bootstrap 3, by @1000hz
  * Copyright 2016 Cina Saffary
  * Licensed under http://opensource.org/licenses/MIT
  *
@@ -48,10 +48,9 @@
     }).trigger('focusout')
 
     this.$element.attr('novalidate', true) // disable automatic native validation
-    this.toggleSubmit()
   }
 
-  Validator.VERSION = '0.11.7'
+  Validator.VERSION = '0.11.8'
 
   Validator.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], [type="reset"], button)'
 
@@ -91,9 +90,15 @@
   }
 
   Validator.prototype.update = function () {
+    var self = this
+
     this.$inputs = this.$element.find(Validator.INPUT_SELECTOR)
       .add(this.$element.find('[data-validate="true"]'))
-      .not(this.$element.find('[data-validate="false"]'))
+      .not(this.$element.find('[data-validate="false"]')
+        .each(function () { self.clearErrors($(this)) })
+      )
+
+    this.toggleSubmit()
 
     return this
   }

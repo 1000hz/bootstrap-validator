@@ -1,5 +1,9 @@
 Changelog
 =========
+### 0.11.8
+* Properly updating the submit button state when you run `.validator(‘update’)`. (#461)
+* Clearing errors on fields with `data-validate="false"` upon calling `.validator('update')`. (#387)
+
 ### 0.11.7
 * Skip auto-validation of fields with errors that were set before plugin init. (#401)
 * Fixing non-multiple select validation, which accidentally broke in the last release. (#453)

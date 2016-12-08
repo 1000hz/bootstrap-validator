@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-validator",
-  "version": "0.11.7",
+  "version": "0.11.8",
   "description": "A user-friendly HTML5 Form validator for Bootstrap 3",
   "main": "js/validator.js",
   "scripts": {
