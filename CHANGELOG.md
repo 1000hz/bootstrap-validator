@@ -1,5 +1,10 @@
 Changelog
 =========
+### 0.11.9
+* Fixing another issue with `<select multiple/>` elements. (#463)
+* No longer skipping a custom validator if its attribute has a falsy value. (#475)
+* Fixing stale values being read for data-attributes.
+
 ### 0.11.8
 * Properly updating the submit button state when you run `.validator(‘update’)`. (#461)
 * Clearing errors on fields with `data-validate="false"` upon calling `.validator('update')`. (#387)

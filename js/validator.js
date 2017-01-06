@@ -1,5 +1,5 @@
 /* ========================================================================
- * Bootstrap (plugin): validator.js v0.11.8
+ * Bootstrap (plugin): validator.js v0.11.9
  * ========================================================================
  * The MIT License (MIT)
  *
@@ -70,7 +70,7 @@
     this.$element.attr('novalidate', true) // disable automatic native validation
   }
 
-  Validator.VERSION = '0.11.8'
+  Validator.VERSION = '0.11.9'
 
   Validator.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], [type="reset"], button)'
 
