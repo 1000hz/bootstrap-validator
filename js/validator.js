@@ -55,7 +55,7 @@
 
     this.$element.find('[data-match]').each(function () {
       var $this  = $(this)
-      var target = $this.data('match')
+      var target = $this.attr('data-match')
 
       $(target).on('input.bs.validator', function (e) {
         getValue($this) && $this.trigger('input.bs.validator')
@@ -100,11 +100,11 @@
       }
     },
     'match': function ($el) {
-      var target = $el.data('match')
+      var target = $el.attr('data-match')
       return $el.val() !== $(target).val() && Validator.DEFAULTS.errors.match
     },
     'minlength': function ($el) {
-      var minlength = $el.data('minlength')
+      var minlength = $el.attr('data-minlength')
       return $el.val().length < minlength && Validator.DEFAULTS.errors.minlength
     }
   }
@@ -177,22 +177,22 @@
     $el.data('bs.validator.deferred', deferred)
 
     function getValidatorSpecificError(key) {
-      return $el.data(key + '-error')
+      return $el.attr('data-' + key + '-error')
     }
 
     function getValidityStateError() {
       var validity = $el[0].validity
-      return validity.typeMismatch    ? $el.data('type-error')
-           : validity.patternMismatch ? $el.data('pattern-error')
-           : validity.stepMismatch    ? $el.data('step-error')
-           : validity.rangeOverflow   ? $el.data('max-error')
-           : validity.rangeUnderflow  ? $el.data('min-error')
-           : validity.valueMissing    ? $el.data('required-error')
+      return validity.typeMismatch    ? $el.attr('data-type-error')
+           : validity.patternMismatch ? $el.attr('data-pattern-error')
+           : validity.stepMismatch    ? $el.attr('data-step-error')
+           : validity.rangeOverflow   ? $el.attr('data-max-error')
+           : validity.rangeUnderflow  ? $el.attr('data-min-error')
+           : validity.valueMissing    ? $el.attr('data-required-error')
            :                            null
     }
 
     function getGenericError() {
-      return $el.data('error')
+      return $el.attr('data-error')
     }
 
     function getErrorMessage(key) {
@@ -204,18 +204,18 @@
     $.each(this.validators, $.proxy(function (key, validator) {
       var error = null
       if ((getValue($el) || $el.attr('required')) &&
-          ($el.data(key) || key == 'native') &&
+          ($el.attr('data-' + key) || key == 'native') &&
           (error = validator.call(this, $el))) {
          error = getErrorMessage(key) || error
         !~errors.indexOf(error) && errors.push(error)
       }
     }, this))
 
-    if (!errors.length && getValue($el) && $el.data('remote')) {
+    if (!errors.length && getValue($el) && $el.attr('data-remote')) {
       this.defer($el, function () {
         var data = {}
         data[$el.attr('name')] = getValue($el)
-        $.get($el.data('remote'), data)
+        $.get($el.attr('data-remote'), data)
           .fail(function (jqXHR, textStatus, error) { errors.push(getErrorMessage('remote') || error) })
           .always(function () { deferred.resolve(errors)})
       })
