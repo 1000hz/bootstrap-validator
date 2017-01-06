@@ -533,6 +533,10 @@ $(function () {
       +   '<input type="text" id="bar" data-foo="foo" value="bar">'
       +   '<div class="help-block with-errors"></div>'
       + '</div>'
+      + '<div class="form-group">'
+      +   '<input type="text" id="baz" data-foo value="baz">'
+      +   '<div class="help-block with-errors"></div>'
+      + '</div>'
       + '<button type="submit">Submit</button>'
       + '</form>'
 
@@ -552,6 +556,7 @@ $(function () {
     assert.ok($('#foo').data('bs.validator.errors').length === 0, 'foo input is valid')
     assert.ok($('#bar').data('bs.validator.errors').length === 1, 'bar input is invalid')
     assert.ok($('#bar').data('bs.validator.errors')[0] === 'not equal to foo', 'bar error is custom error')
+    assert.ok($('#baz').data('bs.validator.errors').length === 1, 'baz ran validator even though data-foo has no attr value')
   })
 
   QUnit.test('should update set of fields', function (assert) {
