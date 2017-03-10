@@ -138,13 +138,13 @@
   }
 
   Validator.prototype.onInput = function (e) {
-    var self        = this
-    var $el         = $(e.target)
-    var deferErrors = e.type !== 'focusout'
+    var self      = this
+    var $el       = $(e.target)
+    var immediate = e.type === 'focusout'
 
     if (!this.$inputs.is($el)) return
 
-    self.defer($el, self.validateInput, deferErrors)
+    self.defer($el, self.validateInput, immediate)
   }
 
   Validator.prototype.validateInput = function ($el) {
@@ -332,10 +332,10 @@
     this.$btn.toggleClass('disabled', this.isIncomplete() || this.hasErrors())
   }
 
-  Validator.prototype.defer = function ($el, callback, deferErrors) {
+  Validator.prototype.defer = function ($el, callback, immediate) {
     callback = $.proxy(callback, this, $el)
     window.clearTimeout($el.data('bs.validator.timeout'))
-    if (!this.options.delay || !deferErrors) return callback()
+    if (!this.options.delay || immediate) return callback()
     $el.data('bs.validator.timeout', window.setTimeout(callback, this.options.delay))
   }
 
