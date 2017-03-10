@@ -197,8 +197,8 @@
 
     function getErrorMessage(key, error) {
       return getValidatorSpecificError(key)
-          || (typeof error == 'string' ? error : null)
           || getValidityStateError()
+          || (typeof error == 'string' ? error : null)
           || getGenericError()
           || error      
     }
