@@ -227,19 +227,21 @@
 
     if (!errors.length && getValue($el)) {
         var self = this
-        var deferredErrors = []
-        $.each(self.deferredValidators, $.proxy(function (key, validator) {
-            if ($el.attr('data-' + key) === undefined) {
-                return
-            }
-            deferredErrors.push(validator.call(self, $el)
-              .fail(function (error) {
-                  error = getErrorMessage(key) || error
-                  !~errors.indexOf(error) && errors.push(error)
-              }))
-        }, self))
-        $.when.apply($, deferredErrors)
-          .always(function () { deferred.resolve(errors) })
+        self.defer($el, function () {
+          var deferredErrors = []
+          $.each(self.deferredValidators, $.proxy(function (key, validator) {
+              if ($el.attr('data-' + key) === undefined) {
+                  return
+              }
+              deferredErrors.push(validator.call(self, $el)
+                .fail(function (error) {
+                    error = getErrorMessage(key) || error
+                    !~errors.indexOf(error) && errors.push(error)
+                }))
+          }, self))
+          $.when.apply($, deferredErrors)
+            .always(function () { deferred.resolve(errors) })
+        })
     } else deferred.resolve(errors)
 
     return deferred.promise()
