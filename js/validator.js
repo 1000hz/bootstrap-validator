@@ -40,12 +40,13 @@
   }
 
   var Validator = function (element, options) {
-    this.options    = options
-    this.validators = $.extend({}, Validator.VALIDATORS, options.custom)
-    this.$element   = $(element)
-    this.$btn       = $('button[type="submit"], input[type="submit"]')
-                        .filter('[form="' + this.$element.attr('id') + '"]')
-                        .add(this.$element.find('input[type="submit"], button[type="submit"]'))
+    this.options            = options
+    this.validators         = $.extend({}, Validator.VALIDATORS, options.custom)
+    this.deferredValidators = $.extend({}, Validator.DEFERRED_VALIDATORS, options.customDeferred)
+    this.$element           = $(element)
+    this.$btn               = $('button[type="submit"], input[type="submit"]')
+                                .filter('[form="' + this.$element.attr('id') + '"]')
+                                .add(this.$element.find('input[type="submit"], button[type="submit"]'))
 
     this.update()
 
@@ -82,6 +83,7 @@
     disable: true,
     focus: true,
     custom: {},
+    customDeferred: {},
     errors: {
       match: 'Does not match',
       minlength: 'Not long enough'
@@ -106,6 +108,18 @@
     'minlength': function ($el) {
       var minlength = $el.attr('data-minlength')
       return $el.val().length < minlength && Validator.DEFAULTS.errors.minlength
+    }
+  }
+
+  Validator.DEFERRED_VALIDATORS = {
+    'remote': function ($el) {
+      var deferred = $.Deferred()
+      var data = {}
+      data[$el.attr('name')] = getValue($el)
+      $.get($el.attr('data-remote'), data)
+        .fail(function (jqXHR, textStatus, error) { deferred.reject(error) })
+        .done(function (jqXHR, textStatus) { deferred.resolve() })
+      return deferred
     }
   }
 
@@ -211,14 +225,21 @@
       }
     }, this))
 
-    if (!errors.length && getValue($el) && $el.attr('data-remote')) {
-      this.defer($el, function () {
-        var data = {}
-        data[$el.attr('name')] = getValue($el)
-        $.get($el.attr('data-remote'), data)
-          .fail(function (jqXHR, textStatus, error) { errors.push(getErrorMessage('remote') || error) })
-          .always(function () { deferred.resolve(errors)})
-      })
+    if (!errors.length && getValue($el)) {
+        var self = this
+        var deferredErrors = []
+        $.each(self.deferredValidators, $.proxy(function (key, validator) {
+            if ($el.attr('data-' + key) === undefined) {
+                return
+            }
+            deferredErrors.push(validator.call(self, $el)
+              .fail(function (error) {
+                  error = getErrorMessage(key) || error
+                  !~errors.indexOf(error) && errors.push(error)
+              }))
+        }, self))
+        $.when.apply($, deferredErrors)
+          .always(function () { deferred.resolve(errors) })
     } else deferred.resolve(errors)
 
     return deferred.promise()
@@ -361,11 +382,12 @@
     this.$inputs
       .off('.bs.validator')
 
-    this.options    = null
-    this.validators = null
-    this.$element   = null
-    this.$btn       = null
-    this.$inputs    = null
+    this.options            = null
+    this.validators         = null
+    this.deferredValidators = null
+    this.$element           = null
+    this.$btn               = null
+    this.$inputs            = null
 
     return this
   }
