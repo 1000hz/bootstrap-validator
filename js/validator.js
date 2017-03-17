@@ -275,6 +275,18 @@
     var $block = $group.find('.help-block.with-errors')
     var $feedback = $group.find('.form-control-feedback')
 
+    // check that no other input in same group has error
+    var $otherHaserror = false
+    $group.find(':input').each(function($i, $other) {
+      var $errors = $($other).data('bs.validator.errors')
+      if ($errors && $errors.length) {
+        $otherHaserror = true
+        return false
+      }
+    })
+    if ($otherHaserror)
+      return;
+
     $block.html($block.data('bs.validator.originalContent'))
     $group.removeClass('has-error has-danger has-success')
 
