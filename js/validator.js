@@ -195,10 +195,12 @@
       return $el.attr('data-error')
     }
 
-    function getErrorMessage(key) {
+    function getErrorMessage(key, error) {
       return getValidatorSpecificError(key)
+          || (typeof error == 'string' ? error : null)
           || getValidityStateError()
           || getGenericError()
+          || error      
     }
 
     $.each(this.validators, $.proxy(function (key, validator) {
@@ -206,7 +208,7 @@
       if ((getValue($el) || $el.attr('required')) &&
           ($el.attr('data-' + key) !== undefined || key == 'native') &&
           (error = validator.call(this, $el))) {
-         error = getErrorMessage(key) || error
+         error = getErrorMessage(key, error)
         !~errors.indexOf(error) && errors.push(error)
       }
     }, this))
@@ -216,7 +218,7 @@
         var data = {}
         data[$el.attr('name')] = getValue($el)
         $.get($el.attr('data-remote'), data)
-          .fail(function (jqXHR, textStatus, error) { errors.push(getErrorMessage('remote') || error) })
+          .fail(function (jqXHR, textStatus, error) { errors.push(getErrorMessage('remote', error)) })
           .always(function () { deferred.resolve(errors)})
       })
     } else deferred.resolve(errors)
