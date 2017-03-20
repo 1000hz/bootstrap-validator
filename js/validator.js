@@ -403,7 +403,11 @@
 
   // VALIDATOR DATA-API
   // ==================
-
+  $(document).on('input.bs.validator change.bs.validator focusout.bs.validator', 'form[data-toggle="validator"]', function (e) {
+    var $form = $(this)
+    $form.validator($form.data())
+  })
+    
   $(window).on('load', function () {
     $('form[data-toggle="validator"]').each(function () {
       var $form = $(this)
