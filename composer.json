@@ -1,0 +1,50 @@
+{
+  "name": "1000hz/bootstrap-validator",
+  "type": "project",
+  "description": "A user-friendly HTML5 form validation",
+  "homepage": "http://1000hz.github.io/bootstrap-validator/",
+  "license": "MIT",
+  "keywords": [
+    "bootstrap",
+    "bootstrap3",
+    "jquery",
+    "form",
+    "validator",
+    "validation",
+    "plugin"
+  ],
+  "authors": [
+    {
+      "name": "Cina Saffary",
+      "email": "itscina@gmail.com",
+      "homepage": "https://twitter.com/1000hz",
+      "role": "Developer"
+    },
+    {
+      "name": "Pavel Rykov",
+      "email": "p.rikov@drteam.rocks",
+      "homepage": "http://drteam.rocks/",
+      "role": "Contributor"
+    }
+  ],
+  "require": {
+    "components/jquery": ">= 1.8.3",
+    "components/bootstrap": "~3"
+  },
+  "extra": {
+    "assets": {
+      "actions": [
+        {
+          "target": "assets"
+        }
+      ],
+      "packages": {
+        "1000hz/bootstrap-validator": {},
+        "components/jquery": {},
+        "components/bootstrap": {}
+      }
+    },
+    "autoload": {},
+    "minimum-stability": "stable"
+  }
+}
