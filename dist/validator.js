@@ -127,7 +127,7 @@
 
     var self = this
 
-    return this.runValidators($el).done(function (errors) {
+    return this.runValidators($el, this.options.errors).done(function (errors) {
       $el.data('bs.validator.errors', errors)
 
       errors.length
@@ -149,7 +149,7 @@
   }
 
 
-  Validator.prototype.runValidators = function ($el) {
+  Validator.prototype.runValidators = function ($el, translations) {
     var errors   = []
     var deferred = $.Deferred()
 
@@ -162,12 +162,12 @@
 
     function getValidityStateError() {
       var validity = $el[0].validity
-      return validity.typeMismatch    ? $el.attr('data-type-error')
-           : validity.patternMismatch ? $el.attr('data-pattern-error')
-           : validity.stepMismatch    ? $el.attr('data-step-error')
-           : validity.rangeOverflow   ? $el.attr('data-max-error')
-           : validity.rangeUnderflow  ? $el.attr('data-min-error')
-           : validity.valueMissing    ? $el.attr('data-required-error')
+      return validity.typeMismatch    ? translations.typeMismatch    ||$el.attr('data-type-error')
+           : validity.patternMismatch ? translations.patternMismatch ||$el.attr('data-pattern-error')
+           : validity.stepMismatch    ? translations.stepMismatch    ||$el.attr('data-step-error')
+           : validity.rangeOverflow   ? translations.rangeOverflow   ||$el.attr('data-max-error')
+           : validity.rangeUnderflow  ? translations.rangeUnderflow  ||$el.attr('data-min-error')
+           : validity.valueMissing    ? translations.valueMissing    ||$el.attr('data-required-error')
            :                            null
     }
 
