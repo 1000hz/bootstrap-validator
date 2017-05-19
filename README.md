@@ -1,4 +1,6 @@
 # Validator, for Bootstrap 3
+
+[![Join the chat at https://gitter.im/1000hz/bootstrap-validator](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/1000hz/bootstrap-validator?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 The Validator plugin offers automatic form validation configurable via mostly HTML5 standard attributes.
 It also provides an unobtrusive user experience, because nobody likes a naggy form.
 
