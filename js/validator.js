@@ -182,13 +182,13 @@
 
     function getValidityStateError() {
       var validity = $el[0].validity
-      return validity.typeMismatch    ? $el.attr('data-type-error')
-           : validity.patternMismatch ? $el.attr('data-pattern-error')
-           : validity.stepMismatch    ? $el.attr('data-step-error')
-           : validity.rangeOverflow   ? $el.attr('data-max-error')
-           : validity.rangeUnderflow  ? $el.attr('data-min-error')
-           : validity.valueMissing    ? $el.attr('data-required-error')
-           :                            null
+      return validity.typeMismatch || validity.badInput ? $el.attr('data-type-error')
+           : validity.patternMismatch                   ? $el.attr('data-pattern-error')
+           : validity.stepMismatch                      ? $el.attr('data-step-error')
+           : validity.rangeOverflow                     ? $el.attr('data-max-error')
+           : validity.rangeUnderflow                    ? $el.attr('data-min-error')
+           : validity.valueMissing                      ? $el.attr('data-required-error')
+           :                                              null
     }
 
     function getGenericError() {
