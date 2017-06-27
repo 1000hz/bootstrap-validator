@@ -240,7 +240,7 @@
   Validator.prototype.focusError = function () {
     if (!this.options.focus) return
 
-    var $input = this.$element.find(".has-error :input:first")
+    var $input = this.$element.find(".has-error :input:visible:first")
     if ($input.length === 0) return
 
     $('html, body').animate({scrollTop: $input.offset().top - Validator.FOCUS_OFFSET}, 250)
