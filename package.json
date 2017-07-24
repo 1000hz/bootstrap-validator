@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-validator",
-  "version": "0.11.9",
+  "version": "0.11.10",
   "description": "A user-friendly HTML5 Form validator for Bootstrap 3",
   "main": "js/validator.js",
   "scripts": {
@@ -20,10 +20,12 @@
     "plugin"
   ],
   "author": "Cina Saffary",
-  "licenses": [{
-    "type": "MIT",
-    "url": "http://opensource.org/licenses/MIT"
-  }],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/1000hz/bootstrap-validator/issues"
   },
