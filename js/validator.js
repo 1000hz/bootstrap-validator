@@ -33,19 +33,19 @@
   // ==========================
 
   function getValue($el) {
-    return $el.is('[type="checkbox"]') ? $el.prop('checked')                                     :
-           $el.is('[type="radio"]')    ? !!$('[name="' + $el.attr('name') + '"]:checked').length :
-           $el.is('select[multiple]')  ? ($el.val() || []).length                                :
-                                         $el.val()
+    return $el.is('[type="checkbox"]') ? $el.prop('checked') :
+      $el.is('[type="radio"]') ? !!$('[name="' + $el.attr('name') + '"]:checked').length :
+        $el.is('select[multiple]') ? ($el.val() || []).length :
+          $el.val()
   }
 
   var Validator = function (element, options) {
-    this.options    = options
+    this.options = options
     this.validators = $.extend({}, Validator.VALIDATORS, options.custom)
-    this.$element   = $(element)
-    this.$btn       = $('button[type="submit"], input[type="submit"]')
-                        .filter('[form="' + this.$element.attr('id') + '"]')
-                        .add(this.$element.find('input[type="submit"], button[type="submit"]'))
+    this.$element = $(element)
+    this.$btn = $('button[type="submit"], input[type="submit"]')
+      .filter('[form="' + this.$element.attr('id') + '"]')
+      .add(this.$element.find('input[type="submit"], button[type="submit"]'))
 
     this.update()
 
@@ -54,7 +54,7 @@
     this.$element.on('reset.bs.validator', $.proxy(this.reset, this))
 
     this.$element.find('[data-match]').each(function () {
-      var $this  = $(this)
+      var $this = $(this)
       var target = $this.attr('data-match')
 
       $(target).on('input.bs.validator', function (e) {
@@ -70,7 +70,7 @@
     this.$element.attr('novalidate', true) // disable automatic native validation
   }
 
-  Validator.VERSION = '0.11.9'
+  Validator.VERSION = '0.11.10'
 
   Validator.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], [type="reset"], button)'
 
@@ -124,8 +124,8 @@
   }
 
   Validator.prototype.onInput = function (e) {
-    var self        = this
-    var $el         = $(e.target)
+    var self = this
+    var $el = $(e.target)
     var deferErrors = e.type !== 'focusout'
 
     if (!this.$inputs.is($el)) return
@@ -136,12 +136,12 @@
   }
 
   Validator.prototype.validateInput = function ($el, deferErrors) {
-    var value      = getValue($el)
+    var value = getValue($el)
     var prevErrors = $el.data('bs.validator.errors')
 
     if ($el.is('[type="radio"]')) $el = this.$element.find('input[name="' + $el.attr('name') + '"]')
 
-    var e = $.Event('validate.bs.validator', {relatedTarget: $el[0]})
+    var e = $.Event('validate.bs.validator', { relatedTarget: $el[0] })
     this.$element.trigger(e)
     if (e.isDefaultPrevented()) return
 
@@ -156,21 +156,21 @@
 
       if (!prevErrors || errors.toString() !== prevErrors.toString()) {
         e = errors.length
-          ? $.Event('invalid.bs.validator', {relatedTarget: $el[0], detail: errors})
-          : $.Event('valid.bs.validator', {relatedTarget: $el[0], detail: prevErrors})
+          ? $.Event('invalid.bs.validator', { relatedTarget: $el[0], detail: errors })
+          : $.Event('valid.bs.validator', { relatedTarget: $el[0], detail: prevErrors })
 
         self.$element.trigger(e)
       }
 
       self.toggleSubmit()
 
-      self.$element.trigger($.Event('validated.bs.validator', {relatedTarget: $el[0]}))
+      self.$element.trigger($.Event('validated.bs.validator', { relatedTarget: $el[0] }))
     })
   }
 
 
   Validator.prototype.runValidators = function ($el) {
-    var errors   = []
+    var errors = []
     var deferred = $.Deferred()
 
     $el.data('bs.validator.deferred') && $el.data('bs.validator.deferred').reject()
@@ -182,13 +182,13 @@
 
     function getValidityStateError() {
       var validity = $el[0].validity
-      return validity.typeMismatch    ? $el.attr('data-type-error')
-           : validity.patternMismatch ? $el.attr('data-pattern-error')
-           : validity.stepMismatch    ? $el.attr('data-step-error')
-           : validity.rangeOverflow   ? $el.attr('data-max-error')
-           : validity.rangeUnderflow  ? $el.attr('data-min-error')
-           : validity.valueMissing    ? $el.attr('data-required-error')
-           :                            null
+      return validity.typeMismatch ? $el.attr('data-type-error')
+        : validity.patternMismatch ? $el.attr('data-pattern-error')
+          : validity.stepMismatch ? $el.attr('data-step-error')
+            : validity.rangeOverflow ? $el.attr('data-max-error')
+              : validity.rangeUnderflow ? $el.attr('data-min-error')
+                : validity.valueMissing ? $el.attr('data-required-error')
+                  : null
     }
 
     function getGenericError() {
@@ -197,16 +197,16 @@
 
     function getErrorMessage(key) {
       return getValidatorSpecificError(key)
-          || getValidityStateError()
-          || getGenericError()
+        || getValidityStateError()
+        || getGenericError()
     }
 
     $.each(this.validators, $.proxy(function (key, validator) {
       var error = null
       if ((getValue($el) || $el.attr('required')) &&
-          ($el.attr('data-' + key) !== undefined || key == 'native') &&
-          (error = validator.call(this, $el))) {
-         error = getErrorMessage(key) || error
+        ($el.attr('data-' + key) !== undefined || key == 'native') &&
+        (error = validator.call(this, $el))) {
+        error = getErrorMessage(key) || error
         !~errors.indexOf(error) && errors.push(error)
       }
     }, this))
@@ -216,8 +216,17 @@
         var data = {}
         data[$el.attr('name')] = getValue($el)
         $.get($el.attr('data-remote'), data)
-          .fail(function (jqXHR, textStatus, error) { errors.push(getErrorMessage('remote') || error) })
-          .always(function () { deferred.resolve(errors)})
+          .fail(function (jqXHR, textStatus, error) {
+            let errorMsg = (jqXHR.responseJSON ?
+              (jqXHR.responseJSON.message ?
+                jqXHR.responseJSON.message : error) : error);
+            $el.attr({
+              'data-error': errorMsg,
+              'data-remote-error': errorMsg
+            });
+            errors.push(getErrorMessage('remote') || error)
+          })
+          .always(function () { deferred.resolve(errors) })
       })
     } else deferred.resolve(errors)
 
@@ -243,7 +252,7 @@
     var $input = this.$element.find(".has-error :input:first")
     if ($input.length === 0) return
 
-    $('html, body').animate({scrollTop: $input.offset().top - Validator.FOCUS_OFFSET}, 250)
+    $('html, body').animate({ scrollTop: $input.offset().top - Validator.FOCUS_OFFSET }, 250)
     $input.focus()
   }
 
@@ -361,11 +370,11 @@
     this.$inputs
       .off('.bs.validator')
 
-    this.options    = null
+    this.options = null
     this.validators = null
-    this.$element   = null
-    this.$btn       = null
-    this.$inputs    = null
+    this.$element = null
+    this.$btn = null
+    this.$inputs = null
 
     return this
   }
@@ -376,9 +385,9 @@
 
   function Plugin(option) {
     return this.each(function () {
-      var $this   = $(this)
+      var $this = $(this)
       var options = $.extend({}, Validator.DEFAULTS, $this.data(), typeof option == 'object' && option)
-      var data    = $this.data('bs.validator')
+      var data = $this.data('bs.validator')
 
       if (!data && option == 'destroy') return
       if (!data) $this.data('bs.validator', (data = new Validator(this, options)))
@@ -388,7 +397,7 @@
 
   var old = $.fn.validator
 
-  $.fn.validator             = Plugin
+  $.fn.validator = Plugin
   $.fn.validator.Constructor = Validator
 
 
