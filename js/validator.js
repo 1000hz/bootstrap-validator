@@ -268,6 +268,8 @@
       && $feedback.removeClass(this.options.feedback.success)
       && $feedback.addClass(this.options.feedback.error)
       && $group.removeClass('has-success')
+      
+      this.$element.trigger($.Event('errorschanged.bs.validator', {relatedTarget: $el[0]}))
   }
 
   Validator.prototype.clearErrors = function ($el) {
@@ -284,6 +286,8 @@
       && getValue($el)
       && $feedback.addClass(this.options.feedback.success)
       && $group.addClass('has-success')
+      
+      this.$element.trigger($.Event('errorschanged.bs.validator', {relatedTarget: $el[0]}))
   }
 
   Validator.prototype.hasErrors = function () {
