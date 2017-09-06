@@ -19,6 +19,8 @@
 
     var navHeight = $('.navbar').outerHeight(true) + 10
 
+    $.fn.validator.Constructor.FOCUS_OFFSET = navHeight
+
     $body.scrollspy({
       target: '.bs-sidebar',
       offset: navHeight

@@ -1,12 +1,11 @@
 {
   "name": "bootstrap-validator",
-  "version": "0.8.1",
   "homepage": "https://github.com/1000hz/bootstrap-validator",
   "authors": [
     "Cina Saffary <itscina@gmail.com>"
   ],
   "description": "A user-friendly HTML5 Form validator for Bootstrap 3",
-  "main": "./dist/validator.min.js",
+  "main": "dist/validator.js",
   "keywords": [
     "bootstrap",
     "bootstrap3",
@@ -26,5 +25,8 @@
     "Gruntfile.js",
     "package.json",
     "*.html"
-  ]
+  ],
+  "dependencies": {
+    "jquery": ">= 1.8.3"
+  }
 }

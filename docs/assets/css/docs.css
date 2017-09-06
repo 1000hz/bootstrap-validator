@@ -213,72 +213,6 @@ body {
 
 
 /*
- * Homepage
- *
- * Tweaks to the custom homepage and the masthead (main jumbotron).
- */
-
- /* Masthead (headings and download button) */
- .bs-masthead {
-  position: relative;
-  padding: 30px 15px;
-  text-align: center;
-  text-shadow: 0 1px 0 rgba(0,0,0,.15);
-}
-.bs-masthead h1 {
-  font-size: 50px;
-  line-height: 1;
-  color: #fff;
-}
-.bs-masthead .btn-outline-inverse {
-  margin: 10px;
-}
-
-/* Links to project-level content like the repo, Expo, etc */
-.bs-masthead-links {
-  margin-top: 20px;
-  margin-bottom: 40px;
-  padding: 0 15px;
-  list-style: none;
-  text-align: center;
-}
-.bs-masthead-links li {
-  display: inline;
-}
-.bs-masthead-links li + li {
-  margin-left: 20px;
-}
-.bs-masthead-links a {
-  color: #fff;
-}
-
-@media (min-width: 768px) {
-  .bs-masthead {
-    text-align: left;
-    padding-top:    140px;
-    padding-bottom: 140px;
-  }
-  .bs-masthead h1 {
-    font-size: 100px;
-  }
-  .bs-masthead .lead {
-    margin-right: 25%;
-    font-size: 30px;
-  }
-  .bs-masthead .btn-outline-inverse {
-    width: auto;
-    margin: 20px 5px 20px 0;
-    padding: 18px 24px;
-    font-size: 21px;
-  }
-  .bs-masthead-links {
-    padding: 0;
-    text-align: left;
-  }
-}
-
-
-/*
  * Page headers
  *
  * Jumbotron-esque headers at the top of every page that's not the homepage.
@@ -287,7 +221,7 @@ body {
 
 /* Page headers */
 .bs-header {
-  padding: 30px 15px 40px; /* side padding builds on .container 15px, so 30px */
+  padding: 30px 15px 0px; /* side padding builds on .container 15px, so 30px */
   font-size: 16px;
   text-align: center;
   text-shadow: 0 1px 0 rgba(0,0,0,.15);
@@ -303,8 +237,15 @@ body {
   position: relative;
 }
 
+@media (min-width: 480px) {
+  .bs-header {
+    padding-bottom: 40px;
+  }
+}
+
 @media (min-width: 768px) {
   .bs-header {
+    padding-bottom: 60px;
     font-size: 21px;
     text-align: left;
   }
@@ -333,6 +274,54 @@ body {
   }
   .bs-docs-home .bs-masthead-links {
     margin-top: 10px;
+  }
+}
+
+
+/*
+ * Carbon ads
+ *
+ */
+
+#carbonads {
+  display: block;
+  overflow: hidden;
+  margin: 50px -30px 0 -30px;
+  padding: 15px 15px 15px 160px;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: left;
+  border: 1px solid #866ab3;
+}
+
+#carbonads a {
+  color: #fff;
+}
+
+.carbon-img {
+  float: left;
+  margin-left: -145px;
+}
+
+.carbon-poweredby {
+  display: block;
+  color: #cdbfe3 !important;
+}
+
+@media (min-width: 480px) {
+  #carbonads {
+    max-width: 330px;
+    margin: 50px auto 0;
+    border-radius: 4px;
+  }
+}
+
+@media (min-width: 992px) {
+  #carbonads {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    margin-top: 0;
   }
 }
 

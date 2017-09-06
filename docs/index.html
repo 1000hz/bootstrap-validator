@@ -13,6 +13,9 @@ lead: "A simple and user-friendly form validator plugin for Bootstrap 3"
       <h1 id="validator">Validator <small>validator.js</small></h1>
     </div>
 
+    <h2 id="validator-Overview">Overview</h2>
+    <p>This plugin adheres to the <a href="http://getbootstrap.com/javascript/#js-overview">conventions</a> set forth by Bootstrap's core jQuery plugins, so be sure to check those out to get a better understanding of the goals and design of this plugin.</p>
+
     <h2 id="validator-examples">Examples</h2>
     <p>Add validation to your forms with this simple plugin.</p>
 
@@ -22,13 +25,14 @@ lead: "A simple and user-friendly form validator plugin for Bootstrap 3"
           <label for="inputName" class="control-label">Name</label>
           <input type="text" class="form-control" id="inputName" placeholder="Cina Saffary" required>
         </div>
-        <div class="form-group">
+        <div class="form-group has-feedback">
           <label for="inputTwitter" class="control-label">Twitter</label>
           <div class="input-group">
             <span class="input-group-addon">@</span>
-            <input type="text" pattern="^([_A-z0-9]){3,}$" maxlength="20" class="form-control" id="inputTwitter" placeholder="1000hz" required>
+            <input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" class="form-control" id="inputTwitter" placeholder="1000hz" required>
           </div>
-          <span class="help-block with-errors">Up to 20 letters, numbers and underscores</span>
+          <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+          <div class="help-block with-errors">Hey look, this one has feedback icons!</div>
         </div>
         <div class="form-group">
           <label for="inputEmail" class="control-label">Email</label>
@@ -39,8 +43,8 @@ lead: "A simple and user-friendly form validator plugin for Bootstrap 3"
           <label for="inputPassword" class="control-label">Password</label>
           <div class="form-inline row">
             <div class="form-group col-sm-6">
-              <input type="password" data-toggle="validator" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" required>
-              <span class="help-block">Minimum of 6 characters</span>
+              <input type="password" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" required>
+              <div class="help-block">Minimum of 6 characters</div>
             </div>
             <div class="form-group col-sm-6">
               <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm" required>
@@ -82,13 +86,14 @@ lead: "A simple and user-friendly form validator plugin for Bootstrap 3"
     <label for="inputName" class="control-label">Name</label>
     <input type="text" class="form-control" id="inputName" placeholder="Cina Saffary" required>
   </div>
-  <div class="form-group">
+  <div class="form-group has-feedback">
     <label for="inputTwitter" class="control-label">Twitter</label>
     <div class="input-group">
       <span class="input-group-addon">@</span>
-      <input type="text" pattern="^([_A-z0-9]){3,}$" maxlength="20" class="form-control" id="inputTwitter" placeholder="1000hz" required>
+      <input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" class="form-control" id="inputTwitter" placeholder="1000hz" required>
     </div>
-    <span class="help-block with-errors">Up to 20 letters, numbers and underscores</span>
+    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+    <div class="help-block with-errors">Hey look, this one has feedback icons!</div>
   </div>
   <div class="form-group">
     <label for="inputEmail" class="control-label">Email</label>
@@ -97,14 +102,15 @@ lead: "A simple and user-friendly form validator plugin for Bootstrap 3"
   </div>
   <div class="form-group">
     <label for="inputPassword" class="control-label">Password</label>
-    <div class="form-group col-sm-6">
-      <input type="password" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" required>
-      <span class="help-block">Minimum of 6 characters</span>
-    </div>
-    <div class="form-group col-sm-6">
-      <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm" required>
-      <div class="help-block with-errors"></div>
-    </div>
+    <div class="form-inline row">
+      <div class="form-group col-sm-6">
+        <input type="password" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" required>
+        <div class="help-block">Minimum of 6 characters</div>
+      </div>
+      <div class="form-group col-sm-6">
+        <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm" required>
+        <div class="help-block with-errors"></div>
+      </div>
     </div>
   </div>
   <div class="form-group">
@@ -161,7 +167,7 @@ $('#myForm').validator()
     <ul>
       <li><code>type="email"</code></li>
       <li><code>type="url"</code></li>
-      <li><code>type="number"</code>, with additional constraints via <code>max</code> and <code>min</code> attributes</li>
+      <li><code>type="number"</code>, with additional constraints via <code>max</code>, <code>min</code> and <code>step</code> attributes</li>
       <li><code>pattern="Reg(ular )?Exp(ression)?"</code> (for input types of <code>text</code>, <code>search</code>, <code>tel</code>, <code>url</code> or <code>email</code>)</li>
       <li><code>required</code></li>
     </ul>
@@ -170,8 +176,14 @@ $('#myForm').validator()
     <ul>
       <li><code>data-match="#inputToMatch"</code> to ensure two fields match, e.g. password confirmations</li>
       <li><code>data-minlength="5"</code> to enforce a minimum amount of characters</li>
-      <li><code>data-remote="/path/to/remote/validator"</code> to make an AJAX request to determine if the field is valid or not. Be sure to give the input a <code>name</code> attribute, as the request will be sent to <code>/path/to/remote/validator?&lt;name&gt;=&lt;value&gt;</code>. The remote endpoint should return a <code>200 OK</code> if the field is valid, and a <code>4xx</code> otherwise.</li>
+      <li><code>data-remote="/path/to/remote/validator"</code> to make an AJAX request to determine if the field is valid or not. Be sure to give the input a <code>name</code> attribute, as the request will be sent to <code>/path/to/remote/validator?&lt;name&gt;=&lt;value&gt;</code>. The remote endpoint should return a <code>200 OK</code> if the field is valid, and a <code>4xx</code> otherwise. Here's a <a href="https://github.com/1000hz/validator-remote-example">reference server implementation</a> using Express.</li>
     </ul>
+
+    <div class="bs-callout bs-callout-info">
+      <h4>Standard Attribute Validators</h4>
+      <p>The validation rules for standard HTML5 attributes are handled entirely by the browser using the <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation">HTML5 Constraint Validation API</a>. As such, this plugin isn't in control of things like what qualifies as a valid email address or URL. If you find you need more restrictive validations for these fields, you can use the <code>pattern</code> attribute to further constrain what's acceptable.</p>
+      <p>Be careful that you aren't too restrictive though, which might lead to false negatives and a poor user experience. For example, you'd be surprised at what kinds of <a href="https://en.wikipedia.org/wiki/Email_address#Valid_email_addresses">email addresses</a> are considered valid according to standards.</p>
+    </div>
 
     <div class="bs-callout bs-callout-danger">
       <h4>Cross-browser Compatibility</h4>
@@ -190,6 +202,18 @@ $('#myForm').validator()
   </div>
 </form>
 {% endhighlight %}
+
+    <h3 id="validator-fields">Validated fields</h3>
+    <p>By default, the validator will only validate fields that are present when the plugin is initialized. If your form has a dynamic set of fields, you will need to call <code>$(...).validator('update')</code> to inform the plugin that the set of fields to be validated has changed.</p>
+
+    <p>The default selector used to determine which fields are validated is:</p>
+
+{% highlight js %}
+$.fn.validator.Constructor.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], [type="reset"], button)'
+{% endhighlight %}
+
+      <p>You can override this value from within your code if you need to change this default behavior. Alternatively, you can add <code>data-validate="true"</code> / <code>data-validate="false"</code> to a specific input to force its inclusion / exclusion in the set of validated fields.</p>
+    </div>
 
 
     <h3 id="validator-options">Options</h3>
@@ -224,27 +248,50 @@ $('#myForm').validator()
            <td>Disable the submit button until the form is valid and all required fields are complete.</td>
          </tr>
          <tr>
+           <td>focus</td>
+           <td>boolean</td>
+           <td>true</td>
+           <td>
+             <p>Scroll to and focus the first field with an error upon validation of the form.</p>
+             <p>If, for example, you have a fixed navbar at the top of your page and you need to adjust the amount of padding between the top of the window and the focused field, you can override the following variable:</p>
+{% highlight js %}
+$.fn.validator.Constructor.FOCUS_OFFSET
+{% endhighlight %}
+             <p>It defaults to 20 (px).</p>
+           </td>
+         </tr>
+         <tr>
+           <td>feedback</td>
+           <td>object</td>
+           <td>glyphicon classes</td>
+           <td>
+             <p>Override the classes used for form feedback icons. Defaults to Bootstrap's glyphicons:</p>
+{% highlight js %}
+feedback: {
+  success: 'glyphicon-ok',
+  error: 'glyphicon-remove'
+}
+{% endhighlight %}
+           </td>
+         </tr>
+         <tr>
            <td>custom</td>
            <td>object</td>
            <td>{}</td>
            <td>
-             <p>Add custom validators to be run. Validators should be functions that receive the jQuery element as an argument and return a truthy or falsy value based on the validity of the input.</p>
-             <p>Object structure is: <code>{foo: function($el) { return true || false } }</code></p>
-             <p>Adding the validator to an input is done just like the others, <code>data-foo="bar"</code>.</p>
-             <p>You must also add default error messages for any custom validators via the <code>errors</code> option.
-           </td>
-         </tr>
-         <tr>
-           <td>errors</td>
-           <td>object</td>
-           <td>sensible defaults</td>
-           <td><p>Error messages to show for each type of validation. Defaults to:</p>
+             <p>Add custom validators to be run. Validators should be functions that receive the jQuery element as an argument and return an error message if the field is invalid.</p>
+             <p>Here's an example of a custom validator that checks that an input is equal to some specified value:<p>
 {% highlight js %}
-errors: {
-  match: "Does not match",
-  minlength: "Not long enough"
+custom: {
+  equals: function($el) {
+    var matchValue = $el.data("equals") // foo
+    if ($el.val() !== matchValue) {
+      return "Hey, that's not valid! It's gotta be " + matchValue
+    }
+  }
 }
 {% endhighlight %}
+             <p>Adding the validator to an input is done just like the others, by referencing its name as a data attribute: <code>&lt;input data-equals="foo"&gt;</code>. In this case, the field will display an error if the user enters anything other than <code>foo</code>.</p>
            </td>
          </tr>
         </tbody>
@@ -252,17 +299,20 @@ errors: {
     </div><!-- /.table-responsive -->
     <div class="bs-callout bs-callout-info">
       <h4>Error messages for individual form fields</h4>
-      <p>Error messages for individual form fields can alternatively be specified through the use of data attributes. You can specify an error message for each type of validator on a field, i.e. <code>data-match-error=""</code> or use <code>data-error=""</code> for a blanket error message to show for any errors on that field.</p>
+      <p>Error messages for individual form fields can alternatively be specified through the use of data attributes. You can specify an error message for each type of validator on a field, i.e. <code>data-pattern-error=""</code>, <code>data-required-error=""</code>, <code>data-match-error=""</code>, etc... or use <code>data-error=""</code> for a blanket error message to show for any errors on that field.</p>
     </div>
 
     <h3 id="validator-methods"> Methods</h3>
-    <h4>$().validator(options)</h4>
+    <h4><code>.validator(options)</code></h4>
     <p>Attaches a validator to a form collection.</p>
 
-    <h4>$().validator('validate')</h4>
+    <h4><code>.validator('update')</code></h4>
+    <p>Updates the collection of inputs that will be validated. Call this method if the set of fields which need to be validated has changed.</p>
+
+    <h4><code>.validator('validate')</code></h4>
     <p>Immediately validates the entire form.</p>
 
-    <h4>$().validator('destroy')</h4>
+    <h4><code>.validator('destroy')</code></h4>
     <p>Destroys form validator and cleans up data left behind.</p>
 
     <h3 id="validator-events">Events</h3>
