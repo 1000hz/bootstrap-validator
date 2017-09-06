@@ -232,6 +232,7 @@
     })).then(function () {
       self.toggleSubmit()
       self.focusError()
+      self.$element.trigger('form.validated.bs.validator')
     })
 
     return this
