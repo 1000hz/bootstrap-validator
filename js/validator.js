@@ -203,8 +203,9 @@
 
     $.each(this.validators, $.proxy(function (key, validator) {
       var error = null
-      if ((getValue($el) || $el.attr('required')) &&
-          ($el.attr('data-' + key) !== undefined || key == 'native') &&
+      if (((getValue($el) || $el.attr('required')) &&
+          ($el.attr('data-' + key) !== undefined || key == 'native') ||
+         $el.data(key) && key != 'native' && key != 'required') &&
           (error = validator.call(this, $el))) {
          error = getErrorMessage(key) || error
         !~errors.indexOf(error) && errors.push(error)
@@ -377,11 +378,14 @@
   function Plugin(option) {
     return this.each(function () {
       var $this   = $(this)
-      var options = $.extend({}, Validator.DEFAULTS, $this.data(), typeof option == 'object' && option)
+      var dataOptions = $this.data() && $this.data()["bs.validator"] && $this.data()["bs.validator"].options
+                          ? $this.data()["bs.validator"].options : {};
+
+      var options = $.extend({}, Validator.DEFAULTS, $this.data(), dataOptions, typeof option == 'object' && option)
       var data    = $this.data('bs.validator')
 
       if (!data && option == 'destroy') return
-      if (!data) $this.data('bs.validator', (data = new Validator(this, options)))
+      $this.data('bs.validator', (data = new Validator(this, options)))
       if (typeof option == 'string') data[option]()
     })
   }

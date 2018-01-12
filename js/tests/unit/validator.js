@@ -736,4 +736,45 @@ $(function () {
 
       assert.ok($form.find('.form-group').hasClass('has-error'), '.has-error class is not removed from form-group')
   })
+
+  QUnit.test('call custom validator', function (assert) {
+
+      var form = '<form>'
+  + '<div class="form-group has-error">'
+  + '<input type="text" value="example" data-validation1 data-validation2>'
+  + '<input type="text" value="mobilephone" data-requiredone="phone">'
+  + '<div class="help-block with-errors">Fill at least one</div>'
+  + '</div>'
+  + '</form>'
+
+      var $form = $(form)
+        .appendTo('#qunit-fixture')
+        .validator()
+
+      var options1 = {
+          custom: {
+              validation1: function (element) { }
+          }
+      }
+
+      var options2 = {
+          custom: {
+              validation2: function (element) { }
+          }
+      };
+
+      var form = $('form').validator(options1)
+
+      var validator = $(form).data("bs.validator")
+
+      assert.ok(validator.options.custom.validation1 && validator.options.custom.validation1.toString() == options1.custom.validation1.toString(), 'validator.options.custom contains validation1')
+
+      $('form').validator('destroy')
+
+      $('form').validator(options2)
+
+      validator = $("form").data("bs.validator")
+
+      assert.ok(validator.options.custom.validation2 && validator.options.custom.validation2.toString() == options2.custom.validation2.toString(), 'validator.options.custom contains validation2')
+  })
 })
