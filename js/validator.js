@@ -254,7 +254,7 @@
     var $block = $group.find('.help-block.with-errors')
     var $feedback = $group.find('.form-control-feedback')
 
-    if (!errors.length) return
+    if (errors) if (!errors.length) return
 
     errors = $('<ul/>')
       .addClass('list-unstyled')
